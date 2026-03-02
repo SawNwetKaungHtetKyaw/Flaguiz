@@ -1,0 +1,5 @@
+package com.caffeinecup.flaguiz
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()

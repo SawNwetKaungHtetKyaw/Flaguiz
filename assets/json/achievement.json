@@ -1,0 +1,56 @@
+[
+    {
+        "id" : "ACHV_001",
+        "name" : "Adventurer",
+        "image_url" : "assets/images/achievements/adventurer.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_002",
+        "name" : "Challenger",
+        "image_url" : "assets/images/achievements/challenger.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_003",
+        "name" : "Collector I",
+        "image_url" : "assets/images/achievements/collector_1.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_004",
+        "name" : "Collector II",
+        "image_url" : "assets/images/achievements/collector_2.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_005",
+        "name" : "Collector III",
+        "image_url" : "assets/images/achievements/collector_3.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_006",
+        "name" : "Collector IV",
+        "image_url" : "assets/images/achievements/collector_3.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_007",
+        "name" : "Keen Eye",
+        "image_url" : "assets/images/achievements/keen_eye.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_008",
+        "name" : "Supporter",
+        "image_url" : "assets/images/achievements/supporter.jpg",
+        "message" : ""
+    },
+    {
+        "id" : "ACHV_009",
+        "name" : "The Boss",
+        "image_url" : "assets/images/achievements/the_boss.jpg",
+        "message" : ""
+    }
+]

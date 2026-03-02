@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916738715936",
+    "project_id": "flaguiz-59251",
+    "storage_bucket": "flaguiz-59251.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916738715936:android:a2a96574de59fa3417e745",
+        "android_client_info": {
+          "package_name": "com.caffeinecup.flaguiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Ag8GzlZ3QozKIaMRVmOMGxY_3i5ZciA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
