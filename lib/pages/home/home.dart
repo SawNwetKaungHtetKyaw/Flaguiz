@@ -4,6 +4,7 @@ import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/pages/home/dialog/daily_reward_dialog.dart';
 import 'package:flaguiz/pages/home/provider/home_provider.dart';
 import 'package:flaguiz/pages/home/widgets/home_game_button_widget.dart';
 import 'package:flaguiz/pages/home/widgets/home_game_mode_widget.dart';
@@ -87,6 +88,24 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),
                       fit: BoxFit.cover)),
             ),
+
+            /// Daily Reward
+            Positioned(
+              top: 200,
+              left: 10,
+              child: GestureDetector(
+              onTap: (){
+                showDialog(context: context, builder: (context) => const DailyRewardDialog(),);
+              },
+              child: Container(
+                width: 80,height: 80,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage(AssetsImages.dailyReward))
+                ),
+              ),
+            ) ),
+
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),

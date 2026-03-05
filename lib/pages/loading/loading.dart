@@ -1,5 +1,6 @@
 import 'package:flaguiz/pages/loading/widgets/loading_bar_widget.dart';
 import 'package:flaguiz/providers/achievement_provider.dart';
+import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/repositories/avatar_repository.dart';
 import 'package:flaguiz/repositories/background_repository.dart';
 import 'package:flaguiz/repositories/banner_repository.dart';
@@ -23,6 +24,8 @@ class _LoadingState extends State<Loading> {
     BorderRepository().startSync();
     BackgroundRepository().startSync();
     BannerRepository().startSync();
+    DailyRewardProvider provider = Provider.of<DailyRewardProvider>(context,listen: false);
+    provider.initReward();
   }
 
   @override

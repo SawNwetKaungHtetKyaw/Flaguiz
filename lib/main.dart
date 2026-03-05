@@ -12,6 +12,7 @@ import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
 import 'package:flaguiz/providers/border_provider.dart';
 import 'package:flaguiz/providers/country_provider.dart';
+import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -20,9 +21,10 @@ import 'config/route/router.dart' as router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   /// Firebase
   await Firebase.initializeApp();
-  
+
   /// Hive
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
@@ -40,7 +42,6 @@ void main() async {
   CcConfig.showLog = true;
 
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -74,11 +75,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BannerProvider>(
             create: (BuildContext context) =>
                 BannerProvider(buildContext: context)),
+        ChangeNotifierProvider(
+            create: (_) => DailyRewardProvider(buildContext: context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'SupplyCenter',  
+          fontFamily: 'SupplyCenter',
         ),
         title: 'Flaguiz',
         onGenerateRoute: router.generateRoute,

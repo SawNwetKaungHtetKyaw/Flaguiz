@@ -34,13 +34,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
           (fields[13] as List?)?.cast<AdventureCompletedModel>(),
       challengeCompletedList:
           (fields[14] as List?)?.cast<ChallengeCompletedModel>(),
+      friendIds: (fields[15] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -70,7 +71,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(13)
       ..write(obj.adventureCompletedList)
       ..writeByte(14)
-      ..write(obj.challengeCompletedList);
+      ..write(obj.challengeCompletedList)
+      ..writeByte(15)
+      ..write(obj.friendIds);
   }
 
   @override

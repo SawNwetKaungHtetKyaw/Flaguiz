@@ -1,5 +1,4 @@
 import 'package:flaguiz/config/cc_config.dart';
-import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/country_detail/widgets/detail_card_widget.dart';
@@ -7,7 +6,6 @@ import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
-import 'package:flaguiz/widgets/cc_see_more_text_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/gestures.dart';
@@ -54,8 +52,12 @@ class _CountryDetailState extends State<CountryDetail> {
                     fit: BoxFit.cover)),
             child: SafeArea(
                 child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CcBackWidget(image: AssetsImages.adventureBackKey),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CcBackWidget(image: AssetsImages.libraryBackKey),
+                ),
                 Expanded(
                     child: PageView.builder(
                         controller: _pageController,
@@ -111,7 +113,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                   child: CcShadowedTextWidget(
                                     text: country.name ?? '',
                                     textAlign: TextAlign.center,
-                                    fontSize: 24,
+                                    fontSize: 22,
                                   ),
                                 ),
 
@@ -144,8 +146,8 @@ class _CountryDetailState extends State<CountryDetail> {
                                 const Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 8),
-                                  child: InlineSeeMoreText(
-                                      text: CcConstants.lorem),
+                                  // child: InlineSeeMoreText(
+                                  //     text: CcConstants.lorem),
                                 ),
 
                                 /// Country Map

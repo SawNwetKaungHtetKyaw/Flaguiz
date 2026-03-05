@@ -37,6 +37,8 @@ class UserModel {
   List<AdventureCompletedModel>? adventureCompletedList;
   @HiveField(14)
   List<ChallengeCompletedModel>? challengeCompletedList;
+  @HiveField(15)
+  List<String>? friendIds;
 
   UserModel(
       {this.id,
@@ -53,7 +55,8 @@ class UserModel {
       this.coin,
       this.energy,
       this.adventureCompletedList,
-      this.challengeCompletedList});
+      this.challengeCompletedList,
+      this.friendIds});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -76,6 +79,7 @@ class UserModel {
       challengeCompletedList: json['challenge_completed'] != null
           ? ChallengeCompletedModel().fromJsonList(json['challenge_completed'])
           : [],
+      friendIds: List<String>.from(json['friend_ids'] ?? []),
     );
   }
 
@@ -97,7 +101,8 @@ class UserModel {
       "adventure_completed":
           AdventureCompletedModel().toJsonList(adventureCompletedList),
       "challenge_completed":
-          ChallengeCompletedModel().toJsonList(challengeCompletedList)
+          ChallengeCompletedModel().toJsonList(challengeCompletedList),
+      "friend_ids": friendIds
     };
   }
 }

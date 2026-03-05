@@ -44,7 +44,7 @@ class _CcAchievementDialogState extends State<CcAchievementDialog> {
                 text: achievement?.name ?? '',
                 fontSize: 20,
                 textAlign: TextAlign.center),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             Visibility(
                 visible: widget.showDescription,
                 child: Padding(
@@ -52,6 +52,8 @@ class _CcAchievementDialogState extends State<CcAchievementDialog> {
                   child: CcShadowedTextWidget(
                     text: achievement?.message ?? '',
                     textAlign: TextAlign.center,
+                    letterSpacing: 1,
+                    fontSize: 10,
                     textColor: Colors.grey.shade300,
                   ),
                 )),

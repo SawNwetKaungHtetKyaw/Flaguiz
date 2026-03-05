@@ -1,4 +1,6 @@
 class AssetsImages {
+  static const String appIcon = 'assets/images/app_icon/app_icon.jpg';
+  
   static const String cat = 'assets/images/others/cat.png';
   static const String adventure = 'assets/images/others/adventure.png';
   static const String challenge = 'assets/images/others/challenge.png';
@@ -25,6 +27,11 @@ class AssetsImages {
   static const String currencyIcon = 'assets/images/others/currency_icon.png';
   static const String regionIcon = 'assets/images/others/region_icon.png';
   static const String settingIcon = 'assets/images/others/setting.png';
+  static const String avatarIcon = 'assets/images/others/avatar_icon.png';
+  static const String borderIcon = 'assets/images/others/border_icon.png';
+  static const String backgroundIcon = 'assets/images/others/background_icon.png';
+  static const String bannerIcon = 'assets/images/others/banner_icon.png';
+  static const String dailyReward = 'assets/images/others/daily_reward.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';
@@ -62,4 +69,5 @@ class AssetsImages {
   static const String adventureBackKey = 'assets/images/back_key/adventure_back_key.png';
   static const String challengeBackKey = 'assets/images/back_key/challenge_back_key.png';
   static const String defaultBackKey = 'assets/images/back_key/default_back_key.png';
+  static const String libraryBackKey = 'assets/images/back_key/library_back_key.png';
 }

@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/background_provider.dart';
+import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -41,15 +41,12 @@ class ShopBackground extends StatelessWidget {
               final ShopModel item = backgrounds[index];
               return Column(
                 children: [
-                  Container(
-                    width: 140,
-                    height: 260,
-                    margin: const EdgeInsets.only(right: 5),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                "${CcConfig.image_base_url}${item.imageUrl}"),
-                            fit: BoxFit.cover)),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: CcNetworkImageWidget(
+                        imageUrl: "${CcConfig.image_base_url}${item.imageUrl}",
+                        width: 140,
+                        height: 260),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),

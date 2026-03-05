@@ -3,37 +3,37 @@
         "id" : "ACHV_001",
         "name" : "Adventurer",
         "image_url" : "assets/images/achievements/adventurer.jpg",
-        "message" : ""
+        "message" : "Complete All Adventure Game Mode (Flag,Country,Map,Capital)"
     },
     {
         "id" : "ACHV_002",
         "name" : "Challenger",
         "image_url" : "assets/images/achievements/challenger.jpg",
-        "message" : ""
+        "message" : "Complete All Challenge Game Mode (Flag,Country,Map,Capital)"
     },
     {
         "id" : "ACHV_003",
         "name" : "Collector I",
         "image_url" : "assets/images/achievements/collector_1.jpg",
-        "message" : ""
+        "message" : "Collect '5' Avatar from shop"
     },
     {
         "id" : "ACHV_004",
         "name" : "Collector II",
         "image_url" : "assets/images/achievements/collector_2.jpg",
-        "message" : ""
+        "message" : "Collect '5' Background from shop"
     },
     {
         "id" : "ACHV_005",
         "name" : "Collector III",
         "image_url" : "assets/images/achievements/collector_3.jpg",
-        "message" : ""
+        "message" : "Collect '5' Border from shop"
     },
     {
         "id" : "ACHV_006",
         "name" : "Collector IV",
-        "image_url" : "assets/images/achievements/collector_3.jpg",
-        "message" : ""
+        "image_url" : "assets/images/achievements/collector_4.jpg",
+        "message" : "Collect '5' Banner from shop"
     },
     {
         "id" : "ACHV_007",

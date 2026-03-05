@@ -42,6 +42,9 @@ class CcConstants {
   static const String kAbout = 'About';
   static const String kClose = 'Close';
   static const String kChooseCountry = 'Choose Country';
+  static const String kDailyReward = 'Daily Reward';
+  static const String kClaim = 'Claim';
+  static const String kClaim2x = 'Claim 2x';
 
   /// Hero Tag Keys
   static const String kH_GAME_MODE = 'hero-game-mode';

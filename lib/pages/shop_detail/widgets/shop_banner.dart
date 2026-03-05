@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
+import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -36,9 +36,13 @@ class ShopBanner extends StatelessWidget {
                   children: [
                     Stack(
                       children: [
-                        CachedNetworkImage(
-                            imageUrl:
-                                "${CcConfig.image_base_url}${item.imageUrl}"),
+                        CcNetworkImageWidget(
+                          imageUrl:
+                              "${CcConfig.image_base_url}${item.imageUrl}",
+                          width: double.maxFinite,
+                          height: 160,
+                          boxFit: BoxFit.fill,
+                        ),
                         Positioned(
                           bottom: 10,
                           right: 10,

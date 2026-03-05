@@ -37,7 +37,7 @@ class DialogAvatarWidget extends StatelessWidget {
             child: CcShadowedImageBoxWidget(
                 width: 100,
                 height: 100,
-                radius: 100,
+                radius: 40,
                 shadowColor: Colors.transparent,
                 image: "${CcConfig.image_base_url}${avatar.imageUrl}"),
           );

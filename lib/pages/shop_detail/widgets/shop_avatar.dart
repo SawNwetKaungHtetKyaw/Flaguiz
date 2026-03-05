@@ -1,16 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/avatar_provider.dart';
 import 'package:flaguiz/widgets/cc_glass_widget.dart';
+import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 class ShopAvatar extends StatelessWidget {
-  const ShopAvatar({super.key,required this.ownList,required this.category,required this.userCoin});
+  const ShopAvatar(
+      {super.key,
+      required this.ownList,
+      required this.category,
+      required this.userCoin});
   final List<String> ownList;
   final String category;
   final int userCoin;
@@ -39,34 +43,23 @@ class ShopAvatar extends StatelessWidget {
                       height: 110,
                       child: Row(
                         children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            margin: const EdgeInsets.only(right: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        "${CcConfig.image_base_url}${item.imageUrl}"),
-                                    fit: BoxFit.cover)),
+                          CcNetworkImageWidget(imageUrl: "${CcConfig.image_base_url}${item.imageUrl}"),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CcShadowedTextWidget(text: item.name ?? ''),
+                                const SizedBox(height: 5),
+                                CcShadowedTextWidget(
+                                  text: item.subName ?? '',
+                                  fontSize: 10,
+                                  letterSpacing: 1,
+                                  textColor: Colors.grey.shade300,
+                                ),
+                              ],
+                            ),
                           ),
-                    
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CcShadowedTextWidget(text: item.name ?? ''),
-                              const SizedBox(height: 5),
-                              CcShadowedTextWidget(
-                                text: item.subName ?? '',
-                                fontSize: 10,
-                                textColor: Colors.grey.shade300,
-                              ),
-                            ],
-                          ),
-                    
-                          const Spacer(),
-                    
                           ShopDetailBuyButton(
                               item: item,
                               ownList: ownList,

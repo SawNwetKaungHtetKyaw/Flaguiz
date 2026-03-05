@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/providers/avatar_provider.dart';
 import 'package:flaguiz/providers/border_provider.dart';
+import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,22 +20,14 @@ class CcProfileImageWidget extends StatelessWidget {
           borderProvider.getById(border);
       return Stack(
         children: [
-          Container(
+          CcNetworkImageWidget(
             width: size,
             height: size,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                        "${CcConfig.image_base_url}${avatarProvider.avatar?.imageUrl}"))),
-          ),
-          Container(
+            imageUrl: "${CcConfig.image_base_url}${avatarProvider.avatar?.imageUrl}"),
+          CcNetworkImageWidget(
             width: size,
             height: size,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                        "${CcConfig.image_base_url}${borderProvider.border?.imageUrl}"))),
-          ),
+            imageUrl: "${CcConfig.image_base_url}${borderProvider.border?.imageUrl}"),
         ],
       );
     });

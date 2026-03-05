@@ -6,6 +6,7 @@ import 'package:flaguiz/pages/profile/dialogs/dialog_widgets/dialog_banner_widge
 import 'package:flaguiz/pages/profile/dialogs/dialog_widgets/dialog_border_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,9 @@ class _EditDialogState extends State<EditDialog>
 
     _tabController = TabController(length: 4, vsync: this);
     _pageController = PageController();
+    _tabController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -74,11 +78,51 @@ class _EditDialogState extends State<EditDialog>
                             curve: Curves.ease,
                           );
                         },
-                        tabs: const [
-                          Icon(Icons.person,size: 40),
-                          Icon(Icons.border_outer,size: 40),
-                          Icon(Icons.image,size: 40),
-                          Icon(Icons.smart_button_sharp,size: 40),
+                        tabs: [
+                          /// Avatar Icon
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Image.asset(
+                              AssetsImages.avatarIcon,
+                              height: 30,
+                              color: _tabController.index == 0
+                                  ? primaryLightColor
+                                  : Colors.white,
+                            ),
+                          ),
+
+                          /// Border Icon
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Image.asset(
+                              AssetsImages.borderIcon,
+                              height: 30,
+                              color: _tabController.index == 1
+                                  ? primaryLightColor
+                                  : Colors.white,
+                            ),
+                          ),
+
+                          /// Background Icon
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Image.asset(
+                              AssetsImages.backgroundIcon,
+                              height: 30,
+                              color: _tabController.index == 2
+                                  ? primaryLightColor
+                                  : Colors.white,
+                            ),
+                          ),
+
+                          /// Banner Icon
+                          Image.asset(
+                            AssetsImages.bannerIcon,
+                            height: 40,
+                            color: _tabController.index == 3
+                                ? primaryLightColor
+                                : Colors.white,
+                          ),
                         ],
                       ),
                     ),

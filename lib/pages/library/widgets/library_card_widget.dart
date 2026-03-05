@@ -46,7 +46,7 @@ class _LibraryCardWidgetState extends State<LibraryCardWidget> {
         duration: const Duration(milliseconds: 110),
         curve: Curves.easeOut,
         child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, bottom: 5),
+          padding: const EdgeInsets.only(bottom: 5),
           child: CcGlassWidget(
             height: 80,
             blur: 0,

@@ -76,12 +76,12 @@ class _ShopDetailState extends State<ShopDetail> {
                     /// Back Key
                     const CcBackWidget(image: AssetsImages.defaultBackKey),
 
-                    const Spacer(),
+                    const SizedBox(width: 40),
 
                     /// Energy
                     CcEnergyBoxWidget(energy: user?.energy.toString() ?? '0'),
 
-                    const SizedBox(width: 15),
+                    const SizedBox(width: 10),
 
                     /// Coin
                     CcCoinBoxWidget(coin: user?.coin.toString() ?? '0')
