@@ -1,5 +1,4 @@
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flutter/material.dart';
 
 class CcBackWidget extends StatelessWidget {
@@ -13,7 +12,7 @@ class CcBackWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AudioService.instance.startSound(AssetAudios.backSound);
+        AudioService.instance.playSound('back');
         if (onTap != null) {
           onTap!();
         } else {

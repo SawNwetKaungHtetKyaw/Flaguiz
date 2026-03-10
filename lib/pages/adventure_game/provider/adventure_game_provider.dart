@@ -6,6 +6,7 @@ import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,9 @@ class AdventureGameProvider extends ChangeNotifier {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
+        if (_timerCount <= 4) {
+        VibrationService.instance.heavy();
+      }
         _timerCount--;
         notifyListeners();
       } else {

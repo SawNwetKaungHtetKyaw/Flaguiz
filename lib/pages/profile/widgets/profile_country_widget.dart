@@ -3,6 +3,7 @@ import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/profile/dialogs/choose_country_dialog.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class ProfileCountryWidget extends StatelessWidget {
         Image.asset(AssetsImages.pieceLeft, width: 50),
         GestureDetector(
           onTap: () {
+            AudioService.instance.playSound('tap');
             showDialog(
                 context: context,
                 builder: (BuildContext context) => const ChooseCountryDialog());

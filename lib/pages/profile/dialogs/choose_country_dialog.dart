@@ -4,6 +4,7 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,7 @@ class ChooseCountryDialog extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
+                              AudioService.instance.playSound('tap');
                               userProvider.updateUserDataForCountry(countryList[index].id ?? '',countryList);
                               Navigator.of(context).pop();
                             },
@@ -77,6 +79,7 @@ class ChooseCountryDialog extends StatelessWidget {
                       right: 2,
                       child: IconButton(
                           onPressed: () {
+                            AudioService.instance.playSound('back');
                             Navigator.pop(context);
                           },
                           icon: const Icon(Icons.close,

@@ -2,6 +2,7 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/achievement_model.dart';
 import 'package:flaguiz/providers/achievement_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -48,6 +49,7 @@ class ProfileAchivementWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        AudioService.instance.playSound('tap');
                         showDialog(
                             context: context,
                             barrierColor: Colors.black.withOpacity(0.8),

@@ -17,7 +17,7 @@ class AdventureGameAnswerWidget extends StatelessWidget {
 
       if(mode == CcConfig.GAME_MODE__FLAG){
         return CcShadowedTextWidget(
-                  text: guess?.answer?.name ?? "", fontSize: 16);
+                  text: guess?.answer?.name ?? "", fontSize: 16,textAlign: TextAlign.center);
       }else if(mode == CcConfig.GAME_MODE__MAP){
         return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),

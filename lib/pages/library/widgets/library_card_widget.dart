@@ -10,10 +10,12 @@ class LibraryCardWidget extends StatefulWidget {
     super.key,
     required this.country,
     required this.onTap,
+    required this.paddingTop,
   });
 
   final CountryModel country;
   final Function onTap;
+  final double paddingTop;
 
   @override
   State<LibraryCardWidget> createState() => _LibraryCardWidgetState();
@@ -37,39 +39,42 @@ class _LibraryCardWidgetState extends State<LibraryCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
-      child: AnimatedScale(
-        scale: _scale,
-        duration: const Duration(milliseconds: 110),
-        curve: Curves.easeOut,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: CcGlassWidget(
-            height: 80,
-            blur: 0,
-            child: Row(
-              children: [
-                CcShadowedImageBoxWidget(
-                  width: 90,
-                  height: double.maxFinite,
-                  image: "${CcConfig.image_base_url}${widget.country.flagUrl}",
-                  radius: 5,
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: CcShadowedTextWidget(
-                    text: widget.country.name ?? '',
-                    fontSize: 11,
-                    strokeWidth: 3,
-                    dx: 2,
-                    dy: 2.5,
-                    overflow: TextOverflow.clip,
+    return Padding(
+      padding: EdgeInsets.only(top: widget.paddingTop),
+      child: GestureDetector(
+        onTapDown: _onTapDown,
+        onTapUp: _onTapUp,
+        onTapCancel: _onTapCancel,
+        child: AnimatedScale(
+          scale: _scale,
+          duration: const Duration(milliseconds: 110),
+          curve: Curves.easeOut,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: CcGlassWidget(
+              height: 80,
+              blur: 0,
+              child: Row(
+                children: [
+                  CcShadowedImageBoxWidget(
+                    width: 90,
+                    height: double.maxFinite,
+                    image: "${CcConfig.image_base_url}${widget.country.flagUrl}",
+                    radius: 5,
                   ),
-                )
-              ],
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: CcShadowedTextWidget(
+                      text: widget.country.name ?? '',
+                      fontSize: 11,
+                      strokeWidth: 3,
+                      dx: 2,
+                      dy: 2.5,
+                      overflow: TextOverflow.clip,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

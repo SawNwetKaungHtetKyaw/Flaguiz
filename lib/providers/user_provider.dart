@@ -10,7 +10,6 @@ class UserProvider extends ChangeNotifier {
   UserProvider({required BuildContext buildContext}) {
     Utils.printLog('${runtimeType.toString()} Init $hashCode');
     _repo = UserRepository();
-    createOrGetUser();
   }
 
   late UserRepository _repo;
@@ -44,6 +43,19 @@ class UserProvider extends ChangeNotifier {
   Future<void> reduceUserCoin(int coin) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
     updateUser.coin = (updateUser.coin ?? 0) - coin;
+    await _repo.updateUser(updateUser);
+    _user = updateUser;
+    notifyListeners();
+  }
+
+  Future<void> updateUserDataForUsername(
+      String username) async {
+    UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
+
+    if(username != ''){
+      updateUser.username = username;
+    }
+
     await _repo.updateUser(updateUser);
     _user = updateUser;
     notifyListeners();

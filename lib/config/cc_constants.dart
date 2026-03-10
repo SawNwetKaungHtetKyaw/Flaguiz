@@ -12,6 +12,7 @@ class CcConstants {
   static const String kChallengeStatus = 'Challenge Status';
   static const String kLibrary = 'Library';
   static const String kBattle = 'Battle';
+  static const String kFindBattle = 'Find';
   static const String kShop = 'Shop';
   static const String kEnter = 'Enter';
   static const String kSearch = 'Search';
@@ -38,13 +39,23 @@ class CcConstants {
   static const String kOwned = 'Owned';
   static const String kVolume = 'Volume';
   static const String kMusic = 'Music';
+  static const String kVibration = 'Vibration';
   static const String kPrivacyPolicies = 'Privacy & Policies';
   static const String kAbout = 'About';
   static const String kClose = 'Close';
+  static const String kConfirm = 'Confirm';
   static const String kChooseCountry = 'Choose Country';
+  static const String kChangeYourName = 'Change Your Name';
+  static const String kEnterName = 'Enter Name';
   static const String kDailyReward = 'Daily Reward';
   static const String kClaim = 'Claim';
   static const String kClaim2x = 'Claim 2x';
+  static const String kReward = 'Reward';
+  static const String kComingSoon = 'Coming Soon...';
+  static const String kNoInternet = 'No Internet';
+  static const String kcheckInternet = 'Please check your Internet Connection.';
+  static const String kTryAgain = 'Try Again';
+  static const String kUnavailableNow = 'Unavailable Now!';
 
   /// Hero Tag Keys
   static const String kH_GAME_MODE = 'hero-game-mode';
@@ -63,6 +74,7 @@ class CcConstants {
   static const String ISUSERLOGIN = 'IS_USER_LOGIN';
   static const String IS_SOUND_ON = 'IS_SOUND_ON';
   static const String IS_MUSIC_ON = 'IS_MUSIC_ON';
+  static const String IS_VIBTATION_ON = 'IS_VIBRATION_ON';
   static const String KEEN_EYE = 'KEEN_EYE';
 
   /// Preload image

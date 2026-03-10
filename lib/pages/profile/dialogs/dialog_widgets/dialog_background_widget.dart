@@ -2,6 +2,7 @@ import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,21 +30,41 @@ class DialogBackgroundWidget extends StatelessWidget {
             crossAxisCount: 2),
         itemBuilder: (context, index) {
           ShopModel? background = ownedItems[index];
+          String id = background.id ?? '';
+
           return GestureDetector(
             onTap: () async {
-              String id = background.id ?? '';
+              AudioService.instance.playSound('tap');
               ownList
                 ..remove(id)
                 ..insert(0, id);
               await userProvider.updatedUserBackground(ownList);
               if (context.mounted) Navigator.pop(context);
             },
-            child: CcShadowedImageBoxWidget(
-                width: 100,
-                height: 250,
-                shadowColor: Colors.transparent,
-                boxFit: BoxFit.cover,
-                image: "${CcConfig.image_base_url}${background.imageUrl}"),
+            child: Stack(
+              children: [
+                CcShadowedImageBoxWidget(
+                    width: 300,
+                    height: 300,
+                    shadowColor: Colors.transparent,
+                    boxFit: BoxFit.cover,
+                    image: "${CcConfig.image_base_url}${background.imageUrl}"),
+                Visibility(
+                  visible: ownList[0] == id,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    alignment: Alignment.bottomRight,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border:
+                            Border.all(color: Colors.green.shade700, width: 3)),
+                    child: Icon(Icons.check_circle,
+                        color: Colors.green.shade700, size: 30),
+                  ),
+                )
+              ],
+            ),
           );
         },
       );

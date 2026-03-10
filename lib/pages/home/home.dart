@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
@@ -13,9 +12,12 @@ import 'package:flaguiz/pages/home/widgets/home_setting_widget.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
 import 'package:flaguiz/widgets/cc_energy_box_widget.dart';
+import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:rive/rive.dart' as rive;
@@ -45,6 +47,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   void didChangeDependencies() {
     super.didChangeDependencies();
     AudioService.instance.init();
+    VibrationService.instance.init();
   }
 
   @override
@@ -65,13 +68,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final AudioService audioService = AudioService.instance;
     return ChangeNotifierProvider<HomeProvider>(
       create: (context) => HomeProvider(),
       builder: (context, child) =>
           Consumer3<HomeProvider, UserProvider, BackgroundProvider>(builder:
               (context, provider, userProvider, backgroundProvider, child) {
         UserModel? user = userProvider.user;
-        backgroundProvider.getById(user?.backgrounds?[0] ?? '');
         return Scaffold(
             body: Stack(
           children: [
@@ -79,32 +82,74 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             //   'assets/animation/test.riv',
             //   fit: BoxFit.cover,
             // ),
-            Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                          "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),
-                      fit: BoxFit.cover)),
-            ),
+
+            CcNetworkImageWidget(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                imageUrl:
+                    "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),
+
+            /// Friends
+            Positioned(
+                top: 200,
+                left: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    audioService.playSound('tap');
+                    Utils.showToastMessage(context, CcConstants.kComingSoon);
+                  },
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(AssetsImages.friends)),
+                    ),
+                  ),
+                )),
+
+            /// Premium
+            Positioned(
+                top: 195,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () async {
+                    audioService.playSound("tap");
+                    Utils.showToastMessage(context, CcConstants.kComingSoon);
+                  },
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(AssetsImages.premium)),
+                    ),
+                  ),
+                )),
 
             /// Daily Reward
             Positioned(
-              top: 200,
-              left: 10,
-              child: GestureDetector(
-              onTap: (){
-                showDialog(context: context, builder: (context) => const DailyRewardDialog(),);
-              },
-              child: Container(
-                width: 80,height: 80,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage(AssetsImages.dailyReward))
-                ),
-              ),
-            ) ),
+                top: 300,
+                left: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    audioService.playSound("tap");
+                    showDialog(
+                      context: context,
+                      builder: (context) => const DailyRewardDialog(),
+                    );
+                  },
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(AssetsImages.dailyReward))),
+                  ),
+                )),
 
             SafeArea(
               child: Padding(
@@ -141,7 +186,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       children: [
                         /// Previous Button
                         IconButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              audioService.playSound('tap');
                               provider.previous();
                               _controller.animateToPage(provider.currentIndex);
                             },
@@ -155,7 +201,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
                         /// Next Button
                         IconButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              audioService.playSound('tap');
                               provider.next();
                               _controller.animateToPage(provider.currentIndex);
                             },

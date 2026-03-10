@@ -1,4 +1,5 @@
 import 'package:flaguiz/pages/home/dialog/setting_dialog.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class _HomeSettingWidgetState extends State<HomeSettingWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
+          AudioService.instance.playSound('tap');
           showDialog(
               context: context,
               builder: (BuildContext context) => const SettingDialog());

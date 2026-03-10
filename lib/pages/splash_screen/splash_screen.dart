@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
+import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,19 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-              child: Text(
-            CcConstants.kCompanyName,
-            style: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-          )),
-        ],
-      ),
+      body: 
+          Center(child: Image.asset(AssetsImages.companyIcon,width: double.maxFinite,height: 100)),
+          
     );
   }
 }

@@ -9,7 +9,7 @@
         "capital" : "Kabul",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["22","42","6","37","171","134","136","178","20","86","127","184"],
+        "similar_flags" : ["22","6","37","171","134","136","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -74,7 +74,7 @@
         "capital" : "Andorra la Vella",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","37","171","134","136","178","20","86","127","184"],
+        "similar_flags" : ["1","22","37","171","134","136","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -256,7 +256,7 @@
         "capital" : "Bridgetown",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","136","178","86","127","184"],
+        "similar_flags" : ["1","22","6","37","171","134","136","178","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -282,7 +282,7 @@
         "capital" : "Brussels",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","42","6","37","171","134","136","178","20","86","127","184"],
+        "similar_flags" : ["1","42","6","37","134","136","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -477,7 +477,7 @@
         "capital" : "Yaounde",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","171","134","136","178","20","86","127","184"],
+        "similar_flags" : ["1","22","42","6","134","136","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -1114,7 +1114,7 @@
         "capital" : "Conakry",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","136","178","20","127","184"],
+        "similar_flags" : ["1","22","42","6","37","134","136","178","20","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -1647,7 +1647,7 @@
         "capital" : "Bamako",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","136","178","20","86","184"],
+        "similar_flags" : ["1","22","42","6","37","134","136","178","20","86","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -1738,7 +1738,7 @@
         "capital" : "Chisinau",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","136","178","20","86","127","184"],
+        "similar_flags" : ["1","22","6","37","171","136","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -1764,7 +1764,7 @@
         "capital" : "Ulaanbaatar",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","178","20","86","127","184"],
+        "similar_flags" : ["1","22","6","37","171","134","178","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -2310,7 +2310,7 @@
         "capital" : "Kingstown",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","136","20","86","127","184"],
+        "similar_flags" : ["1","22","42","6","37","134","136","20","86","127","184"],
         "create_at" : "",
         "updated_at" : ""
     },{
@@ -2388,7 +2388,7 @@
         "capital" : "Dakar",
         "description" : " is a country. Surrounded by . Occupying _ square kilometers of land.",
         "popular_places" : [],
-        "similar_flags" : ["1","22","42","6","37","171","134","136","178","20","86","127"],
+        "similar_flags" : ["1","22","42","6","37","134","136","178","20","86","127"],
         "create_at" : "",
         "updated_at" : ""
     },{

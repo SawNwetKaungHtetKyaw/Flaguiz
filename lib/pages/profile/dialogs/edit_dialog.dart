@@ -6,6 +6,7 @@ import 'package:flaguiz/pages/profile/dialogs/dialog_widgets/dialog_banner_widge
 import 'package:flaguiz/pages/profile/dialogs/dialog_widgets/dialog_border_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class _EditDialogState extends State<EditDialog>
                         indicatorColor: primaryLightColor,
                         indicatorSize: TabBarIndicatorSize.tab,
                         onTap: (index) {
+                          AudioService.instance.playSound('tap');
                           _pageController.animateToPage(
                             index,
                             duration: const Duration(milliseconds: 100),
@@ -165,7 +167,10 @@ class _EditDialogState extends State<EditDialog>
                       top: 2,
                       right: 2,
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          AudioService.instance.playSound('back');
+                          Navigator.of(context).pop();
+                        },
                         icon: const Icon(
                           Icons.close,
                           color: Colors.white,

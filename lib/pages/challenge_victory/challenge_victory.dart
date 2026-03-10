@@ -9,6 +9,7 @@ import 'package:flaguiz/pages/challenge_victory/widgets/challenge_victory_icon_b
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
@@ -119,7 +120,9 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
                       text: CcConstants.kDoubleReward,
                       height: 60,
                       onTap: () {
-                        // Navigator.of(context).pop();
+                        Utils.showToastMessage(
+                            context, CcConstants.kUnavailableNow);
+                        VibrationService.instance.light();
                       }),
 
                   Padding(
@@ -130,6 +133,7 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
                         ChallengeVictoryIconButtonWidget(
                             icon: Icons.refresh,
                             onTap: () {
+                              AudioService.instance.playSound('tap');
                               if (widget.mode == CcConfig.GAME_MODE__FLAG ||
                                   widget.mode == CcConfig.GAME_MODE__MAP) {
                                 Navigator.pushReplacementNamed(
@@ -154,6 +158,7 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
                         ChallengeVictoryIconButtonWidget(
                             icon: Icons.menu,
                             onTap: () async {
+                              AudioService.instance.playSound('tap');
                               Navigator.pop(context);
                               await AudioService.instance.resume();
                             }),

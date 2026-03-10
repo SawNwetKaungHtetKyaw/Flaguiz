@@ -1,7 +1,6 @@
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
@@ -99,7 +98,7 @@ class _AdventureGameTypeWidgetState extends State<AdventureGameTypeWidget>
                   image: AssetsImages.adventureButton,
                   text: gameType[index],
                   onTap: () {
-                    AudioService.instance.startSound(AssetAudios.tapSound);
+                    AudioService.instance.playSound('tap');
                     Navigator.pushNamed(context, RoutePaths.adventureLevel,
                         arguments: Utils.retureGameMode(index));
                   },

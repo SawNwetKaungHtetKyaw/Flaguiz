@@ -67,6 +67,7 @@ class AdventureGameYouLoseWidget extends StatelessWidget {
                               height: 60,
                               onTap: () {
                                 if (userCoin >= 10) {
+                                  AudioService.instance.playSound('claim');
                                   provider.playOn();
                                   userProvider.reduceUserCoin(10);
                                 }
@@ -90,6 +91,7 @@ class AdventureGameYouLoseWidget extends StatelessWidget {
                       text: CcConstants.kPlayAgain,
                       height: 60,
                       onTap: () {
+                        AudioService.instance.playSound('tap');
                         if (provider.mode == CcConfig.GAME_MODE__FLAG ||
                             provider.mode == CcConfig.GAME_MODE__MAP) {
                           Navigator.pushReplacementNamed(
@@ -116,6 +118,7 @@ class AdventureGameYouLoseWidget extends StatelessWidget {
                       text: CcConstants.kGiveUp,
                       height: 60,
                       onTap: () {
+                        AudioService.instance.playSound('tap');
                         Navigator.of(context).pop();
                         AudioService.instance.resume();
                       })

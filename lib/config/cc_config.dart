@@ -3,6 +3,8 @@ import 'package:flaguiz/models/challenge_completed_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 
 class CcConfig {
+  static String appName = 'Flaguiz';
+  static String companyName = 'Caffeine Cup';
   static bool showLog = false;
   static String base_url = '';
   static String image_base_url = 'https://i.postimg.cc';
@@ -25,7 +27,7 @@ class CcConfig {
     username: 'Player',
     email: '',
     password: '',
-    coin: 0,
+    coin: 5000,
     energy: 0,
     trophy: 0,
     achievements: [],

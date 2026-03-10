@@ -3,7 +3,7 @@ import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/challenge_game/provider/challenge_game_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +36,9 @@ class _ChallengeGameGuessTextWidgetState
       builder: (context, provider, userProvider, child) => Stack(
         children: [
           CcImageButton(
-            onTap: () {
+            onTap: () async {
               if (widget.answerId == widget.country.id) {
-                AudioService.instance.startSound(AssetAudios.correctSound);
+                AudioService.instance.playSound('correct');
                 provider.goToNext(
                     context,
                     widget.answerId,
@@ -46,7 +46,8 @@ class _ChallengeGameGuessTextWidgetState
                     userProvider.user?.challengeCompletedList ?? []);
               } else {
                 if (mounted) {
-                  AudioService.instance.startSound(AssetAudios.wrongSound);
+                  
+                  await VibrationService.instance.medium();
                   provider.decreaseLife();
                   provider.addUserWrongGuesses(widget.index);
                   setState(() {

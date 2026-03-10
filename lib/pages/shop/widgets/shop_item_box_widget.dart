@@ -1,6 +1,5 @@
 
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flutter/material.dart';
 
 class ShopItemBoxWidget extends StatelessWidget {
@@ -17,7 +16,7 @@ class ShopItemBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        AudioService.instance.startSound(AssetAudios.tapSound);
+        AudioService.instance.playSound('tap');
         onTap();},
       child: Hero(
         tag: heroTag,

@@ -2,6 +2,7 @@
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class SettingDialog extends StatefulWidget {
 class _SettingDialogState extends State<SettingDialog> {
   bool isSoundOn = AudioService.instance.isSoundOn;
   bool isMusicOn = AudioService.instance.isMusicOn;
+  bool isVibration = VibrationService.instance.isVibrationOn;
 
   void _toggleSound(bool value) async {
     setState(() {
@@ -28,6 +30,13 @@ class _SettingDialogState extends State<SettingDialog> {
       isMusicOn = value;
     });
     await AudioService.instance.setMusic(isMusicOn);
+  }
+
+  void _toggleVibration(bool value) async {
+    setState(() {
+      isVibration = value;
+    });
+    await VibrationService.instance.setVibraion(isVibration);
   }
 
   @override
@@ -63,6 +72,13 @@ class _SettingDialogState extends State<SettingDialog> {
                   onChanged: (value) => _toggleMusic(value),
                 ),
 
+                /// Vibration Toggle
+                SettingWithSwitch(
+                  text: CcConstants.kVibration,
+                  toggleValue: isVibration,
+                  onChanged: (value) => _toggleVibration(value),
+                ),
+
 
                const Padding(
                   padding: EdgeInsets.only(top: 20,bottom: 30),
@@ -95,6 +111,7 @@ class _SettingDialogState extends State<SettingDialog> {
                     right: 2,
                     child: IconButton(
                         onPressed: () {
+                          AudioService.instance.playSound('back');
                           Navigator.pop(context);
                         },
                         icon: const Icon(Icons.close,

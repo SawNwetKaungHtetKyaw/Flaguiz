@@ -5,7 +5,6 @@ import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
@@ -111,8 +110,7 @@ class _ChallengeGameTypeWidgetState extends State<ChallengeGameTypeWidget>
                         image: AssetsImages.challengeButton,
                         text: gameType[index],
                         onTap: () {
-                          AudioService.instance
-                              .startSound(AssetAudios.tapSound);
+                          AudioService.instance.playSound('tap');
                           if (mode == CcConfig.GAME_MODE__FLAG ||
                               mode == CcConfig.GAME_MODE__MAP) {
                             Navigator.pushNamed(

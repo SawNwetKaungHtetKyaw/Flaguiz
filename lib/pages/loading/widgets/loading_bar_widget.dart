@@ -1,7 +1,9 @@
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/country_model.dart';
+import 'package:flaguiz/pages/loading/dialogs/no_internet_dialog.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/service/image_service.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
@@ -27,13 +29,28 @@ class _LoadingBarWidgetState extends State<LoadingBarWidget> {
   Future<void> _startPreloading() async {
     CountryProvider provider =
         Provider.of<CountryProvider>(context, listen: false);
+
     await provider.loadCountries();
+
     List<CountryModel> countries = provider.countryList;
+
     List<String> imageUrls = [];
 
     for (var country in countries) {
       imageUrls.add("${CcConfig.image_base_url}${country.flagUrl}");
       imageUrls.add("${CcConfig.image_base_url}${country.mapUrl}");
+    }
+
+    /// check cache
+    bool cached = await Utils.areImagesCached(imageUrls);
+
+    /// check internet
+    bool internet = await Utils.hasInternet();
+
+    /// no internet AND no cache -> dialog
+    if (!internet && !cached) {
+      showNoInternetDialog();
+      return;
     }
 
     final preloader = ImageService(
@@ -44,6 +61,7 @@ class _LoadingBarWidgetState extends State<LoadingBarWidget> {
     await preloader.preload(
       onProgress: (percent) {
         if (!mounted) return;
+
         setState(() {
           progress = percent;
         });
@@ -53,6 +71,16 @@ class _LoadingBarWidgetState extends State<LoadingBarWidget> {
     if (!mounted) return;
 
     Navigator.pushReplacementNamed(context, RoutePaths.home);
+  }
+
+  void showNoInternetDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => NoInternetDialog(onTap: () async {
+              Navigator.pop(context);
+              _startPreloading();
+            }));
   }
 
   @override

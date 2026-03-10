@@ -4,7 +4,6 @@ import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/library/widgets/library_card_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -24,43 +23,43 @@ class Library extends StatelessWidget {
         body: Container(
           width: double.infinity,
           height: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(AssetsImages.libraryBg),
                   fit: BoxFit.cover)),
           child: SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CcBackWidget(image: AssetsImages.libraryBackKey),
-                    CcShadowedTextWidget(text: CcConstants.kLibrary,fontSize: 16),
-                    SizedBox(width: 50)
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                    child: ListView.builder(
-                        itemCount: countryList.length,
-                        itemBuilder: (context, index) {
-                          CountryModel country = countryList[index];
-                          return LibraryCardWidget(
-                              country: country,
-                              onTap: () {
-                                AudioService.instance
-                                    .startSound(AssetAudios.tapSound);
-                                Navigator.of(context).pushNamed(
-                                    RoutePaths.countryDetail,
-                                    arguments: index);
-                              });
-                        })),
+                ListView.builder(
+                    itemCount: countryList.length,
+                    itemBuilder: (context, index) {
+                      CountryModel country = countryList[index];
+                      return LibraryCardWidget(
+                          paddingTop: (index == 0) ? 60 : 0,
+                          country: country,
+                          onTap: () {
+                            AudioService.instance.playSound('tap');
+                            Navigator.of(context).pushNamed(
+                                RoutePaths.countryDetail,
+                                arguments: index);
+                          });
+                    }),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CcBackWidget(image: AssetsImages.libraryBackKey),
+                      CcShadowedTextWidget(
+                          text: CcConstants.kLibrary, fontSize: 16),
+                      SizedBox(width: 50)
+                    ],
+                  ),
+                )
               ],
             ),
-          )),
+          ),
         ),
       );
     });

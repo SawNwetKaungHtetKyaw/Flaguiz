@@ -5,7 +5,10 @@ import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_outlined_button.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -113,63 +116,74 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
             CcOutlinedButton(
               onTap: () async {
                 if (!widget.ownList.contains(widget.item.id)) {
-                  if (userCoin >= itemPrice) {
-                    await provider.reduceUserCoin(itemPrice);
-                    await provider
-                        .updateUserDataForBuyItem(widget.item.id ?? '');
-                    if (context.mounted) {
-                      Navigator.of(context).pop();
+                  if (itemPrice == -1) {
+                    Utils.showToastMessage(
+                        context, CcConstants.kUnavailableNow);
+                    VibrationService.instance.light();
+                  } else {
+                    if (userCoin >= itemPrice) {
+                      AudioService.instance.playSound('claim');
+                      await provider.reduceUserCoin(itemPrice);
+                      await provider
+                          .updateUserDataForBuyItem(widget.item.id ?? '');
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
 
-                      // Start Show Achivement Dialog Section ----------------------
-                      if (widget.category == CcConstants.FIRESTORE_AVATAR &&
-                          avatars.length == 6 &&
-                          !hasAvatarAchv) {
-                        provider.updateUserDataForAchievement(
-                            "ACHV_003", CcConfig.ACHIEVEMENT_COIN);
-                        showDialog(
-                            context: context,
-                            builder: (context) => const CcAchievementDialog(
-                                achievementId: 'ACHV_003',
-                                showDescription: false));
-                      } else if (widget.category ==
-                              CcConstants.FIRESTORE_BORDER &&
-                          borders.length == 6 &&
-                          !hasBorderAchv) {
-                        provider.updateUserDataForAchievement(
-                            "ACHV_005", CcConfig.ACHIEVEMENT_COIN);
-                        showDialog(
-                            context: context,
-                            builder: (context) => const CcAchievementDialog(
-                                achievementId: 'ACHV_005',
-                                showDescription: false));
-                      } else if (widget.category ==
-                              CcConstants.FIRESTORE_BACKGROUND &&
-                          backgrounds.length == 6 &&
-                          !hasBackgroundAchv) {
-                        provider.updateUserDataForAchievement(
-                            "ACHV_004", CcConfig.ACHIEVEMENT_COIN);
-                        showDialog(
-                            context: context,
-                            builder: (context) => const CcAchievementDialog(
-                                achievementId: 'ACHV_004',
-                                showDescription: false));
-                      } else if (widget.category ==
-                              CcConstants.FIRESTORE_BANNER &&
-                          banners.length == 6 &&
-                          !hasBannerAchv) {
-                        provider.updateUserDataForAchievement(
-                            "ACHV_006", CcConfig.ACHIEVEMENT_COIN);
-                        showDialog(
-                            context: context,
-                            builder: (context) => const CcAchievementDialog(
-                                achievementId: 'ACHV_006',
-                                showDescription: false));
+                        // Start Show Achivement Dialog Section ----------------------
+                        if (widget.category == CcConstants.FIRESTORE_AVATAR &&
+                            avatars.length == 6 &&
+                            !hasAvatarAchv) {
+                          provider.updateUserDataForAchievement(
+                              "ACHV_003", CcConfig.ACHIEVEMENT_COIN);
+                          showDialog(
+                              context: context,
+                              builder: (context) => const CcAchievementDialog(
+                                  achievementId: 'ACHV_003',
+                                  showDescription: false));
+                        } else if (widget.category ==
+                                CcConstants.FIRESTORE_BORDER &&
+                            borders.length == 6 &&
+                            !hasBorderAchv) {
+                          provider.updateUserDataForAchievement(
+                              "ACHV_005", CcConfig.ACHIEVEMENT_COIN);
+                          showDialog(
+                              context: context,
+                              builder: (context) => const CcAchievementDialog(
+                                  achievementId: 'ACHV_005',
+                                  showDescription: false));
+                        } else if (widget.category ==
+                                CcConstants.FIRESTORE_BACKGROUND &&
+                            backgrounds.length == 6 &&
+                            !hasBackgroundAchv) {
+                          provider.updateUserDataForAchievement(
+                              "ACHV_004", CcConfig.ACHIEVEMENT_COIN);
+                          showDialog(
+                              context: context,
+                              builder: (context) => const CcAchievementDialog(
+                                  achievementId: 'ACHV_004',
+                                  showDescription: false));
+                        } else if (widget.category ==
+                                CcConstants.FIRESTORE_BANNER &&
+                            banners.length == 6 &&
+                            !hasBannerAchv) {
+                          provider.updateUserDataForAchievement(
+                              "ACHV_006", CcConfig.ACHIEVEMENT_COIN);
+                          showDialog(
+                              context: context,
+                              builder: (context) => const CcAchievementDialog(
+                                  achievementId: 'ACHV_006',
+                                  showDescription: false));
+                        }
+
+                        // End Show Achivement Dialog Section ----------------------
                       }
-
-                      // End Show Achivement Dialog Section ----------------------
+                    } else {
+                      Utils.showToastMessage(context, "Enough Coin");
+                      VibrationService.instance.light();
                     }
                   }
                 } else {
+                  AudioService.instance.playSound('back');
                   Navigator.of(context).pop();
                 }
               },
@@ -178,26 +192,29 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
               radius: 8,
               child: (widget.ownList.contains(widget.item.id))
                   ? const CcShadowedTextWidget(text: CcConstants.kOwned)
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: Image.asset(AssetsImages.coin),
+                  : (itemPrice == -1)
+                      ? const CcShadowedTextWidget(text: CcConstants.kAds)
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: Image.asset(AssetsImages.coin),
+                            ),
+                            const SizedBox(width: 3),
+                            CcShadowedTextWidget(
+                              text: widget.item.price.toString(),
+                              textColor: (userCoin < itemPrice)
+                                  ? Colors.red
+                                  : Colors.white,
+                            )
+                          ],
                         ),
-                        const SizedBox(width: 3),
-                        CcShadowedTextWidget(
-                          text: widget.item.price.toString(),
-                          textColor: (userCoin < itemPrice)
-                              ? Colors.red
-                              : Colors.white,
-                        )
-                      ],
-                    ),
             ),
             CcOutlinedButton(
               onTap: () {
+                AudioService.instance.playSound('back');
                 Navigator.of(context).pop();
               },
               color: Colors.transparent,

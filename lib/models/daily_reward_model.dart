@@ -18,12 +18,14 @@ class DailyRewardModel {
     return DailyRewardModel(
       currentDay: map['currentDay'],
       lastClaimDate: map['lastClaimDate'] != null
-          ? DateTime.parse(map['lastClaimDate'])
+          ? (map['lastClaimDate'] is int
+        ? DateTime.fromMillisecondsSinceEpoch(map['lastClaimDate'])
+        : DateTime.parse(map['lastClaimDate']))
           : null,
     );
   }
 
   factory DailyRewardModel.initial() {
-    return DailyRewardModel(currentDay: 1);
+    return DailyRewardModel(currentDay: 0);
   }
 }

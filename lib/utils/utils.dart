@@ -7,6 +7,7 @@ import 'package:flaguiz/models/adventure_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
 import 'package:flaguiz/service/cached_image_manager_service.dart';
+import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
@@ -134,4 +135,38 @@ class Utils {
       return AssetImage(path);
     }
   }
+
+  static showToastMessage(BuildContext context, String message) {
+    final overlay = Overlay.of(context);
+
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => CcToastMessageWidget(
+        message: message,
+        onFinish: () => overlayEntry.remove(),
+      ),
+    );
+
+    overlay.insert(overlayEntry);
+  }
+
+  static Future<bool> hasInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      return result.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static Future<bool> areImagesCached(List<String> urls) async {
+  final cacheManager = CachedImageManagerService();
+
+  final results = await Future.wait(
+    urls.map((url) => cacheManager.getFileFromCache(url)),
+  );
+
+  return !results.contains(null);
+}
 }

@@ -1,5 +1,6 @@
 class AssetsImages {
   static const String appIcon = 'assets/images/app_icon/app_icon.jpg';
+  static const String companyIcon = 'assets/images/app_icon/caffeine_cup.png';
   
   static const String cat = 'assets/images/others/cat.png';
   static const String adventure = 'assets/images/others/adventure.png';
@@ -32,6 +33,14 @@ class AssetsImages {
   static const String backgroundIcon = 'assets/images/others/background_icon.png';
   static const String bannerIcon = 'assets/images/others/banner_icon.png';
   static const String dailyReward = 'assets/images/others/daily_reward.png';
+  static const String friends = 'assets/images/others/friends.png';
+  static const String premium = 'assets/images/others/Premium.png';
+  static const String coin1 = 'assets/images/coins/coin1.png';
+  static const String coin2 = 'assets/images/coins/coin2.png';
+  static const String coin3 = 'assets/images/coins/coin3.png';
+  static const String coin4 = 'assets/images/coins/coin4.png';
+  static const String coin5 = 'assets/images/coins/coin5.png';
+  static const String coin6 = 'assets/images/coins/coin6.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';

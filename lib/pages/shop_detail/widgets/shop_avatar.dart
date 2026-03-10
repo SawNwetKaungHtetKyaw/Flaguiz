@@ -44,6 +44,7 @@ class ShopAvatar extends StatelessWidget {
                       child: Row(
                         children: [
                           CcNetworkImageWidget(imageUrl: "${CcConfig.image_base_url}${item.imageUrl}"),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

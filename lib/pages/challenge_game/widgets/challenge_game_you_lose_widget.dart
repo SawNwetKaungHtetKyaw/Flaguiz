@@ -82,6 +82,7 @@ class _ChallengeGameYouLoseWidgetState
                               ),
                               onTap: () {
                                 if (userCoin >= 10) {
+                                  AudioService.instance.playSound('claim');
                                   provider.playOn();
                                   userProvider.reduceUserCoin(10);
                                 }
@@ -103,6 +104,7 @@ class _ChallengeGameYouLoseWidgetState
                       image: AssetsImages.challengeButton,
                       text: CcConstants.kPlayAgain,
                       onTap: () {
+                        AudioService.instance.playSound('tap');
                         userProvider.updateUserDataForChallenge(
                             widget.mode, widget.currentIndex, 0);
                         Navigator.of(context).pop();
@@ -124,6 +126,7 @@ class _ChallengeGameYouLoseWidgetState
                       image: AssetsImages.challengeButton,
                       text: CcConstants.kGiveUp,
                       onTap: () {
+                        AudioService.instance.playSound('tap');
                         userProvider.updateUserDataForChallenge(
                             widget.mode, widget.currentIndex, 0);
                         Navigator.pop(context);

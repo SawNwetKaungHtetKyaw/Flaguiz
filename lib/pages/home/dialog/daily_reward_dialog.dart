@@ -4,7 +4,10 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/daily_reward_model.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_outlined_button.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +23,6 @@ class DailyRewardDialog extends StatelessWidget {
         final DailyRewardModel? reward = provider.reward;
 
         bool canClaim = provider.canClaim;
-        print("====>rew Day${provider.reward?.currentDay}");
 
         return Dialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -94,6 +96,8 @@ class DailyRewardDialog extends StatelessWidget {
                                         text: CcConstants.kClaim),
                                     onTap: () async {
                                       if (canClaim) {
+                                        AudioService.instance
+                                            .playSound('claim');
                                         int coins = await provider.claim();
                                         if (coins > 0) {
                                           await userProvider.addUserCoin(coins);
@@ -111,11 +115,16 @@ class DailyRewardDialog extends StatelessWidget {
                                         text: CcConstants.kClaim2x),
                                     onTap: () async {
                                       if (canClaim) {
-                                        int coins = await provider.claim();
-                                        if (coins > 0) {
-                                          coins = coins * 2;
-                                          await userProvider.addUserCoin(coins);
-                                        }
+                                        // AudioService.instance
+                                        //     .playSound('claim');
+                                        // int coins = await provider.claim();
+                                        // if (coins > 0) {
+                                        //   coins = coins * 2;
+                                        //   await userProvider.addUserCoin(coins);
+                                        // }
+                                        Utils.showToastMessage(context,
+                                            CcConstants.kUnavailableNow);
+                                        VibrationService.instance.light();
                                       }
                                     }),
                               )
@@ -126,6 +135,7 @@ class DailyRewardDialog extends StatelessWidget {
                             child: const CcShadowedTextWidget(
                                 text: CcConstants.kClose),
                             onTap: () async {
+                              AudioService.instance.playSound('back');
                               Navigator.of(context).pop();
                             }),
                   ],
@@ -147,6 +157,7 @@ class DailyRewardDialog extends StatelessWidget {
                         right: 2,
                         child: IconButton(
                             onPressed: () {
+                              AudioService.instance.playSound('back');
                               Navigator.pop(context);
                             },
                             icon: const Icon(Icons.close,
@@ -179,6 +190,16 @@ class DailyRewadCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> dailyRewardImages = [
+      AssetsImages.coin1,
+      AssetsImages.coin1,
+      AssetsImages.coin2,
+      AssetsImages.coin2,
+      AssetsImages.coin3,
+      AssetsImages.coin3,
+      AssetsImages.coin4,
+    ];
+
     return Stack(
       children: [
         Container(
@@ -193,7 +214,8 @@ class DailyRewadCardWidget extends StatelessWidget {
             children: [
               CcShadowedTextWidget(text: "Day $dayIndex", dx: 1.5, dy: 1.5),
               const SizedBox(height: 5),
-              Image.asset(AssetsImages.coin, width: 45, height: 45),
+              Image.asset(dailyRewardImages[claimRewardIndex],
+                  width: 45, height: 45),
               const SizedBox(height: 8),
               CcShadowedTextWidget(
                   text: "${CcConfig.dailyRewardItems[claimRewardIndex]} COINS",

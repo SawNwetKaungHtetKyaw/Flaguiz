@@ -1,5 +1,4 @@
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ class HomeGameButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async{
-        AudioService.instance.startSound(AssetAudios.tapSound);
+        AudioService.instance.playSound('tap');
         onTap();
       },
       child: Container(

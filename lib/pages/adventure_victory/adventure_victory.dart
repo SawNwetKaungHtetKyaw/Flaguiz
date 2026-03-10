@@ -11,6 +11,7 @@ import 'package:flaguiz/pages/adventure_victory/widgets/adventure_victory_icon_b
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
@@ -67,7 +68,8 @@ class _AdventureVictoryState extends State<AdventureVictory> {
         user?.adventureCompletedList?.where((c) => c.life != "0").length ?? 0;
     if (length == 92 && !hasAchv) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        provider.updateUserDataForAchievement("ACHV_001", CcConfig.ACHIEVEMENT_COIN);
+        provider.updateUserDataForAchievement(
+            "ACHV_001", CcConfig.ACHIEVEMENT_COIN);
         showDialog(
             context: context,
             builder: (context) => const CcAchievementDialog(
@@ -145,7 +147,9 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                       text: CcConstants.kDoubleReward,
                       height: 60,
                       onTap: () {
-                        // Navigator.of(context).pop();
+                        Utils.showToastMessage(
+                            context, CcConstants.kUnavailableNow);
+                        VibrationService.instance.light();
                       }),
 
                   Padding(
@@ -156,6 +160,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                         VictoryIconButtonWidget(
                             icon: Icons.refresh,
                             onTap: () {
+                              AudioService.instance.playSound('tap');
                               if (widget.mode == CcConfig.GAME_MODE__FLAG ||
                                   widget.mode == CcConfig.GAME_MODE__MAP) {
                                 Navigator.pushReplacementNamed(
@@ -182,6 +187,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                         VictoryIconButtonWidget(
                             icon: Icons.menu,
                             onTap: () async {
+                              AudioService.instance.playSound('tap');
                               Navigator.pop(context);
                               await AudioService.instance.resume();
                             }),
@@ -194,6 +200,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                             : VictoryIconButtonWidget(
                                 icon: Icons.skip_next,
                                 onTap: () {
+                                  AudioService.instance.playSound('tap');
                                   if (widget.mode == CcConfig.GAME_MODE__FLAG ||
                                       widget.mode == CcConfig.GAME_MODE__MAP) {
                                     Navigator.pushReplacementNamed(context,

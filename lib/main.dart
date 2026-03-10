@@ -15,12 +15,17 @@ import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'config/route/router.dart' as router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   /// Firebase
   await Firebase.initializeApp();

@@ -115,6 +115,7 @@ class _AdventureGameByImageState extends State<AdventureGameByImage> {
                                             (u) => u.id == guess.answer!.id) ??
                                         0;
                                 return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     /// Answer
                                     AdventureGameAnswerWidget(

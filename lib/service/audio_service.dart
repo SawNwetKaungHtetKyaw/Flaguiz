@@ -18,6 +18,8 @@ class AudioService {
   bool _isSoundOn = true;
   bool _isMusicOn = true;
 
+  final Map<String, AudioPlayer> _sounds = {};
+
   MusicType? _currentMusic;
 
   bool get isSoundOn => _isSoundOn;
@@ -27,6 +29,24 @@ class AudioService {
     final prefs = await SharedPreferences.getInstance();
     _isSoundOn = prefs.getBool(CcConstants.IS_SOUND_ON) ?? true;
     _isMusicOn = prefs.getBool(CcConstants.IS_MUSIC_ON) ?? true;
+
+    final assets = {
+      'tap': AssetAudios.tapSound,
+      'back': AssetAudios.backSound,
+      'correct': AssetAudios.correctSound,
+      'wrong': AssetAudios.wrongSound,
+      'adv-win': AssetAudios.adventureWinSound,
+      'ch-win': AssetAudios.challengeWinSound,
+      'adv-lose': AssetAudios.adventureLoseSound,
+      'ch-lose': AssetAudios.challengeLoseSound,
+      'claim': AssetAudios.claimSound,
+    };
+
+    for (var entry in assets.entries) {
+      final player = AudioPlayer();
+      await player.setAudioSource(AudioSource.asset(entry.value));
+      _sounds[entry.key] = player;
+    }
 
     if (_isMusicOn) {
       await playMusic(MusicType.home);
@@ -38,9 +58,6 @@ class AudioService {
     _isSoundOn = isOn;
     await prefs.setBool(CcConstants.IS_SOUND_ON, isSoundOn);
 
-    if (!isOn) {
-      stopSound();
-    }
   }
 
   Future<void> setMusic(bool isOn) async {
@@ -105,16 +122,25 @@ class AudioService {
     await _musicPlayer.stop();
   }
 
-  Future<void> startSound(String assetPath) async {
-    if (!_isSoundOn) return;
-    _audioPlayer.stop();
-    await _audioPlayer.setAudioSource(AudioSource.asset(assetPath));
-    await _audioPlayer.seek(Duration.zero);
-    await _audioPlayer.play();
-  }
+  // Future<void> startSound(String assetPath) async {
+  //   if (!_isSoundOn) return;
+  //   _audioPlayer.stop();
+  //   await _audioPlayer.setAudioSource(AudioSource.asset(assetPath));
+  //   await _audioPlayer.seek(Duration.zero);
+  //   await _audioPlayer.play();
+  // }
 
-  Future<void> stopSound() async {
-    await _audioPlayer.stop();
+  // Future<void> stopSound() async {
+  //   await _audioPlayer.stop();
+  // }
+
+    Future<void> playSound(String key) async {
+    if (!_isSoundOn) return;
+    final player = _sounds[key];
+    if (player == null) return;
+
+    await player.seek(Duration.zero);
+    player.play();
   }
 
   Future<void> startSoundTrack(String assetPath) async {

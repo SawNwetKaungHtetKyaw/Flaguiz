@@ -3,7 +3,7 @@ import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/adventure_game/provider/adventure_game_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,16 +37,17 @@ class _AdventureGameGuessBoxWidgetState
       builder: (context, provider, child) => Stack(
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               if (widget.answerId == widget.country.id) {
                 if (!(widget.currentIndex == provider.guessList.length - 1)) {
-                  AudioService.instance.startSound(AssetAudios.correctSound);
+                  AudioService.instance.playSound('correct');
                 }
                 provider.goToNext(context, widget.answerId,
                     widget.country.id ?? '0', widget.adventureCompletedList);
               } else {
                 if (mounted) {
-                  AudioService.instance.startSound(AssetAudios.wrongSound);
+                  
+                  await VibrationService.instance.medium();
                   provider.decreaseLife();
                   provider.addUserWrongGuesses(widget.index);
                   setState(() {

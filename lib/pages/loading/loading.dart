@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flaguiz/config/cc_config.dart';
+import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/loading/widgets/loading_bar_widget.dart';
 import 'package:flaguiz/providers/achievement_provider.dart';
+import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
+import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/repositories/avatar_repository.dart';
 import 'package:flaguiz/repositories/background_repository.dart';
 import 'package:flaguiz/repositories/banner_repository.dart';
@@ -24,12 +29,31 @@ class _LoadingState extends State<Loading> {
     BorderRepository().startSync();
     BackgroundRepository().startSync();
     BannerRepository().startSync();
-    DailyRewardProvider provider = Provider.of<DailyRewardProvider>(context,listen: false);
+    DailyRewardProvider provider =
+        Provider.of<DailyRewardProvider>(context, listen: false);
     provider.initReward();
+    _preloadingForHome();
+  }
+
+  _preloadingForHome() async {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    BackgroundProvider backgroundProvider =
+        Provider.of<BackgroundProvider>(context, listen: false);
+    await userProvider.createOrGetUser();
+    UserModel? user = userProvider.user;
+    backgroundProvider.getById(user?.backgrounds?[0] ?? '');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      precacheImage(
+          CachedNetworkImageProvider(
+              "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),
+          context);
+    });
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
     Provider.of<AchievementProvider>(context).loadAchvList();
   }

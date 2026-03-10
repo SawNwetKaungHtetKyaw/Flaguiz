@@ -29,8 +29,28 @@ class _AdventureLevelState extends State<AdventureLevel> {
                 image: AssetImage(AssetsImages.adventureBg),
                 fit: BoxFit.cover)),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
+              
+              Consumer<AdventureProvider>(
+                  builder: (context, provider, child) {
+                List<AdventureModel> levelList = provider.levelList;
+    
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: levelList.length,
+                    itemBuilder: (context, index) {
+                      final AdventureModel adventureModel =
+                          levelList[index];
+                    
+                      return AdventureLevelWidget(
+                        paddingTop: (index == 0) ? 70 : 0,
+                        mode: widget.mode,
+                        adventureModel: adventureModel,
+                      );
+                    });
+              }),
+
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Row(
@@ -43,24 +63,6 @@ class _AdventureLevelState extends State<AdventureLevel> {
                   ],
                 ),
               ),
-              Consumer<AdventureProvider>(
-                  builder: (context, provider, child) {
-                List<AdventureModel> levelList = provider.levelList;
-    
-                return Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: levelList.length,
-                        itemBuilder: (context, index) {
-                          final AdventureModel adventureModel =
-                              levelList[index];
-    
-                          return AdventureLevelWidget(
-                            mode: widget.mode,
-                            adventureModel: adventureModel,
-                          );
-                        }));
-              })
             ],
           ),
         ),
