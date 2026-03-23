@@ -2,7 +2,6 @@ class AssetsImages {
   static const String appIcon = 'assets/images/app_icon/app_icon.jpg';
   static const String companyIcon = 'assets/images/app_icon/caffeine_cup.png';
   
-  static const String cat = 'assets/images/others/cat.png';
   static const String adventure = 'assets/images/others/adventure.png';
   static const String challenge = 'assets/images/others/challenge.png';
   static const String battle = 'assets/images/others/battle.png';
@@ -60,6 +59,7 @@ class AssetsImages {
   static const String battleBg = 'assets/images/backgrounds/battle_bg.png';
   static const String libraryBg = 'assets/images/backgrounds/library_bg.jpg';
   static const String profileBg = 'assets/images/backgrounds/profile_bg.jpg';
+  static const String aboutBg = 'assets/images/backgrounds/about_bg.jpg';
 
   ///Buttons
   static const String challengeButton = 'assets/images/buttons/challenge_button.png';

@@ -27,7 +27,6 @@ class DailyRewardProvider extends ChangeNotifier {
     if (reward == null) return 0;
 
     int coins = await _repo.claimReward(reward!);
-    print("======>Coin $coins");
     notifyListeners();
     return coins;
   }

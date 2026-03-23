@@ -9,6 +9,7 @@ import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
+import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_icon_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
   @override
   void initState() {
     super.initState();
+    AudioService.instance.allowMusic = false;
     AudioService.instance.pause();
   }
 
@@ -42,7 +44,9 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
           mode: widget.mode),
       builder: (context, child) =>
           Consumer2<ChallengeGameProvider, UserProvider>(
-        builder: (context, provider, userProvider, child) => Scaffold(
+              builder: (context, provider, userProvider, child) {
+        int userCoin = userProvider.user?.coin ?? 0;
+        return Scaffold(
           body: Container(
             width: double.maxFinite,
             height: double.maxFinite,
@@ -58,15 +62,20 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CcBackWidget(
                             image: AssetsImages.challengeBackKey,
                             onTap: () {
                               Navigator.pop(context);
+                              AudioService.instance.allowMusic = true;
                               AudioService.instance.resume();
                             },
                           ),
+
+                          const SizedBox(width: 60),
+
+                          CcCoinBoxWidget(
+                              coin: userCoin.toString(), height: 55),
 
                           /// Challenge Life Widget
                           const ChallengeGameLifeWidget()
@@ -167,8 +176,8 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

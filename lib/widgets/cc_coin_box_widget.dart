@@ -3,14 +3,15 @@ import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CcCoinBoxWidget extends StatelessWidget {
-  const CcCoinBoxWidget({super.key, required this.coin});
+  const CcCoinBoxWidget({super.key, required this.coin,this.height = 45});
   final String coin;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 45,
+        height: height,
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.only(bottom: 2, right: 20),
         decoration: const BoxDecoration(

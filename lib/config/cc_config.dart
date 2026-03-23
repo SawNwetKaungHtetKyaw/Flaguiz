@@ -3,11 +3,19 @@ import 'package:flaguiz/models/challenge_completed_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 
 class CcConfig {
+
+  static String version = '1.0.1';
   static String appName = 'Flaguiz';
-  static String companyName = 'Caffeine Cup';
+  static String companyName = 'CaffeineCup';
+  static String companyMail = 'caffeinecup2025.co@gmail.com';
   static bool showLog = false;
-  static String base_url = '';
   static String image_base_url = 'https://i.postimg.cc';
+  static String default_background = '/x8qTz724/bg1.jpg';
+  static String YOUTUBE_URL = 'https://www.youtube.com/channel/UCi-HAqfMdXohP4skT7DriIA';
+  static String FACEBOOK_URL = '';
+  static String TIKTOK_URL = 'https://www.tiktok.com/@flaguiz?_r=1&_t=ZN-94qA9tmLIwA';
+  static String PRIVACY_AND_POLICY_URL = 'https://caffeinecup-flaguiz.netlify.app/pages/privacy';
+  static String TERMS_AND_CONDITIONS_URL = 'https://caffeinecup-flaguiz.netlify.app/pages/terms';
 
   /// Game Mode
   static String GAME_MODE__FLAG = 'F';
@@ -26,8 +34,7 @@ class CcConfig {
     id: '',
     username: 'Player',
     email: '',
-    password: '',
-    coin: 5000,
+    coin: 0,
     energy: 0,
     trophy: 0,
     achievements: [],
@@ -65,4 +72,5 @@ class CcConfig {
   static String HIVE_BANNER_BOX = 'BANNER-BOX';
   static String HIVE_COUNTRY_BOX = 'COUNTRY-BOX';
   static String HIVE_DAILY_REWARD_BOX = 'DAILY-REWARD-BOX';
+
 }

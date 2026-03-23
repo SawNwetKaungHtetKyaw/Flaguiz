@@ -1,3 +1,4 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
@@ -10,8 +11,8 @@ import 'package:flaguiz/pages/adventure/provider/adventure_provider.dart';
 import 'package:flaguiz/pages/adventure_victory/widgets/adventure_victory_icon_button_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
@@ -41,11 +42,13 @@ class AdventureVictory extends StatefulWidget {
 
 class _AdventureVictoryState extends State<AdventureVictory> {
   int coin = 20;
+  int doubleCoin = 0;
   int index = -1;
   @override
   void initState() {
     super.initState();
     coin = widget.isReplay ? 5 : 20;
+    doubleCoin = widget.isReplay ? 10 : 40;
 
     AudioService.instance.startSoundTrack(AssetAudios.adventureWinSound);
 
@@ -136,20 +139,42 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                   const SizedBox(height: 15),
 
                   /// Coin
-                  CcShadowedTextWidget(text: "$coin coins", fontSize: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AssetsImages.coin, width: 30),
+                      const SizedBox(width: 5),
+                      CcShadowedTextWidget(text: "+$coin coins", fontSize: 14),
+                    ],
+                  ),
 
                   const SizedBox(height: 15),
 
+                  /// Double reward
                   CcImageButton(
                       margin: const EdgeInsets.only(
                           bottom: 10, right: 20, left: 20),
                       image: AssetsImages.adventureButton,
-                      text: CcConstants.kDoubleReward,
+                      text: (doubleCoin != coin)
+                          ? CcConstants.kDoubleReward
+                          : CcConstants.kClaimed,
                       height: 60,
                       onTap: () {
-                        Utils.showToastMessage(
-                            context, CcConstants.kUnavailableNow);
-                        VibrationService.instance.light();
+                        if (AdsService.instance
+                                .isReady(CcAdsKey.rewardDouble) &&
+                            doubleCoin != coin) {
+                          AdsService.instance
+                              .show(CcAdsKey.rewardDouble, context, () async {
+                            AudioService.instance.playSound('claim');
+
+                            await userProvider.addUserCoin(coin);
+                            setState(() {
+                              coin = coin * 2;
+                            });
+                          });
+                        } else {
+                          Utils.showToastMessage(context, "Already Claimed");
+                        }
                       }),
 
                   Padding(
@@ -189,6 +214,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                             onTap: () async {
                               AudioService.instance.playSound('tap');
                               Navigator.pop(context);
+                              AudioService.instance.allowMusic = true;
                               await AudioService.instance.resume();
                             }),
 

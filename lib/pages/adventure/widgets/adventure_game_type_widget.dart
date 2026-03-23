@@ -84,7 +84,7 @@ class _AdventureGameTypeWidgetState extends State<AdventureGameTypeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.all(16),

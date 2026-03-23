@@ -1,11 +1,12 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/daily_reward_model.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_outlined_button.dart';
@@ -115,16 +116,24 @@ class DailyRewardDialog extends StatelessWidget {
                                         text: CcConstants.kClaim2x),
                                     onTap: () async {
                                       if (canClaim) {
-                                        // AudioService.instance
-                                        //     .playSound('claim');
-                                        // int coins = await provider.claim();
-                                        // if (coins > 0) {
-                                        //   coins = coins * 2;
-                                        //   await userProvider.addUserCoin(coins);
-                                        // }
-                                        Utils.showToastMessage(context,
-                                            CcConstants.kUnavailableNow);
-                                        VibrationService.instance.light();
+                                        if (AdsService.instance
+                                            .isReady(CcAdsKey.rewardDouble)) {
+                                          AudioService.instance
+                                              .playSound('claim');
+                                          AdsService.instance.show(
+                                              CcAdsKey.rewardDouble, context,
+                                              () async {
+                                            int coins = await provider.claim();
+                                            if (coins > 0) {
+                                              coins = coins * 2;
+                                              await userProvider
+                                                  .addUserCoin(coins);
+                                            }
+                                          });
+                                        } else {
+                                          Utils.showToastMessage(
+                                              context, "Try Again");
+                                        }
                                       }
                                     }),
                               )

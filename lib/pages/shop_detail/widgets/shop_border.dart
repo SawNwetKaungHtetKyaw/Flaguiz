@@ -38,12 +38,14 @@ class ShopBorder extends StatelessWidget {
                   children: [
                     CcGlassWidget(
                       width: double.maxFinite,
-                      margin: const EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.symmetric(vertical: 10),
                       padding: const EdgeInsets.only(left: 4, right: 12),
                       height: 110,
                       child: Row(
                         children: [
-                          CcNetworkImageWidget(imageUrl: "${CcConfig.image_base_url}${item.imageUrl}"),
+                          CcNetworkImageWidget(
+                              imageUrl:
+                                  "${CcConfig.image_base_url}${item.imageUrl}"),
                           const SizedBox(width: 5),
                           Expanded(
                             child: CcShadowedTextWidget(text: item.name ?? ''),

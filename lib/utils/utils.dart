@@ -2,13 +2,16 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/adventure_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/cached_image_manager_service.dart';
 import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
   static void printLog(Object? object, {bool important = false}) {
@@ -153,7 +156,8 @@ class Utils {
 
   static Future<bool> hasInternet() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
+      final result = await InternetAddress.lookup('google.com')
+          .timeout(const Duration(seconds: 5));
       return result.isNotEmpty;
     } catch (_) {
       return false;
@@ -161,12 +165,52 @@ class Utils {
   }
 
   static Future<bool> areImagesCached(List<String> urls) async {
-  final cacheManager = CachedImageManagerService();
+    final cacheManager = CachedImageManagerService();
 
-  final results = await Future.wait(
-    urls.map((url) => cacheManager.getFileFromCache(url)),
-  );
+    final results = await Future.wait(
+      urls.map((url) => cacheManager.getFileFromCache(url)),
+    );
 
-  return !results.contains(null);
+    return !results.contains(null);
+  }
+
+  static Future<void> openLink(String url, BuildContext context) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      if (context.mounted) showToastMessage(context, "Couldn't launch $url");
+    }
+  }
+
+  static String getBannerAdUnitId(String key) {
+    return Platform.isAndroid
+        ? CcAdsKey.bannerAds[key]!["android"]!
+        : CcAdsKey.bannerAds[key]!["ios"]!;
+  }
+
+  static String getRewardedAdUnitId(String key) {
+    return Platform.isAndroid
+        ? CcAdsKey.rewardedAds[key]!["android"]!
+        : CcAdsKey.rewardedAds[key]!["ios"]!;
+  }
+
+  static preLoadRewardedAds(String key) {
+    AdsService.instance.loadRewardedAds(key);
+  }
+
+  static Future<void> openSendMail(BuildContext context) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: CcConfig.companyMail
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      if (context.mounted) {
+        showToastMessage(context, "Couldn't launch ${CcConfig.companyMail}");
+      }
+    }
+  }
 }
-}
+
+class AdUnits {}

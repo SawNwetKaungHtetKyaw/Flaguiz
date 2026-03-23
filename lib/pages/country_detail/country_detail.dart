@@ -1,3 +1,4 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/country_model.dart';
@@ -5,6 +6,7 @@ import 'package:flaguiz/pages/country_detail/widgets/detail_card_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -164,6 +166,8 @@ class _CountryDetailState extends State<CountryDetail> {
                             ),
                           );
                         })),
+
+                      const CcAdsBannerWidget(adKey: CcAdsKey.bannerCountryDetail)
               ],
             )));
       }),

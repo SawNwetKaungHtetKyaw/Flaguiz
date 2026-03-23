@@ -1,11 +1,10 @@
-import 'package:flaguiz/utils/asset_images.dart';
 
 class CcConstants {
-
   CcConstants._();
 
   static const String kCompanyName = 'Caffeine Cup';
   static const String kAppName = 'Flaguiz';
+  static const String kVersion = 'Version';
   static const String kAdventure = 'Adventure';
   static const String kAdventureStatus = 'Adventure Status';
   static const String kChallenge = 'Challenge';
@@ -17,6 +16,7 @@ class CcConstants {
   static const String kEnter = 'Enter';
   static const String kSearch = 'Search';
   static const String kSetting = 'Setting';
+  static const String kExit = 'Exit';
   static const String kRegion = 'Region';
   static const String kCurrency = 'Currency';
   static const String kCapital = 'Capital';
@@ -35,12 +35,14 @@ class CcConstants {
   static const String kLogin = 'Login';
   static const String kRegister = 'Register';
   static const String kDoubleReward = 'Double Reward x2';
+  static const String kClaimed = 'Claimed';
   static const String kAchievement = 'Achievement';
   static const String kOwned = 'Owned';
   static const String kVolume = 'Volume';
   static const String kMusic = 'Music';
   static const String kVibration = 'Vibration';
   static const String kPrivacyPolicies = 'Privacy & Policies';
+  static const String kTermsAndConditions = 'Terms & Conditions';
   static const String kAbout = 'About';
   static const String kClose = 'Close';
   static const String kConfirm = 'Confirm';
@@ -56,6 +58,11 @@ class CcConstants {
   static const String kcheckInternet = 'Please check your Internet Connection.';
   static const String kTryAgain = 'Try Again';
   static const String kUnavailableNow = 'Unavailable Now!';
+  static const String kSocial = 'Social';
+  static const String kContactUs = 'Contact Us';
+  static const String kMail = 'Mail';
+  static const String kDevelopedBy = 'Developed By';
+  static const String kDoYouWantToExit = 'Do You Want To Exit?';
 
   /// Hero Tag Keys
   static const String kH_GAME_MODE = 'hero-game-mode';
@@ -76,30 +83,33 @@ class CcConstants {
   static const String IS_MUSIC_ON = 'IS_MUSIC_ON';
   static const String IS_VIBTATION_ON = 'IS_VIBRATION_ON';
   static const String KEEN_EYE = 'KEEN_EYE';
+  static const String ADS_BORDER_PROGRESS = 'ADS_BORDER_PROGRESS';
 
   /// Preload image
-  static final List<String> preLoadImages = [
-    AssetsImages.adventure,
-    AssetsImages.adventureBg,
-    AssetsImages.battle,
-    AssetsImages.battleBg,
-    AssetsImages.challenge,
-    AssetsImages.challengeBg,
-    AssetsImages.challengeButton,
-    AssetsImages.libraryBg,
-    AssetsImages.enterButton,
-    AssetsImages.libraryButton,
-    AssetsImages.shopButton,
-    AssetsImages.energyBox,
-    AssetsImages.coinBox,
-    AssetsImages.adventureBackKey,
-    AssetsImages.challengeBackKey,
-    AssetsImages.defaultBackground,
-  ];
+  // static final List<String> preLoadImages = [
+  //   AssetsImages.adventure,
+  //   AssetsImages.adventureBg,
+  //   AssetsImages.battle,
+  //   AssetsImages.battleBg,
+  //   AssetsImages.challenge,
+  //   AssetsImages.challengeBg,
+  //   AssetsImages.challengeButton,
+  //   AssetsImages.libraryBg,
+  //   AssetsImages.enterButton,
+  //   AssetsImages.libraryButton,
+  //   AssetsImages.shopButton,
+  //   AssetsImages.energyBox,
+  //   AssetsImages.coinBox,
+  //   AssetsImages.adventureBackKey,
+  //   AssetsImages.challengeBackKey,
+  //   AssetsImages.defaultBackground,
+  // ];
 
-  /// Toast Msg Constant
-  static const String enoughCoin = "Enough Coin";
+  /// About
+  static const String aboutDescription =
+      """Flaguiz is a fun and educational game designed to help you learn and recognize flags from countries around the world. Whether you're a geography enthusiast or just curious about global cultures, Flaguiz makes learning exciting through interactive quizzes and challenges.
 
-  static const String lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+Test your knowledge, improve your memory, and explore flags from different continents while enjoying a simple and engaging gameplay experience. With a growing collection of countries and game modes, Flaguiz is perfect for players of all ages who want to learn while having fun.
 
+Challenge yourself, discover new flags, and become a world flag expert with Flaguiz!""";
 }

@@ -5,7 +5,8 @@ const Color primaryLightColor = Color(0xFFC098F5);
 const Color secondryColor = Color(0xFF4E119F);
 const Color adventureColor = Color(0xFF4E119F);
 const Color challengeColor = Color(0xFF4E119F);
-
+const Color facebookColor = Color(0xFF1877F2);
+const Color youtubeColor = Color(0xFFFF0000);
 
 const Color errorColor = Color(0xFFCD170A);
 const Color successColor = Color(0xFF029C07);

@@ -21,5 +21,8 @@ class RoutePaths {
   static const String challengeVictory = '/challenge-victory';
   static const String login = '/login';
   static const String register = '/register';
+  static const String about = '/about';
+  static const String privacyPolicies = '/privacy-policies';
+  static const String termsConditions = '/terms-conditions';
 
 }

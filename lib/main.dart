@@ -7,6 +7,7 @@ import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/adventure/provider/adventure_provider.dart';
 import 'package:flaguiz/providers/achievement_provider.dart';
+import 'package:flaguiz/providers/ads_provider.dart';
 import 'package:flaguiz/providers/avatar_provider.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
@@ -18,10 +19,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'config/route/router.dart' as router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await MobileAds.instance.initialize();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -82,6 +86,8 @@ class MyApp extends StatelessWidget {
                 BannerProvider(buildContext: context)),
         ChangeNotifierProvider(
             create: (_) => DailyRewardProvider(buildContext: context)),
+        ChangeNotifierProvider(
+            create: (_) => AdsProvider(buildContext: context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

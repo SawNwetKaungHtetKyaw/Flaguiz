@@ -1,5 +1,6 @@
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/guess_model.dart';
+import 'package:flaguiz/pages/about/about.dart';
 import 'package:flaguiz/pages/adventure/adventure.dart';
 import 'package:flaguiz/pages/adventure/adventure_level.dart';
 import 'package:flaguiz/pages/battle/battle.dart';
@@ -14,11 +15,13 @@ import 'package:flaguiz/pages/home/home.dart';
 import 'package:flaguiz/pages/library/library.dart';
 import 'package:flaguiz/pages/loading/loading.dart';
 import 'package:flaguiz/pages/login/login.dart';
+import 'package:flaguiz/pages/privacy_policies/privacy_policies.dart';
 import 'package:flaguiz/pages/profile/profile.dart';
 import 'package:flaguiz/pages/register/register.dart';
 import 'package:flaguiz/pages/adventure_victory/adventure_victory.dart';
 import 'package:flaguiz/pages/shop/shop.dart';
 import 'package:flaguiz/pages/shop_detail/shop_detail.dart';
+import 'package:flaguiz/pages/terms_conditions/terms_conditions.dart';
 import 'package:flutter/material.dart';
 
 import '../../pages/splash_screen/splash_screen.dart';
@@ -46,6 +49,24 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           settings: const RouteSettings(name: RoutePaths.profile),
           builder: (BuildContext context) {
             return const Profile();
+          });
+    case RoutePaths.about:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.about),
+          builder: (BuildContext context) {
+            return const About();
+          });
+    case RoutePaths.privacyPolicies:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.privacyPolicies),
+          builder: (BuildContext context) {
+            return const PrivacyPolicies();
+          });
+    case RoutePaths.termsConditions:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.termsConditions),
+          builder: (BuildContext context) {
+            return const TermsConditions();
           });
     case RoutePaths.shop:
       return MaterialPageRoute(

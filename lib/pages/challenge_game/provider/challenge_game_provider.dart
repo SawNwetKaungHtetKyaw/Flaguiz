@@ -21,7 +21,7 @@ class ChallengeGameProvider extends ChangeNotifier {
     _mode = mode;
     _guessList = guessList;
     _guessList.shuffle();
-    // _guessList = guessList.take(1).toList();
+    // _guessList = guessList.take(6).toList();
     startTimerCount();
     Utils.printLog('${runtimeType.toString()} Init $hashCode');
   }

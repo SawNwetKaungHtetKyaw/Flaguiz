@@ -1,3 +1,4 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/challenge_completed_model.dart';
@@ -110,6 +111,10 @@ class _ChallengeGameTypeWidgetState extends State<ChallengeGameTypeWidget>
                         image: AssetsImages.challengeButton,
                         text: gameType[index],
                         onTap: () {
+                          
+                          Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
+                          Utils.preLoadRewardedAds(CcAdsKey.rewardContinueGame);
+
                           AudioService.instance.playSound('tap');
                           if (mode == CcConfig.GAME_MODE__FLAG ||
                               mode == CcConfig.GAME_MODE__MAP) {
@@ -133,7 +138,8 @@ class _ChallengeGameTypeWidgetState extends State<ChallengeGameTypeWidget>
                           bottom: 25,
                           right: 30,
                           child: CcShadowedTextWidget(
-                            text: "${completedChallenge.complete}/${countries.length}",
+                            text:
+                                "${completedChallenge.complete}/${countries.length}",
                             fontSize: 10,
                             textColor: Colors.grey.shade300,
                           ))

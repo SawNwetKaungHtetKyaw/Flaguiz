@@ -2,6 +2,8 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/pages/adventure_game/provider/adventure_game_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -22,10 +24,13 @@ class AdventureGameHintWidget extends StatelessWidget {
         image: AssetsImages.adventureButton,
         onTap: () {
           if (coin >= 10) {
+            AudioService.instance.playSound('claim');
             context
                 .read<AdventureGameProvider>()
                 .hint(context, adventureCompletedList, coin);
             context.read<UserProvider>().reduceUserCoin(10);
+          } else {
+            VibrationService.instance.light();
           }
         },
         padding: EdgeInsets.zero,

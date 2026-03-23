@@ -1,3 +1,4 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
@@ -17,7 +18,10 @@ import 'package:provider/provider.dart';
 
 class AdventureLevelWidget extends StatelessWidget {
   const AdventureLevelWidget(
-      {super.key, required this.mode, required this.adventureModel,required this.paddingTop});
+      {super.key,
+      required this.mode,
+      required this.adventureModel,
+      required this.paddingTop});
   final String mode;
   final AdventureModel adventureModel;
   final double paddingTop;
@@ -59,25 +63,31 @@ class AdventureLevelWidget extends StatelessWidget {
               ),
               onTap: () {
                 AudioService.instance.playSound('tap');
+
+                Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
+                Utils.preLoadRewardedAds(CcAdsKey.rewardContinueGame);
+                
                 if (mode == CcConfig.GAME_MODE__FLAG ||
                     mode == CcConfig.GAME_MODE__MAP) {
-                  Navigator.pushNamed(
-                      context, RoutePaths.adventureGameByImage, arguments: [
-                    Utils.prepareAdventureGameModeData(adventureModel, countries),
-                    mode,
-                    levelId
-                  ]);
+                  Navigator.pushNamed(context, RoutePaths.adventureGameByImage,
+                      arguments: [
+                        Utils.prepareAdventureGameModeData(
+                            adventureModel, countries),
+                        mode,
+                        levelId
+                      ]);
                 } else {
-                  Navigator.pushNamed(
-                      context, RoutePaths.adventureGameByText, arguments: [
-                    Utils.prepareAdventureGameModeData(adventureModel, countries),
-                    mode,
-                    levelId
-                  ]);
+                  Navigator.pushNamed(context, RoutePaths.adventureGameByText,
+                      arguments: [
+                        Utils.prepareAdventureGameModeData(
+                            adventureModel, countries),
+                        mode,
+                        levelId
+                      ]);
                 }
               },
             ),
-        
+
             /// Locked
             Visibility(
               visible: adventureCompleted?.levelId != levelId,

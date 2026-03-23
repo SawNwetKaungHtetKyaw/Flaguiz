@@ -39,6 +39,7 @@ class DialogBackgroundWidget extends StatelessWidget {
                 ..remove(id)
                 ..insert(0, id);
               await userProvider.updatedUserBackground(ownList);
+              provider.getById(id);
               if (context.mounted) Navigator.pop(context);
             },
             child: Stack(

@@ -1,7 +1,9 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/pages/challenge/widgets/challenge_game_type_widget.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,9 @@ class _ChallengeState extends State<Challenge> {
 
                     /// Game Type ListView
                     const ChallengeGameTypeWidget(),
+
+                    /// Banner Ads
+                     const Center(child: CcAdsBannerWidget(adKey: CcAdsKey.bannerChallenge))
                   ],
                 ),
               ],

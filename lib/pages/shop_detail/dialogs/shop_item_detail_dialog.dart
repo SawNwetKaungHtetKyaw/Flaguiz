@@ -1,10 +1,13 @@
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/providers/ads_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
@@ -34,7 +37,8 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      child: Consumer<UserProvider>(builder: (context, provider, child) {
+      child: Consumer2<UserProvider, AdsProvider>(
+          builder: (context, provider, adsProvider, child) {
         UserModel? user = provider.user;
         int userCoin = user?.coin ?? 0;
         int itemPrice = widget.item.price ?? 0;
@@ -107,7 +111,7 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
               ),
             ),
 
-            CcShadowedTextWidget(text: widget.item.name ?? '', fontSize: 20),
+            CcShadowedTextWidget(text: widget.item.name ?? '', fontSize: 20,textAlign: TextAlign.center,),
             const SizedBox(height: 10),
             CcShadowedTextWidget(
                 text: widget.item.subName ?? '',
@@ -117,9 +121,21 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
               onTap: () async {
                 if (!widget.ownList.contains(widget.item.id)) {
                   if (itemPrice == -1) {
-                    Utils.showToastMessage(
-                        context, CcConstants.kUnavailableNow);
-                    VibrationService.instance.light();
+                    if (AdsService.instance
+                        .isReady(CcAdsKey.rewardItemProgress)) {
+                      AdsService.instance
+                          .show(CcAdsKey.rewardItemProgress, context, () async {
+                        int itemProgress = adsProvider.adsBorderProgressCount;
+                        itemProgress++;
+                        adsProvider.setAdsBorderProgressCount = itemProgress;
+                        if (itemProgress == 5) {
+                          await provider
+                              .updateUserDataForBuyItem(widget.item.id ?? '');
+                        }
+                      });
+                    } else {
+                      Utils.showToastMessage(context, "Unavailable Now");
+                    }
                   } else {
                     if (userCoin >= itemPrice) {
                       AudioService.instance.playSound('claim');
@@ -193,7 +209,10 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
               child: (widget.ownList.contains(widget.item.id))
                   ? const CcShadowedTextWidget(text: CcConstants.kOwned)
                   : (itemPrice == -1)
-                      ? const CcShadowedTextWidget(text: CcConstants.kAds)
+                      ? CcShadowedTextWidget(
+                          text: (adsProvider.adsBorderProgressCount < 5)
+                              ? "${CcConstants.kAds} ${adsProvider.adsBorderProgressCount}/5"
+                              : CcConstants.kClaim)
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

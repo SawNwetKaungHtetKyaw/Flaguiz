@@ -21,6 +21,8 @@ class UserProvider extends ChangeNotifier {
 
   bool get isLoaded => _user != null;
 
+  //// Local Data
+
   Future<void> createOrGetUser() async {
     _user = await _repo.createOrGetUser();
     notifyListeners();
@@ -48,11 +50,10 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateUserDataForUsername(
-      String username) async {
+  Future<void> updateUserDataForUsername(String username) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
 
-    if(username != ''){
+    if (username != '') {
       updateUser.username = username;
     }
 
@@ -108,7 +109,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateUserDataForAchievement(String id,int coin) async {
+  Future<void> updateUserDataForAchievement(String id, int coin) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
 
     updateUser.achievements?.add(id);

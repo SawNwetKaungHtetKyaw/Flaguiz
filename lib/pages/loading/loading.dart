@@ -43,7 +43,7 @@ class _LoadingState extends State<Loading> {
     await userProvider.createOrGetUser();
     UserModel? user = userProvider.user;
     backgroundProvider.getById(user?.backgrounds?[0] ?? '');
-
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       precacheImage(
           CachedNetworkImageProvider(

@@ -2,6 +2,8 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/challenge_game/provider/challenge_game_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -23,10 +25,13 @@ class ChallengeGameHintWidget extends StatelessWidget {
           image: AssetsImages.challengeButton,
           onTap: () {
             if (coin >= 10) {
+              AudioService.instance.playSound('claim');
               context
                   .read<ChallengeGameProvider>()
                   .hint(context, coin,user?.challengeCompletedList ?? []);
               context.read<UserProvider>().reduceUserCoin(10);
+            }else{
+              VibrationService.instance.light();
             }
           },
           padding: EdgeInsets.zero,

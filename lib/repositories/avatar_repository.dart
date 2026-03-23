@@ -11,7 +11,6 @@ class AvatarRepository {
 
   void startSync() {
     _firestore.collection(CcConstants.FIRESTORE_AVATAR).snapshots().listen((snapshot) {
-
       for (final change in snapshot.docChanges) {
         final data = change.doc.data();
         if (data == null) continue;

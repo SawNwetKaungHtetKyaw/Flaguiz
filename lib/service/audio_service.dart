@@ -17,6 +17,7 @@ class AudioService {
 
   bool _isSoundOn = true;
   bool _isMusicOn = true;
+  bool allowMusic = true;
 
   final Map<String, AudioPlayer> _sounds = {};
 
@@ -57,7 +58,6 @@ class AudioService {
     final prefs = await SharedPreferences.getInstance();
     _isSoundOn = isOn;
     await prefs.setBool(CcConstants.IS_SOUND_ON, isSoundOn);
-
   }
 
   Future<void> setMusic(bool isOn) async {
@@ -113,6 +113,7 @@ class AudioService {
   }
 
   Future<void> resume() async {
+    if (!allowMusic) return;
     if (_isMusicOn && !_musicPlayer.playing && _currentMusic != null) {
       await _musicPlayer.play();
     }
@@ -134,7 +135,7 @@ class AudioService {
   //   await _audioPlayer.stop();
   // }
 
-    Future<void> playSound(String key) async {
+  Future<void> playSound(String key) async {
     if (!_isSoundOn) return;
     final player = _sounds[key];
     if (player == null) return;

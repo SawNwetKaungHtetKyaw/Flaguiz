@@ -14,37 +14,34 @@ class UserModel {
   @HiveField(2)
   String? email;
   @HiveField(3)
-  String? password;
-  @HiveField(4)
   String? country;
-  @HiveField(5)
+  @HiveField(4)
   List<String>? avatars;
-  @HiveField(6)
+  @HiveField(5)
   List<String>? borders;
-  @HiveField(7)
+  @HiveField(6)
   List<String>? backgrounds;
-  @HiveField(8)
+  @HiveField(7)
   List<String>? banners;
-  @HiveField(9)
+  @HiveField(8)
   List<String>? achievements;
-  @HiveField(10)
+  @HiveField(9)
   int? trophy;
-  @HiveField(11)
+  @HiveField(10)
   int? coin;
-  @HiveField(12)
+  @HiveField(11)
   int? energy;
-  @HiveField(13)
+  @HiveField(12)
   List<AdventureCompletedModel>? adventureCompletedList;
-  @HiveField(14)
+  @HiveField(13)
   List<ChallengeCompletedModel>? challengeCompletedList;
-  @HiveField(15)
+  @HiveField(14)
   List<String>? friendIds;
 
   UserModel(
       {this.id,
       this.username,
       this.email,
-      this.password,
       this.country,
       this.avatars,
       this.borders,
@@ -63,7 +60,6 @@ class UserModel {
       id: json['id'],
       username: json['username'],
       email: json['email'],
-      password: json['password'],
       country: json['country'],
       avatars: List<String>.from(json['avatars'] ?? []),
       borders: List<String>.from(json['borders'] ?? []),
@@ -88,7 +84,6 @@ class UserModel {
       "id": id,
       "username": username,
       "email": email,
-      "password": password,
       "country": country,
       "avatars": avatars,
       "borders": borders,

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flaguiz</string>
+    <!-- <string name="facebook_app_id">761389362219506</string> -->
+
+    <!-- <string name="fb_login_protocol_scheme">fb761389362219506</string> -->
+
+    <!-- Testing Key-->
+    <!-- <string name="android__admob_ads_id_key">ca-app-pub-3940256099942544~3347511713</string> -->
+    <string name="android__admob_ads_id_key">ca-app-pub-9116233154962039~2763776279</string>
+
+    <!-- <string name="google_map_key">AIzaSyDN6WxbnN9bWZFhWAQcwVQNe4zOlS1Qsww</string> -->
+    
+</resources>

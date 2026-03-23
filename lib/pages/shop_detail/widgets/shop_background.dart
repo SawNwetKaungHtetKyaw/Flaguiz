@@ -33,13 +33,15 @@ class ShopBackground extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                mainAxisExtent: 350),
+                mainAxisExtent: 360),
             primary: false,
             shrinkWrap: true,
             itemCount: backgrounds.length,
             itemBuilder: (context, index) {
               final ShopModel item = backgrounds[index];
+
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 5),
@@ -50,7 +52,7 @@ class ShopBackground extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: CcShadowedTextWidget(text: item.name ?? ''),
+                    child: Center(child: CcShadowedTextWidget(text: item.name ?? '',textAlign: TextAlign.center,letterSpacing: 1,)),
                   ),
                   ShopDetailBuyButton(
                       width: double.maxFinite,

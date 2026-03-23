@@ -1,6 +1,6 @@
-
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
@@ -50,14 +50,14 @@ class _SettingDialogState extends State<SettingDialog> {
             height: 450,
             margin: const EdgeInsets.symmetric(horizontal: 1),
             padding: const EdgeInsets.only(
-                top: 120, left: 20, right: 20, bottom: 20),
+                top: 90, left: 20, right: 20, bottom: 20),
             decoration: BoxDecoration(
                 color: Colors.grey.shade900,
                 border: Border.all(color: Colors.white, width: 3)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 /// Volume Toggle
                 SettingWithSwitch(
                   text: CcConstants.kVolume,
@@ -79,19 +79,41 @@ class _SettingDialogState extends State<SettingDialog> {
                   onChanged: (value) => _toggleVibration(value),
                 ),
 
-
-               const Padding(
-                  padding: EdgeInsets.only(top: 20,bottom: 30),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20, bottom: 30),
                   child: Divider(),
                 ),
 
                 /// Privacy & Policies
-                const CcShadowedTextWidget(text: CcConstants.kPrivacyPolicies),
+                GestureDetector(
+                  onTap: (){
+                    AudioService.instance.playSound('tap');
+                      Navigator.pop(context);
+                      Navigator.of(context).pushNamed(RoutePaths.privacyPolicies);
+                  },
+                  child: const CcShadowedTextWidget(text: CcConstants.kPrivacyPolicies)),
+
+                  const SizedBox(height: 20,),
+
+                /// Term & Conditions
+                GestureDetector(
+                  onTap: (){
+                    AudioService.instance.playSound('tap');
+                      Navigator.pop(context);
+                      Navigator.of(context).pushNamed(RoutePaths.termsConditions);
+                  },
+                  child: const CcShadowedTextWidget(text: CcConstants.kTermsAndConditions)),
 
                 const SizedBox(height: 20),
 
                 /// About
-                const CcShadowedTextWidget(text: CcConstants.kAbout)
+                GestureDetector(
+                    onTap: () {
+                      AudioService.instance.playSound('tap');
+                      Navigator.pop(context);
+                      Navigator.of(context).pushNamed(RoutePaths.about);
+                    },
+                    child: const CcShadowedTextWidget(text: CcConstants.kAbout))
               ],
             ),
           ),
