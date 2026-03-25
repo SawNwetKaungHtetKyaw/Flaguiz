@@ -1,4 +1,5 @@
 import 'package:flaguiz/config/cc_ads_key.dart';
+import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -70,7 +71,7 @@ class AdsService {
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         print("Ad failed to show:=== $key -> $error");
-        Utils.showToastMessage(context, "Unavailable Now");
+        Utils.showToastMessage(context, CcConstants.kUnavailableNow);
         ad.dispose();
         _rewarded[key] = null;
         _isReady[key] = false;

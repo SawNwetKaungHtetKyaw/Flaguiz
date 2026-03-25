@@ -40,7 +40,8 @@ class _LoadingState extends State<Loading> {
         Provider.of<UserProvider>(context, listen: false);
     BackgroundProvider backgroundProvider =
         Provider.of<BackgroundProvider>(context, listen: false);
-    await userProvider.createOrGetUser();
+    await userProvider.initUser();
+    userProvider.syncLocalToFirestoreIfNeeded();
     UserModel? user = userProvider.user;
     backgroundProvider.getById(user?.backgrounds?[0] ?? '');
     

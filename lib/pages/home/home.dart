@@ -192,9 +192,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       ),
                       const Spacer(),
 
-                      /*
-                            Game Mode Section
-                            */
+                      //// Game Mode Section(  <-   MODE   ->)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -228,9 +226,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       ),
                       const SizedBox(height: 8),
 
-                      /*
-                            Home Page Button Section
-                            */
+                      /// Home Button (SHOP | ENTER | LIBRARY)
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

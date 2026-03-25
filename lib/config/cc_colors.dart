@@ -10,3 +10,4 @@ const Color youtubeColor = Color(0xFFFF0000);
 
 const Color errorColor = Color(0xFFCD170A);
 const Color successColor = Color(0xFF029C07);
+const Color warningColor = Color(0xFFFFCC80);

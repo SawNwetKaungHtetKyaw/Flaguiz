@@ -107,7 +107,7 @@ class _ChallengeGameYouLoseWidgetState
                                   });
                                 } else {
                                   Utils.showToastMessage(
-                                      context, "Unavailable Now");
+                                      context, CcConstants.kUnavailableNow);
                                 }
                               }))
                     ],

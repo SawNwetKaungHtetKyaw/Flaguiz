@@ -93,7 +93,7 @@ class AdventureGameYouLoseWidget extends StatelessWidget {
                                   });
                                 } else {
                                   Utils.showToastMessage(
-                                      context, "Unavailable Now");
+                                      context, CcConstants.kUnavailableNow);
                                 }
                               }))
                     ],

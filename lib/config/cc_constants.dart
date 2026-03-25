@@ -33,7 +33,9 @@ class CcConstants {
   static const String kAds = 'Ads';
   static const String kEdit = 'Edit';
   static const String kLogin = 'Login';
+  static const String kLogout = 'Logout';
   static const String kRegister = 'Register';
+  static const String kDeleteAccount = 'Delete Account';
   static const String kDoubleReward = 'Double Reward x2';
   static const String kClaimed = 'Claimed';
   static const String kAchievement = 'Achievement';
@@ -45,6 +47,7 @@ class CcConstants {
   static const String kTermsAndConditions = 'Terms & Conditions';
   static const String kAbout = 'About';
   static const String kClose = 'Close';
+  static const String kCancel = 'Cancel';
   static const String kConfirm = 'Confirm';
   static const String kChooseCountry = 'Choose Country';
   static const String kChangeYourName = 'Change Your Name';
@@ -63,6 +66,14 @@ class CcConstants {
   static const String kMail = 'Mail';
   static const String kDevelopedBy = 'Developed By';
   static const String kDoYouWantToExit = 'Do You Want To Exit?';
+  static const String kAccountFound = 'Account Founded';
+  static const String kAlreadyExist = "This account already exists. Login?";
+  static const String kAccWarning = 'Warning : Current Data Will Delete Permanently!';
+  static const String kLoginWithGoogle = 'Connect With Google';
+  static const String kWarning = 'Warning';
+  static const String kComfirmDelete = 'Comfirm Delete';
+  static const String kComfirmLogout = 'Comfirm Logout';
+  static const String kSureLogout = 'Are you sure to Logout?';
 
   /// Hero Tag Keys
   static const String kH_GAME_MODE = 'hero-game-mode';

@@ -12,7 +12,8 @@ class UserDao {
     return Hive.box<UserModel>(boxName);
   }
 
-  Future<void> updateUser(UserModel user) async {
+  Future<void> saveLocalUser(UserModel user) async {
+    user.updatedAt = DateTime.now();
     final box = await _openBox();
     await box.put('user', user);
   }

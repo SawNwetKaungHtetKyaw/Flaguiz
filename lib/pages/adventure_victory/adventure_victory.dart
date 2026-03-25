@@ -173,7 +173,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                             });
                           });
                         } else {
-                          Utils.showToastMessage(context, "Already Claimed");
+                          Utils.showToastMessage(context, CcConstants.kUnavailableNow);
                         }
                       }),
 

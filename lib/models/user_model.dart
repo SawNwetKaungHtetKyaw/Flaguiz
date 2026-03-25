@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/challenge_completed_model.dart';
 import 'package:hive/hive.dart';
@@ -37,6 +38,12 @@ class UserModel {
   List<ChallengeCompletedModel>? challengeCompletedList;
   @HiveField(14)
   List<String>? friendIds;
+  @HiveField(15)
+  bool? hasPremium;
+  @HiveField(16)
+  DateTime? updatedAt;
+  @HiveField(17)
+  DateTime? syncedAt;
 
   UserModel(
       {this.id,
@@ -53,9 +60,21 @@ class UserModel {
       this.energy,
       this.adventureCompletedList,
       this.challengeCompletedList,
-      this.friendIds});
+      this.friendIds,
+      this.hasPremium,
+      this.updatedAt,
+      this.syncedAt});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    DateTime? parseDate(dynamic value) {
+      if (value == null) return null;
+
+      if (value is Timestamp) return value.toDate();
+      if (value is String) return DateTime.tryParse(value);
+
+      return null;
+    }
+
     return UserModel(
       id: json['id'],
       username: json['username'],
@@ -76,6 +95,9 @@ class UserModel {
           ? ChallengeCompletedModel().fromJsonList(json['challenge_completed'])
           : [],
       friendIds: List<String>.from(json['friend_ids'] ?? []),
+      hasPremium: json['has_premium'],
+      updatedAt: parseDate(json['updated_at']),
+      syncedAt: parseDate(json['synced_at']),
     );
   }
 
@@ -97,7 +119,10 @@ class UserModel {
           AdventureCompletedModel().toJsonList(adventureCompletedList),
       "challenge_completed":
           ChallengeCompletedModel().toJsonList(challengeCompletedList),
-      "friend_ids": friendIds
+      "friend_ids": friendIds,
+      "has_premium": hasPremium,
+      "updated_at": updatedAt,
+      "synced_at" : syncedAt
     };
   }
 }

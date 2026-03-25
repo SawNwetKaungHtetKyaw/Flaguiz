@@ -34,13 +34,16 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       challengeCompletedList:
           (fields[13] as List?)?.cast<ChallengeCompletedModel>(),
       friendIds: (fields[14] as List?)?.cast<String>(),
+      hasPremium: fields[15] as bool?,
+      updatedAt: fields[16] as DateTime?,
+      syncedAt: fields[17] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(18)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -70,7 +73,13 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(13)
       ..write(obj.challengeCompletedList)
       ..writeByte(14)
-      ..write(obj.friendIds);
+      ..write(obj.friendIds)
+      ..writeByte(15)
+      ..write(obj.hasPremium)
+      ..writeByte(16)
+      ..write(obj.updatedAt)
+      ..writeByte(17)
+      ..write(obj.syncedAt);
   }
 
   @override

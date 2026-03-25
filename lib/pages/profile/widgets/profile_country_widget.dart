@@ -31,7 +31,7 @@ class ProfileCountryWidget extends StatelessWidget {
               width: 69,
               height: 46,
               margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-              decoration: (country == null)
+              decoration: (country == null || countryId == '')
                   ? BoxDecoration(color: Colors.grey.shade600)
                   : BoxDecoration(
                       image: DecorationImage(
@@ -41,7 +41,7 @@ class ProfileCountryWidget extends StatelessWidget {
                       boxShadow: const [
                           BoxShadow(color: Colors.black, offset: Offset(2, 3))
                         ]),
-              child: (country == null)
+              child: (country == null || countryId == '')
                   ? const Icon(Icons.question_mark, color: Colors.white)
                   : const SizedBox(),
             ),

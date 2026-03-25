@@ -1,27 +1,67 @@
-
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/databases/user_dao.dart';
-import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/service/firestore_service.dart';
+
+import '../models/user_model.dart';
 
 class UserRepository {
+  final UserDao _dao = UserDao();
+  final FirestoreService _firestoreService = FirestoreService();
 
-  UserRepository();
+  // Get local user
+  Future<UserModel?> getLocalUser() => _dao.getUser();
 
-  final UserDao _userDao = UserDao();
-
-  Future<UserModel> createOrGetUser() async {
-    final existingUser = await _userDao.getUser();
-    if (existingUser != null) return existingUser;
-
-    print("user is null");
-
-    await _userDao.updateUser(CcConfig.DEFAULT_USER);
-    return CcConfig.DEFAULT_USER;
+  // Create default anonymous user locally
+  Future<UserModel> createAnonymousUser() async {
+    final UserModel user = CcConfig.DEFAULT_USER;
+    await _dao.saveLocalUser(user);
+    return user;
   }
 
-  Future<UserModel?> getUser() => _userDao.getUser();
+  // Sync Hive user to Firestore after Google login
+  Future<void> syncUserToFirestore(UserModel user) async {
+    if (user.id == null) return;
 
-  Future<void> updateUser(UserModel user) => _userDao.updateUser(user);
+    await _firestoreService.createOrUpdateUser(user);
 
-  Future<void> deleteUser() => _userDao.deleteUser();
+    await _dao.saveLocalUser(user);
+  }
+
+  Future<UserModel> handleGoogleLogin(UserModel localUser, String uid) async {
+    // Check Firestore user
+    final firestoreUser = await _firestoreService.getUser(uid);
+
+    if (firestoreUser != null) {
+      await _dao.saveLocalUser(firestoreUser);
+      return firestoreUser;
+    } else {
+      localUser.id = uid;
+
+      await _firestoreService.createOrUpdateUser(localUser);
+      await _dao.saveLocalUser(localUser);
+
+      return localUser;
+    }
+  }
+
+  Future<void> deleteUserFromFirestore(String uid) async {
+    // Delete Firestore
+    await _firestoreService.deleteUser(uid);
+
+  }
+
+  // Delete local user (for logout/reset)
+  Future<void> resetUser() async {
+    await _dao.deleteUser();
+  }
+
+  Future<UserModel?> getFirestoreUser(String uid) async {
+    return await _firestoreService.getUser(uid);
+  }
+
+  Future<void> createFirestoreUser(UserModel user) async {
+    await _firestoreService.createOrUpdateUser(user);
+  }
+
+  Future<void> saveLocalUser(UserModel user) => _dao.saveLocalUser(user);
 }

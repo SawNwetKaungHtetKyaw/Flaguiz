@@ -5,8 +5,9 @@ import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class NoInternetDialog extends StatelessWidget {
-  const NoInternetDialog({super.key, required this.onTap});
+  const NoInternetDialog({super.key, this.text=CcConstants.kTryAgain, required this.onTap});
   final Function onTap;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,8 @@ class NoInternetDialog extends StatelessWidget {
             width: double.maxFinite,
             height: 250,
             margin: const EdgeInsets.symmetric(horizontal: 1),
-            padding: const EdgeInsets.only(
-                top: 90, left: 20, right: 20, bottom: 20),
+            padding:
+                const EdgeInsets.only(top: 90, left: 20, right: 20, bottom: 20),
             decoration: BoxDecoration(
                 color: Colors.grey.shade900,
                 border: Border.all(color: Colors.white, width: 3)),
@@ -27,11 +28,13 @@ class NoInternetDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CcShadowedTextWidget(text: CcConstants.kcheckInternet,textAlign: TextAlign.center,),
+                const CcShadowedTextWidget(
+                  text: CcConstants.kcheckInternet,
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 20),
                 CcOutlinedButton(
-                    child:
-                        const CcShadowedTextWidget(text: CcConstants.kTryAgain),
+                    child: CcShadowedTextWidget(text: text),
                     onTap: () => onTap())
               ],
             ),

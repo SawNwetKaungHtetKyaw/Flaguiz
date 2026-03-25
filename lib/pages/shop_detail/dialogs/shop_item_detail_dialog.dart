@@ -134,7 +134,7 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
                         }
                       });
                     } else {
-                      Utils.showToastMessage(context, "Unavailable Now");
+                      Utils.showToastMessage(context, CcConstants.kUnavailableNow);
                     }
                   } else {
                     if (userCoin >= itemPrice) {

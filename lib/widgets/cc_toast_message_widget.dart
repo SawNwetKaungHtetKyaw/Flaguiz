@@ -1,14 +1,17 @@
+import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CcToastMessageWidget extends StatefulWidget {
   final String message;
+  final Color textColor, backgroundColor;
   final VoidCallback onFinish;
 
-  const CcToastMessageWidget({
-    super.key,
-    required this.message,
-    required this.onFinish,
-  });
+  const CcToastMessageWidget(
+      {super.key,
+      required this.message,
+      required this.onFinish,
+      required this.textColor,
+      required this.backgroundColor});
 
   @override
   State<CcToastMessageWidget> createState() => CcToastMessageWidgetState();
@@ -38,7 +41,7 @@ class CcToastMessageWidgetState extends State<CcToastMessageWidget>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 1), () async {
+    Future.delayed(const Duration(milliseconds: 1500), () async {
       await _controller.reverse();
       widget.onFinish();
     });
@@ -63,22 +66,20 @@ class CcToastMessageWidgetState extends State<CcToastMessageWidget>
           child: Material(
             color: Colors.transparent,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 40,
-                horizontal: 20,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.black87,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: 
-                  Text(
-                    widget.message,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40,
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: CcShadowedTextWidget(
+                    text: widget.message,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                
-            ),
+                    textColor: widget.textColor,
+                    fontSize: 14,
+                    letterSpacing: 1)),
           ),
         ),
       ),

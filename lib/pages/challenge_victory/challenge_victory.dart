@@ -145,7 +145,7 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
                             });
                           });
                         } else {
-                          Utils.showToastMessage(context, "Already Claimed");
+                          Utils.showToastMessage(context, CcConstants.kUnavailableNow);
                         }
                       }),
 

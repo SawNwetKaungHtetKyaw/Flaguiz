@@ -139,7 +139,7 @@ class Utils {
     }
   }
 
-  static showToastMessage(BuildContext context, String message) {
+  static showToastMessage(BuildContext context, String message,{Color? textColor,Color? backgroundColor}) {
     final overlay = Overlay.of(context);
 
     late OverlayEntry overlayEntry;
@@ -148,6 +148,8 @@ class Utils {
       builder: (context) => CcToastMessageWidget(
         message: message,
         onFinish: () => overlayEntry.remove(),
+        textColor: textColor ?? Colors.white,
+        backgroundColor: backgroundColor ?? Colors.black87,
       ),
     );
 
@@ -198,10 +200,7 @@ class Utils {
   }
 
   static Future<void> openSendMail(BuildContext context) async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      path: CcConfig.companyMail
-    );
+    final Uri emailUri = Uri(scheme: 'mailto', path: CcConfig.companyMail);
 
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
@@ -211,6 +210,18 @@ class Utils {
       }
     }
   }
-}
 
-class AdUnits {}
+  static void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  static void hideLoadingDialog(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
+  }
+}

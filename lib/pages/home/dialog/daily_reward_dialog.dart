@@ -132,7 +132,7 @@ class DailyRewardDialog extends StatelessWidget {
                                           });
                                         } else {
                                           Utils.showToastMessage(
-                                              context, "Try Again");
+                                              context, CcConstants.kUnavailableNow);
                                         }
                                       }
                                     }),
