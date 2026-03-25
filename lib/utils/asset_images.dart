@@ -29,6 +29,11 @@ class AssetsImages {
   static const String settingIcon = 'assets/images/others/setting.png';
   static const String avatarIcon = 'assets/images/others/avatar_icon.png';
   static const String borderIcon = 'assets/images/others/border_icon.png';
+  static const String youTubeIcon = 'assets/images/others/youtube.png';
+  static const String tiktokIcon = 'assets/images/others/tiktok.png';
+  static const String facebookIcon = 'assets/images/others/facebook.png';
+  static const String mailIcon = 'assets/images/others/mail.png';
+  static const String webIcon = 'assets/images/others/web.png';
   static const String backgroundIcon = 'assets/images/others/background_icon.png';
   static const String bannerIcon = 'assets/images/others/banner_icon.png';
   static const String dailyReward = 'assets/images/others/daily_reward.png';

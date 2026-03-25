@@ -31,6 +31,13 @@ class DailyRewardProvider extends ChangeNotifier {
     return coins;
   }
 
+  Future<void> clear()async{
+    reward = null;
+    _repo.clear();
+    initReward();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     Utils.printLog('${runtimeType.toString()} Dispose $hashCode',

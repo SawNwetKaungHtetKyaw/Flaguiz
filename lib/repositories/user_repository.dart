@@ -1,6 +1,7 @@
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/databases/user_dao.dart';
 import 'package:flaguiz/service/firestore_service.dart';
+import 'package:flaguiz/utils/utils.dart';
 
 import '../models/user_model.dart';
 
@@ -14,6 +15,12 @@ class UserRepository {
   // Create default anonymous user locally
   Future<UserModel> createAnonymousUser() async {
     final UserModel user = CcConfig.DEFAULT_USER;
+    if (await Utils.hasInternet()) {
+      user.playerID = await Utils.generateUniqueId();
+    } else {
+      user.playerID = Utils.generateId();
+    }
+
     await _dao.saveLocalUser(user);
     return user;
   }
@@ -47,7 +54,6 @@ class UserRepository {
   Future<void> deleteUserFromFirestore(String uid) async {
     // Delete Firestore
     await _firestoreService.deleteUser(uid);
-
   }
 
   // Delete local user (for logout/reset)

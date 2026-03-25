@@ -9,6 +9,7 @@ import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
 import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/cached_image_manager_service.dart';
+import 'package:flaguiz/service/firestore_service.dart';
 import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -139,7 +140,8 @@ class Utils {
     }
   }
 
-  static showToastMessage(BuildContext context, String message,{Color? textColor,Color? backgroundColor}) {
+  static showToastMessage(BuildContext context, String message,
+      {Color? textColor, Color? backgroundColor}) {
     final overlay = Overlay.of(context);
 
     late OverlayEntry overlayEntry;
@@ -209,6 +211,31 @@ class Utils {
         showToastMessage(context, "Couldn't launch ${CcConfig.companyMail}");
       }
     }
+  }
+
+  static String generateId() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789abcdefghijklmnopqrstuvwxyz';
+    final random = Random();
+
+    return String.fromCharCodes(
+      Iterable.generate(
+        6,
+        (_) => chars.codeUnitAt(random.nextInt(chars.length)),
+      ),
+    );
+  }
+
+  static Future<String> generateUniqueId() async {
+    String id;
+    bool exists = true;
+    FirestoreService firestore = FirestoreService();
+
+    do {
+      id = generateId();
+      exists = await firestore.checkIdExists(id);
+    } while (exists);
+
+    return id;
   }
 
   static void showLoadingDialog(BuildContext context) {

@@ -2,7 +2,7 @@ name: flaguiz
 description: "Flaguiz:Learning & Quiz"
 publish_to: 'none'
 
-version: 1.0.1+3
+version: 1.0.1+4
 
 environment:
   sdk: ^3.5.4

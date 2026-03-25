@@ -9,44 +9,46 @@ part 'user_model.g.dart';
 class UserModel {
   @HiveField(0)
   String? id;
-
   @HiveField(1)
-  String? username;
+  String? playerID;
   @HiveField(2)
-  String? email;
+  String? username;
   @HiveField(3)
-  String? country;
+  String? email;
   @HiveField(4)
-  List<String>? avatars;
+  String? country;
   @HiveField(5)
-  List<String>? borders;
+  List<String>? avatars;
   @HiveField(6)
-  List<String>? backgrounds;
+  List<String>? borders;
   @HiveField(7)
-  List<String>? banners;
+  List<String>? backgrounds;
   @HiveField(8)
-  List<String>? achievements;
+  List<String>? banners;
   @HiveField(9)
-  int? trophy;
+  List<String>? achievements;
   @HiveField(10)
-  int? coin;
+  int? trophy;
   @HiveField(11)
-  int? energy;
+  int? coin;
   @HiveField(12)
-  List<AdventureCompletedModel>? adventureCompletedList;
+  int? energy;
   @HiveField(13)
-  List<ChallengeCompletedModel>? challengeCompletedList;
+  List<AdventureCompletedModel>? adventureCompletedList;
   @HiveField(14)
-  List<String>? friendIds;
+  List<ChallengeCompletedModel>? challengeCompletedList;
   @HiveField(15)
-  bool? hasPremium;
+  List<String>? friendIds;
   @HiveField(16)
-  DateTime? updatedAt;
+  bool? hasPremium;
   @HiveField(17)
+  DateTime? updatedAt;
+  @HiveField(18)
   DateTime? syncedAt;
 
   UserModel(
       {this.id,
+      this.playerID,
       this.username,
       this.email,
       this.country,
@@ -77,6 +79,7 @@ class UserModel {
 
     return UserModel(
       id: json['id'],
+      playerID: json['player_id'],
       username: json['username'],
       email: json['email'],
       country: json['country'],
@@ -104,6 +107,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     return {
       "id": id,
+      "player_id" : playerID,
       "username": username,
       "email": email,
       "country": country,

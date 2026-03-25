@@ -11,8 +11,9 @@ class CcConfig {
   static bool showLog = false;
   static String image_base_url = 'https://i.postimg.cc';
   static String default_background = '/x8qTz724/bg1.jpg';
+  static String WEBSITE_URL = 'https://caffeinecup-flaguiz.netlify.app';
   static String YOUTUBE_URL = 'https://www.youtube.com/channel/UCi-HAqfMdXohP4skT7DriIA';
-  static String FACEBOOK_URL = '';
+  static String FACEBOOK_URL = 'https://www.facebook.com/share/1CXtae9kCS';
   static String TIKTOK_URL = 'https://www.tiktok.com/@flaguiz?_r=1&_t=ZN-94qA9tmLIwA';
   static String PRIVACY_AND_POLICY_URL = 'https://caffeinecup-flaguiz.netlify.app/pages/privacy';
   static String TERMS_AND_CONDITIONS_URL = 'https://caffeinecup-flaguiz.netlify.app/pages/terms';
@@ -32,6 +33,7 @@ class CcConfig {
   /// Default User
   static UserModel DEFAULT_USER = UserModel(
     id: '',
+    playerID: '',
     username: 'Player',
     email: '',
     coin: 0,

@@ -22,4 +22,26 @@ class FirestoreService {
   Future<void> deleteUser(String uid) async {
     await _firestore.collection('users').doc(uid).delete();
   }
+
+  Future<bool> checkIdExists(String playerID) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .where('player_id', isEqualTo: playerID)
+        .limit(1)
+        .get();
+
+    return doc.docs.isNotEmpty;
+  }
+
+  /// Search Friend
+  Future<UserModel?> searchByCustomId(String playerID) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .where('player_id', isEqualTo: playerID)
+        .limit(1)
+        .get();
+
+    if (doc.docs.isEmpty) return null;
+    return UserModel.fromJson(doc.docs.first.data());
+  }
 }

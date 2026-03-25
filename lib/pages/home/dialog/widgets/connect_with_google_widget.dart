@@ -3,6 +3,7 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/pages/home/dialog/already_account_dialog.dart';
 import 'package:flaguiz/pages/home/dialog/comfirm_logout_dialog.dart';
 import 'package:flaguiz/pages/loading/dialogs/no_internet_dialog.dart';
+import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/enum/login_status.dart';
@@ -48,7 +49,7 @@ class ConnectWithGoogleWidget extends StatelessWidget {
               Utils.hideLoadingDialog(context);
 
               final result = await showDialog(
-                barrierDismissible: false,
+                  barrierDismissible: false,
                   context: context,
                   builder: (context) => const ComfirmLogoutDialog());
 
@@ -57,12 +58,17 @@ class ConnectWithGoogleWidget extends StatelessWidget {
                 Utils.showLoadingDialog(context);
                 await userProvider.syncLocalToFirestoreIfNeeded();
                 await userProvider.logout();
+
                 if (!context.mounted) return;
-              Utils.hideLoadingDialog(context);
+                await Provider.of<DailyRewardProvider>(context, listen: false)
+                    .clear();
 
-              Utils.showToastMessage(context, "Logged out successfully",backgroundColor: primaryColor);
+                if (!context.mounted) return;
+                Utils.hideLoadingDialog(context);
+
+                Utils.showToastMessage(context, "Logged out successfully",
+                    backgroundColor: primaryColor);
               }
-
             } else {
               /////====================================
               ///  Login Section
@@ -82,6 +88,9 @@ class ConnectWithGoogleWidget extends StatelessWidget {
                 if (result == true) {
                   Utils.showLoadingDialog(context);
                   await userProvider.loadExistingUser(context);
+                  if (!context.mounted) return;
+                  await Provider.of<DailyRewardProvider>(context, listen: false)
+                      .clear();
                   if (!context.mounted) return;
                   Utils.hideLoadingDialog(context);
                 } else {

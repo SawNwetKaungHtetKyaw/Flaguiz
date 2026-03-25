@@ -1,6 +1,7 @@
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/pages/loading/dialogs/no_internet_dialog.dart';
+import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/utils.dart';
@@ -21,16 +22,16 @@ class DeleteAccountWidget extends StatelessWidget {
             text: CcConstants.kDeleteAccount, fontSize: 10),
         onTap: () async {
           if (!await Utils.hasInternet() && context.mounted) {
-              showDialog(
-                  context: context,
-                  builder: (context) => NoInternetDialog(
-                      onTap: () {
-                        AudioService.instance.playSound('back');
-                        Navigator.of(context).pop();
-                      },
-                      text: CcConstants.kClose));
-              return;
-            }
+            showDialog(
+                context: context,
+                builder: (context) => NoInternetDialog(
+                    onTap: () {
+                      AudioService.instance.playSound('back');
+                      Navigator.of(context).pop();
+                    },
+                    text: CcConstants.kClose));
+            return;
+          }
           bool confirm = await showDialog(
             context: context,
             barrierDismissible: false,
@@ -45,16 +46,20 @@ class DeleteAccountWidget extends StatelessWidget {
             await context.read<UserProvider>().deleteAccount();
 
             if (!context.mounted) return;
+            await Provider.of<DailyRewardProvider>(context, listen: false)
+                .clear();
+
+            if (!context.mounted) return;
             Utils.hideLoadingDialog(context);
 
-            Utils.showToastMessage(context, "Account deleted",backgroundColor: errorColor);
-
+            Utils.showToastMessage(context, "Account Deleted",
+                backgroundColor: errorColor);
           } catch (e) {
             if (!context.mounted) return;
             Utils.hideLoadingDialog(context);
 
-            Utils.showToastMessage(context, "Error: $e",backgroundColor: errorColor);
-
+            Utils.showToastMessage(context, "Error : Try Again",
+                backgroundColor: errorColor);
           }
         });
   }

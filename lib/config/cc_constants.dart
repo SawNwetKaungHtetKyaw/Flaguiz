@@ -64,6 +64,7 @@ class CcConstants {
   static const String kSocial = 'Social';
   static const String kContactUs = 'Contact Us';
   static const String kMail = 'Mail';
+  static const String kWebsite = 'Website';
   static const String kDevelopedBy = 'Developed By';
   static const String kDoYouWantToExit = 'Do You Want To Exit?';
   static const String kAccountFound = 'Account Founded';

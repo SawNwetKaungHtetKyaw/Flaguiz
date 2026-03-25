@@ -7,6 +7,7 @@ import 'package:flaguiz/pages/profile/widgets/profile_banner_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_challenge_status_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_country_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_name_widget.dart';
+import 'package:flaguiz/pages/profile/widgets/profile_player_id_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_trophy_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
@@ -46,12 +47,12 @@ class Profile extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(height: 60),
-                
+
                         /// Banner Section
                         ProfileBannerWidget(id: user?.banners?[0] ?? ''),
-                
+
                         const SizedBox(height: 5),
-                
+
                         /// Profile Detail Section
                         Row(
                           children: [
@@ -65,17 +66,22 @@ class Profile extends StatelessWidget {
                               children: [
                                 /// Username
                                 ProfileNameWidget(user: user),
-                
+
+                                const SizedBox(height: 5),
+
+                                /// Player ID
+                                ProfilePlayerIdWidget(playerId: user?.playerID ?? ''),
+
                                 /// Trophy
                                 ProfileTrophyWidget(trophy: user?.trophy ?? 0)
                               ],
                             )
                           ],
                         ),
-                
+
                         /// Country Section
                         ProfileCountryWidget(countryId: user?.country ?? ''),
-                
+
                         /// Game Status Section (Adventure & Challenge)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -85,15 +91,14 @@ class Profile extends StatelessWidget {
                             Container(
                               width: 0.3,
                               height: 330,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
                               color: Colors.white,
                             ),
                             ProfileChallengeStatusWidget(
                                 list: user?.challengeCompletedList ?? [])
                           ],
                         ),
-                
+
                         /// Achivement Section
                         ProfileAchivementWidget(
                             achievements: user?.achievements ?? [])
@@ -108,7 +113,7 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const CcBackWidget(image: AssetsImages.defaultBackKey),
-                  
+
                       /// Edit
                       CcImageButton(
                           width: 50,

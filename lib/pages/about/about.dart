@@ -1,4 +1,3 @@
-import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
@@ -15,7 +14,6 @@ import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remixicon/remixicon.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -106,7 +104,7 @@ class About extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           const AboutTitleWidget(title: CcConstants.kSocial),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 20),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
@@ -114,34 +112,30 @@ class About extends StatelessWidget {
                               children: [
                                 /// You Tube
                                 SocialIconWidget(
-                                    iconData: Remix.youtube_fill,
+                                    icon: AssetsImages.youTubeIcon,
                                     onTap: () async {
                                       await Utils.openLink(
                                           CcConfig.YOUTUBE_URL, context);
                                       if (context.mounted) showSupporterAchvDialog(context);
-                                    },
-                                    color: youtubeColor),
+                                    }),
 
                                 /// Tiktok
                                 SocialIconWidget(
-                                    iconData: Remix.tiktok_fill,
+                                    icon: AssetsImages.tiktokIcon,
                                     onTap: () async {
                                       await Utils.openLink(
                                           CcConfig.TIKTOK_URL, context);
                                       if (context.mounted) showSupporterAchvDialog(context);
-                                    },
-                                    size: 65),
+                                    }),
 
                                 /// Facebook
                                 SocialIconWidget(
-                                    iconData: Remix.facebook_fill,
+                                    icon: AssetsImages.facebookIcon,
                                     onTap: () async {
-                                      // await Utils.openLink(
-                                      //     CcConfig.FACEBOOK_URL, context);
+                                      await Utils.openLink(
+                                          CcConfig.FACEBOOK_URL, context);
                                       if (context.mounted) showSupporterAchvDialog(context);
-                                    },
-                                    size: 65,
-                                    color: facebookColor),
+                                    }),
                               ],
                             ),
                           ),
