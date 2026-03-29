@@ -15,6 +15,8 @@ class CcConstants {
   static const String kShop = 'Shop';
   static const String kEnter = 'Enter';
   static const String kSearch = 'Search';
+  static const String kFriends = 'Friends';
+  static const String kRequests = 'Requests';
   static const String kSetting = 'Setting';
   static const String kExit = 'Exit';
   static const String kRegion = 'Region';

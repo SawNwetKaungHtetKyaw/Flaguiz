@@ -11,13 +11,12 @@ import 'package:flaguiz/pages/challenge_victory/challenge_victory.dart';
 import 'package:flaguiz/pages/country_detail/country_detail.dart';
 import 'package:flaguiz/pages/adventure_game/adventure_game_by_image.dart';
 import 'package:flaguiz/pages/adventure_game/adventure_game_by_text.dart';
+import 'package:flaguiz/pages/friends/friends.dart';
 import 'package:flaguiz/pages/home/home.dart';
 import 'package:flaguiz/pages/library/library.dart';
 import 'package:flaguiz/pages/loading/loading.dart';
-import 'package:flaguiz/pages/login/login.dart';
 import 'package:flaguiz/pages/privacy_policies/privacy_policies.dart';
 import 'package:flaguiz/pages/profile/profile.dart';
-import 'package:flaguiz/pages/register/register.dart';
 import 'package:flaguiz/pages/adventure_victory/adventure_victory.dart';
 import 'package:flaguiz/pages/shop/shop.dart';
 import 'package:flaguiz/pages/shop_detail/shop_detail.dart';
@@ -154,6 +153,12 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           builder: (BuildContext context) {
             return const Battle();
           });
+    case RoutePaths.friends:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.friends),
+          builder: (BuildContext context) {
+            return const Friends();
+          });
     case RoutePaths.library:
       return MaterialPageRoute(
           settings: const RouteSettings(name: RoutePaths.library),
@@ -202,18 +207,6 @@ Route<dynamic> generateRoute(RouteSettings setting) {
             currentIndex: currentIndex,
             isReplay: isReplay),
       );
-    case RoutePaths.login:
-      return MaterialPageRoute(
-          settings: const RouteSettings(name: RoutePaths.login),
-          builder: (BuildContext context) {
-            return const Login();
-          });
-    case RoutePaths.register:
-      return MaterialPageRoute(
-          settings: const RouteSettings(name: RoutePaths.register),
-          builder: (BuildContext context) {
-            return const Register();
-          });
     default:
       return PageRouteBuilder(
           pageBuilder: (_, Animation<double> a1, Animation<double> a2) =>

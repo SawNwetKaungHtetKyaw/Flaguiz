@@ -108,7 +108,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   child: GestureDetector(
                     onTap: () {
                       audioService.playSound('tap');
-                      Utils.showToastMessage(context, CcConstants.kComingSoon);
+                      Navigator.of(context).pushNamed(RoutePaths.friends);
                     },
                     child: Container(
                       width: 75,

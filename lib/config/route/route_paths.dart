@@ -19,7 +19,7 @@ class RoutePaths {
   static const String challengeGameByText = '/challenge-game-text';
   static const String adventureVictory = '/adventure-victory';
   static const String challengeVictory = '/challenge-victory';
-  static const String login = '/login';
+  static const String friends = '/friends';
   static const String register = '/register';
   static const String about = '/about';
   static const String privacyPolicies = '/privacy-policies';
