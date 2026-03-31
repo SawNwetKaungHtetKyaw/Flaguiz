@@ -42,7 +42,6 @@ class UserProvider extends ChangeNotifier {
   Future<LoginStatus> loginWithGoogle(BuildContext context) async {
     try {
       final firebaseUser = await _auth.signInWithGoogle();
-      print(firebaseUser == null);
       if (firebaseUser == null) {
         return LoginStatus.cancelled;
       }

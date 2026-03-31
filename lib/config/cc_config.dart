@@ -47,7 +47,6 @@ class CcConfig {
     banners: ['BN_001'],
     adventureCompletedList: DEFAULT_ADVENTURE_COMPLETED_LIST,
     challengeCompletedList: DEFAULT_CHALLENGE_COMPLETED_LIST,
-    friendIds: [],
     hasPremium: false,
     updatedAt: DateTime.now(),
   );

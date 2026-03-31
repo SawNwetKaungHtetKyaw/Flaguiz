@@ -8,7 +8,7 @@ class ProfilePlayerIdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CcShadowedTextWidget(
-        text: "ID : #$playerId",
+        text: "ID : $playerId",
         fontSize: 11,
         fontFamily: 'Roboto',
         letterSpacing: 1,

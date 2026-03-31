@@ -115,6 +115,8 @@ class _LoadingBarWidgetState extends State<LoadingBarWidget> {
               child: CcShadowedTextWidget(
                 text: "${progress.toStringAsFixed(0)}%",
                 fontSize: 10,
+                dx: 1.5,
+                dy: 1.5,
               ),
             ),
           ],

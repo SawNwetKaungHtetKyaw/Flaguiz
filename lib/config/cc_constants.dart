@@ -47,6 +47,7 @@ class CcConstants {
   static const String kVibration = 'Vibration';
   static const String kPrivacyPolicies = 'Privacy & Policies';
   static const String kTermsAndConditions = 'Terms & Conditions';
+  static const String kStatus = 'Status';
   static const String kAbout = 'About';
   static const String kClose = 'Close';
   static const String kCancel = 'Cancel';
@@ -98,6 +99,14 @@ class CcConstants {
   static const String IS_VIBTATION_ON = 'IS_VIBRATION_ON';
   static const String KEEN_EYE = 'KEEN_EYE';
   static const String ADS_BORDER_PROGRESS = 'ADS_BORDER_PROGRESS';
+
+  /// Friends
+  static const String K_FRIENDS = 'K_FRIENDS';
+  static const String K_REQUEST = 'K_REQUEST';
+  static const String K_SEARCH = 'K_SEARCH';
+  static const String STATUS_ADD_FRIEND = 'ADD FRIEND';
+  static const String STATUS_FRIEND = 'FRIEND';
+  static const String STATUS_PENDING = 'PENDING';
 
   /// Preload image
   // static final List<String> preLoadImages = [

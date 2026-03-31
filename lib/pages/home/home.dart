@@ -7,6 +7,7 @@ import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/home/dialog/daily_reward_dialog.dart';
 import 'package:flaguiz/pages/home/dialog/exit_dialog.dart';
 import 'package:flaguiz/pages/home/provider/home_provider.dart';
+import 'package:flaguiz/pages/home/widgets/home_friend_widget.dart';
 import 'package:flaguiz/pages/home/widgets/home_game_button_widget.dart';
 import 'package:flaguiz/pages/home/widgets/home_game_mode_widget.dart';
 import 'package:flaguiz/pages/home/widgets/home_profile_widget.dart';
@@ -102,24 +103,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   imageUrl: "${CcConfig.image_base_url}$backgroundURL"),
 
               /// Friends
-              Positioned(
-                  top: 200,
-                  left: 10,
-                  child: GestureDetector(
-                    onTap: () {
-                      audioService.playSound('tap');
-                      Navigator.of(context).pushNamed(RoutePaths.friends);
-                    },
-                    child: Container(
-                      width: 75,
-                      height: 75,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(AssetsImages.friends)),
-                      ),
-                    ),
-                  )),
+              const HomeFriendWidget(),
 
               /// Premium
               Positioned(

@@ -5,17 +5,24 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ProfileBannerWidget extends StatelessWidget {
-  const ProfileBannerWidget({super.key, required this.id});
+  const ProfileBannerWidget(
+      {super.key,
+      required this.id,
+      this.width = double.maxFinite,
+      this.height = 165,
+      this.padding = const EdgeInsets.symmetric(vertical: 10)});
   final String id;
+  final double width, height;
+  final EdgeInsets padding;
   @override
   Widget build(BuildContext context) {
     return Consumer<BannerProvider>(builder: (context, provider, child) {
       provider.getById(id);
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: padding,
         child: CcNetworkImageWidget(
-            width: double.maxFinite,
-            height: 165,
+            width: width,
+            height: height,
             imageUrl: "${CcConfig.image_base_url}${provider.banner?.imageUrl}",
             boxFit: BoxFit.fill),
       );

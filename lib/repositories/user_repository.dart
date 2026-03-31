@@ -18,7 +18,7 @@ class UserRepository {
     if (await Utils.hasInternet()) {
       user.playerID = await Utils.generateUniqueId();
     } else {
-      user.playerID = Utils.generateId();
+      user.playerID = "#${Utils.generateId()}";
     }
 
     await _dao.saveLocalUser(user);

@@ -214,7 +214,7 @@ class Utils {
   }
 
   static String generateId() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789abcdefghijklmnopqrstuvwxyz';
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     final random = Random();
 
     return String.fromCharCodes(
@@ -231,7 +231,7 @@ class Utils {
     FirestoreService firestore = FirestoreService();
 
     do {
-      id = generateId();
+      id = "#${generateId()}";
       exists = await firestore.checkIdExists(id);
     } while (exists);
 

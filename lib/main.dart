@@ -14,6 +14,7 @@ import 'package:flaguiz/providers/banner_provider.dart';
 import 'package:flaguiz/providers/border_provider.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
+import 'package:flaguiz/providers/friends_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,10 +85,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BannerProvider>(
             create: (BuildContext context) =>
                 BannerProvider(buildContext: context)),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<DailyRewardProvider>(
             create: (_) => DailyRewardProvider(buildContext: context)),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<AdsProvider>(
             create: (_) => AdsProvider(buildContext: context)),
+        ChangeNotifierProvider<FriendsProvider>(
+            create: (_) => FriendsProvider(buildContext: context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

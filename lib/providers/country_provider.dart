@@ -70,6 +70,16 @@ class CountryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<CountryModel?> countryById(String countryId) async {
+    if (countryId != '' && _countryList != []) {
+      final int index =
+          _countryList.indexWhere((country) => country.id == countryId);
+      return _countryList[index];
+    } else {
+      return null;
+    }
+  }
+
   // /// Download all images and update progress
   // Future<void> downloadImages() async {
   //   notifyListeners();
