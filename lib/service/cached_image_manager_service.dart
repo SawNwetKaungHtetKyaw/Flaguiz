@@ -10,8 +10,8 @@ class CachedImageManagerService extends CacheManager {
       : super(
           Config(
             'cachedImage',
-            stalePeriod: const Duration(days: 365),
-            maxNrOfCacheObjects: 1000,
+            stalePeriod: const Duration(days: 7),
+            maxNrOfCacheObjects: 600,
           ),
         );
 }

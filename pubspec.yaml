@@ -61,6 +61,7 @@ flutter:
     - assets/images/back_key/
     - assets/images/backgrounds/
     - assets/images/others/
+    - assets/images/battle/
     - assets/audio/
     - assets/fonts/
     - assets/json/

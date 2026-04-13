@@ -6,6 +6,7 @@ import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
+import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,9 +61,17 @@ class _AdventureGameGuessTextWidgetState
             margin: const EdgeInsets.only(bottom: 5, right: 10, left: 10),
             width: double.maxFinite,
             height: 65,
-            text: widget.mode == CcConfig.GAME_MODE__COUNTRY
-                ? widget.country.name ?? ''
-                : widget.country.capital ?? '',
+            widget: Center(
+              child: CcShadowedTextWidget(
+                  fontFamily: 'Roboto',
+                  letterSpacing: 1,
+                  fontSize: 16,
+                  dx: 1.5,
+                  dy: 2,
+                  text: widget.mode == CcConfig.GAME_MODE__COUNTRY
+                      ? widget.country.name ?? ''
+                      : widget.country.capital ?? ''),
+            ),
             image: AssetsImages.adventureButton,
           ),
 

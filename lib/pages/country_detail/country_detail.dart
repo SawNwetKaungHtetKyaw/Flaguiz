@@ -105,8 +105,9 @@ class _CountryDetailState extends State<CountryDetail> {
                                 CcShadowedImageBoxWidget(
                                     width: 240,
                                     height: 160,
-                                    image:
-                                        "${CcConfig.image_base_url}${country.flagUrl}"),
+                                    image: (country.localFlagPath == null)
+                                        ? "${CcConfig.image_base_url}${country.flagUrl}"
+                                        : country.localFlagPath!),
 
                                 /// Country Name
                                 Padding(
@@ -115,7 +116,10 @@ class _CountryDetailState extends State<CountryDetail> {
                                   child: CcShadowedTextWidget(
                                     text: country.name ?? '',
                                     textAlign: TextAlign.center,
-                                    fontSize: 22,
+                                    fontSize: 32,
+                                    dy: 2,
+                                    fontFamily: "Roboto",
+                                    letterSpacing: 1,
                                   ),
                                 ),
 
@@ -158,16 +162,16 @@ class _CountryDetailState extends State<CountryDetail> {
                                     height: 240,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 8),
-                                    image:
-                                        "${CcConfig.image_base_url}${country.mapUrl}")
+                                    image: (country.localMapPath == null)
+                                        ? "${CcConfig.image_base_url}${country.mapUrl}"
+                                        : country.localMapPath!)
 
                                 /// Popular Places
                               ],
                             ),
                           );
                         })),
-
-                      const CcAdsBannerWidget(adKey: CcAdsKey.bannerCountryDetail)
+                const CcAdsBannerWidget(adKey: CcAdsKey.bannerCountryDetail)
               ],
             )));
       }),

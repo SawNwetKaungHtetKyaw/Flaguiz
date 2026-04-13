@@ -21,8 +21,8 @@ class _DetailCardWidgetState extends State<DetailCardWidget>
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 800));
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3), // 30% down
@@ -67,8 +67,10 @@ class _DetailCardWidgetState extends State<DetailCardWidget>
                     child: Center(
                       child: CcShadowedTextWidget(
                         text: widget.text,
-                        fontSize: 10,
-                        letterSpacing : 1,
+                        fontSize: 14,
+                        fontFamily: "Roboto",
+                        letterSpacing: 0.5,
+                        wordSpacing: -2,
                         dx: 1,
                         dy: 1.2,
                         textAlign: TextAlign.center,

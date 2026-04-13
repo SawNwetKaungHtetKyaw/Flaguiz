@@ -3,7 +3,7 @@ import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/providers/border_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,48 +20,56 @@ class DialogBorderWidget extends StatelessWidget {
 
       List<ShopModel> ownedItems =
           temp.where((item) => ownedSet.contains(item.id)).toList();
-      return GridView.builder(
-        itemCount: ownedItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 3),
-        itemBuilder: (context, index) {
-          ShopModel? border = ownedItems[index];
-          String id = border.id ?? '';
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: GridView.builder(
+          itemCount: ownedItems.length,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 3),
+          itemBuilder: (context, index) {
+            ShopModel? border = ownedItems[index];
+            String id = border.id ?? '';
 
-          return GestureDetector(
-            onTap: () async {
-              AudioService.instance.playSound('tap');
-              ownList
-                ..remove(id)
-                ..insert(0, id);
-              await userProvider.updatedUserBorder(ownList);
-              if (context.mounted) Navigator.pop(context);
-            },
-            child: Stack(
-              children: [
-                CcShadowedImageBoxWidget(
-                    width: 100,
-                    height: 100,
-                    shadowColor: Colors.transparent,
-                    image: "${CcConfig.image_base_url}${border.imageUrl}"),
-                Visibility(
-                  visible: ownList[0] == id,
-                  child: Container(
-                        width: 100,
-                        height: 100,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                                color: Colors.green.shade700, width: 3)),
-                        child: Icon(Icons.check_circle,
-                            color: Colors.green.shade700, size: 30),
+            return GestureDetector(
+                onTap: () async {
+                  AudioService.instance.playSound('tap');
+                  ownList
+                    ..remove(id)
+                    ..insert(0, id);
+                  await userProvider.updatedUserBorder(ownList);
+                  if (context.mounted) Navigator.pop(context);
+                },
+                child: Stack(
+                  children: [
+                    ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(ownList[0] == id ? 0.0 : 0.7),
+                        BlendMode.srcATop,
                       ),
-                )
-              ],
-            ),
-          );
-        },
+                      child: Image(
+                        image: Utils.checkImageType(
+                          "${CcConfig.image_base_url}${border.imageUrl}",
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Visibility(
+                      visible: ownList[0] == id,
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 30,
+                          shadows: [BoxShadow(offset: Offset(1, 1))],
+                        ),
+                      ),
+                    )
+                  ],
+                ));
+          },
+        ),
       );
     });
   }

@@ -6,6 +6,9 @@ class AssetAudios {
   static const String challengeThemeSound = 'assets/audio/ch_theme_sound.m4a';
   static const String challengeLoseSound = 'assets/audio/ch_lose_sound.m4a';
   static const String challengeWinSound = 'assets/audio/ch_win_sound.m4a';
+  static const String battleThemeSound = 'assets/audio/battle_theme_sound.m4a';
+  static const String battleLoseSound = 'assets/audio/battle_lose_sound.m4a';
+  static const String battleWinSound = 'assets/audio/battle_win_sound.m4a';
   static const String tapSound = 'assets/audio/tap_sound.mp3';
   static const String backSound = 'assets/audio/back_sound.m4a';
   static const String correctSound = 'assets/audio/correct_sound.m4a';

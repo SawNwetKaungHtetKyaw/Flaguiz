@@ -1,9 +1,15 @@
+import 'package:flaguiz/bot/bot_difficulty.dart';
+import 'package:flaguiz/bot/bot_model.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
+import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
 import 'package:flaguiz/pages/about/about.dart';
 import 'package:flaguiz/pages/adventure/adventure.dart';
 import 'package:flaguiz/pages/adventure/adventure_level.dart';
 import 'package:flaguiz/pages/battle/battle.dart';
+import 'package:flaguiz/pages/battle_game/battle_game.dart';
+import 'package:flaguiz/pages/battle_game_result/battle_game_result.dart';
+import 'package:flaguiz/pages/battle_intro/battle_intro.dart';
 import 'package:flaguiz/pages/challenge/challenge.dart';
 import 'package:flaguiz/pages/challenge_game/challenge_game_by_image.dart';
 import 'package:flaguiz/pages/challenge_game/challenge_game_by_text.dart';
@@ -152,6 +158,48 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           settings: const RouteSettings(name: RoutePaths.battle),
           builder: (BuildContext context) {
             return const Battle();
+          });
+    case RoutePaths.battleGame:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.battleGame),
+          builder: (BuildContext context) {
+            final List<dynamic> args = setting.arguments as List<dynamic>;
+            final List<BattleQuestionModel> questions = args[0] ?? [];
+            final BotModel user = args[1];
+            final BotModel bot = args[2];
+            final BotDifficulty botDifficulty = args[3];
+            return BattleGame(
+              questions: questions,
+              user: user,
+              bot: bot,
+              botDifficulty: botDifficulty,
+            );
+          });
+    case RoutePaths.battleIntro:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.battleIntro),
+          builder: (BuildContext context) {
+            final List<dynamic> args = setting.arguments as List<dynamic>;
+            final List<BattleQuestionModel> questions = args[0] ?? [];
+            final BotModel user = args[1];
+            final BotModel bot = args[2];
+            final BotDifficulty botDifficulty = args[3];
+            return BattleIntro(
+              questions: questions,
+              user: user,
+              bot: bot,
+              botDifficulty: botDifficulty,
+            );
+          });
+    case RoutePaths.battleGameResult:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.battleGameResult),
+          builder: (BuildContext context) {
+            final List<dynamic> args = setting.arguments as List<dynamic>;
+            final String result = args[0];
+            final BotModel user = args[1];
+            final BotModel bot = args[2];
+            return BattleGameResult(result: result,user: user,bot: bot);
           });
     case RoutePaths.friends:
       return MaterialPageRoute(

@@ -58,7 +58,9 @@ class _ChallengeGameGuessBoxWidgetState
               child: CcShadowedImageBoxWidget(
                   width: screenWidth / 2 - 13,
                   height: 120,
-                  image: "${CcConfig.image_base_url}${widget.country.flagUrl}"),
+                  image: (widget.country.localFlagPath == null)
+                      ? "${CcConfig.image_base_url}${widget.country.flagUrl}"
+                      : widget.country.localFlagPath!),
             ),
           ),
 

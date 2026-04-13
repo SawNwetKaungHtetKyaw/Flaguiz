@@ -29,13 +29,16 @@ class CountryModelAdapter extends TypeAdapter<CountryModel> {
       similarFlags: (fields[9] as List?)?.cast<String>(),
       createdAt: fields[10] as String?,
       updatedAt: fields[11] as String?,
+      localFlagPath: fields[12] as String?,
+      localMapPath: fields[13] as String?,
+      assetVersion: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CountryModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -59,7 +62,13 @@ class CountryModelAdapter extends TypeAdapter<CountryModel> {
       ..writeByte(10)
       ..write(obj.createdAt)
       ..writeByte(11)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(12)
+      ..write(obj.localFlagPath)
+      ..writeByte(13)
+      ..write(obj.localMapPath)
+      ..writeByte(14)
+      ..write(obj.assetVersion);
   }
 
   @override

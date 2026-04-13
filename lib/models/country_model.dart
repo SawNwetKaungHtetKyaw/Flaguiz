@@ -28,6 +28,12 @@ class CountryModel {
   String? createdAt;
   @HiveField(11)
   String? updatedAt;
+  @HiveField(12)
+  String? localFlagPath;
+  @HiveField(13)
+  String? localMapPath;
+  @HiveField(14)
+  String? assetVersion;
 
   CountryModel({
     this.id,
@@ -42,6 +48,9 @@ class CountryModel {
     this.similarFlags,
     this.createdAt,
     this.updatedAt,
+    this.localFlagPath,
+    this.localMapPath,
+    this.assetVersion
   });
 
   factory CountryModel.fromJson(Map<String, dynamic> json) {
@@ -60,6 +69,9 @@ class CountryModel {
           (json['similar_flags'] as List?)?.map((e) => e.toString()).toList(),
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
+      localFlagPath: json['local_flag_path'] as String?,
+      localMapPath: json['local_map_path'] as String?,
+      assetVersion: json['asset_version'] as String?,
     );
   }
 
@@ -77,6 +89,9 @@ class CountryModel {
       'similar_flags': similarFlags,
       'created_at': createdAt,
       'updated_at': updatedAt,
+      'local_flag_path': localFlagPath,
+      'local_map_path': localMapPath,
+      'asset_version': assetVersion,
     };
   }
 }

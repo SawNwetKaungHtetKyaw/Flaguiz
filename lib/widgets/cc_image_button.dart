@@ -10,6 +10,7 @@ class CcImageButton extends StatefulWidget {
     this.height = 70,
     this.fontsize = 12,
     this.text = '',
+    this.fontFamily,
     this.widget,
     this.margin = const EdgeInsets.only(bottom: 15, right: 20, left: 20),
     this.padding = const EdgeInsets.only(bottom: 2),
@@ -19,6 +20,7 @@ class CcImageButton extends StatefulWidget {
   final double width, height, fontsize;
   final String text;
   final Widget? widget;
+  final String? fontFamily;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final GestureTapCallback onTap;
@@ -69,6 +71,7 @@ class _CcImageButtonState extends State<CcImageButton> {
                 Center(
                   child: CcShadowedTextWidget(
                     text: widget.text,
+                    fontFamily: widget.fontFamily,
                     fontSize: widget.fontsize,
                   ),
                 ),

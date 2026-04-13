@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/profile/dialogs/choose_country_dialog.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,17 +31,19 @@ class ProfileCountryWidget extends StatelessWidget {
               width: 69,
               height: 46,
               margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-              decoration: (country == null || countryId == '')
+              decoration: (country == null || countryId == '0')
                   ? BoxDecoration(color: Colors.grey.shade600)
                   : BoxDecoration(
                       image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                              "${CcConfig.image_base_url}${country.flagUrl}"),
+                          image: Utils.checkImageType((country.localFlagPath ==
+                                  null)
+                              ? "${CcConfig.image_base_url}${country.flagUrl}"
+                              : country.localFlagPath!),
                           fit: BoxFit.fill),
                       boxShadow: const [
                           BoxShadow(color: Colors.black, offset: Offset(2, 3))
                         ]),
-              child: (country == null || countryId == '')
+              child: (country == null || countryId == '0')
                   ? const Icon(Icons.question_mark, color: Colors.white)
                   : const SizedBox(),
             ),

@@ -13,13 +13,15 @@ class CcShadowedImageBoxWidget extends StatelessWidget {
       this.dy = 3,
       this.padding,
       this.margin,
-      this.boxFit = BoxFit.fill});
-  final double width, height, radius , dx, dy;
+      this.boxFit = BoxFit.fill,
+      this.widget});
+  final double width, height, radius, dx, dy;
   final String image;
   final Color shadowColor;
   final BoxFit boxFit;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,10 @@ class CcShadowedImageBoxWidget extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
-          image: DecorationImage(image: Utils.checkImageType(image),fit: boxFit),
-          boxShadow: [
-          BoxShadow(
-            color: shadowColor,
-            offset: Offset(dx, dy)
-          )
-        ]
-          ),
+          image:
+              DecorationImage(image: Utils.checkImageType(image), fit: boxFit),
+          boxShadow: [BoxShadow(color: shadowColor, offset: Offset(dx, dy))]),
+      child: widget,
     );
   }
 }

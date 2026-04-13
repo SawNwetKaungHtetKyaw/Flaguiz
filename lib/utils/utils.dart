@@ -2,8 +2,10 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flaguiz/bot/bot_difficulty.dart';
 import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
+import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/adventure_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
@@ -12,6 +14,7 @@ import 'package:flaguiz/service/cached_image_manager_service.dart';
 import 'package:flaguiz/service/firestore_service.dart';
 import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -27,6 +30,20 @@ class Utils {
 
   static void debugLog(String string) {
     print('\u001b[35m ====>$string \u001b[0m');
+  }
+
+  static Future<String> getImageDir() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final imageDir = Directory("${dir.path}/country_images");
+
+    if (!await imageDir.exists()) {
+      await imageDir.create(recursive: true);
+    }
+    return imageDir.path;
+  }
+
+  static String fileNameFromUrl(String url) {
+    return Uri.parse(url).pathSegments.last;
   }
 
   static String retureGameMode(int index) {
@@ -236,6 +253,102 @@ class Utils {
     } while (exists);
 
     return id;
+  }
+
+  static Future<void> preloadImages(
+    BuildContext context,
+    List<String?> images,
+  ) async {
+    final uniqueImages = images.toSet();
+    await Future.wait(
+      uniqueImages.map(
+        (url) => precacheImage(
+          CachedNetworkImageProvider("${CcConfig.image_base_url}$url",
+              cacheManager: CachedImageManagerService()),
+          context,
+        ),
+      ),
+    );
+  }
+
+  static int botTrophy(int trophy) {
+    final Random random = Random();
+    if (trophy < 50) {
+      return random.nextInt(50);
+    } else if (trophy < 150) {
+      return random.nextInt(100) + 50;
+    } else if (trophy < 300) {
+      return random.nextInt(150) + 150;
+    } else if (trophy < 500) {
+      return random.nextInt(200) + 300;
+    } else {
+      return random.nextInt(trophy - 500 + 1) + 500;
+    }
+  }
+
+  static int battleDifficultyByTrophy(int trophy) {
+    if (trophy < 50) {
+      return 1;
+    } else if (trophy < 150) {
+      return 2;
+    } else if (trophy < 300) {
+      return 3;
+    } else if (trophy < 500) {
+      return 4;
+    } else {
+      return 5;
+    }
+  }
+
+  static BotDifficulty botDifficultyByTrophy(int trophy) {
+    if (trophy < 50) {
+      return BotDifficulty.newbie;
+    } else if (trophy < 150) {
+      return BotDifficulty.newbie;
+    } else if (trophy < 300) {
+      return BotDifficulty.medium;
+    } else if (trophy < 500) {
+      return BotDifficulty.hard;
+    } else {
+      return BotDifficulty.pro;
+    }
+  }
+
+  static int calculateLosePenalty(int trophy) {
+    if (trophy <= 0) return 0;
+
+    double percent = 0.05;
+    int loss = (trophy * percent).round();
+
+    if (loss < 3) loss = 3;
+
+    if (loss > trophy) loss = trophy;
+
+    return loss;
+  }
+
+  static int battleCoinByResult(String result) {
+    int coin = 0;
+    if (result == CcConstants.BATTLE_WIN) {
+      coin = 20;
+    } else if (result == CcConstants.BATTLE_LOSE) {
+      coin = 5;
+    } else {
+      coin = 10;
+    }
+    return coin;
+  }
+
+  static int battleTrophyByResult(String result, int userTrophy) {
+    int trophy = 0;
+    if (result == CcConstants.BATTLE_WIN) {
+      trophy = 10;
+    } else if (result == CcConstants.BATTLE_LOSE) {
+      trophy = -calculateLosePenalty(userTrophy);
+    } else {
+      trophy = 5;
+    }
+    return trophy;
   }
 
   static void showLoadingDialog(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,53 +21,61 @@ class DialogBackgroundWidget extends StatelessWidget {
       List<ShopModel> ownedItems =
           temp.where((item) => ownedSet.contains(item.id)).toList();
 
-      return GridView.builder(
-        itemCount: ownedItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisSpacing: 15,
-            crossAxisSpacing: 15,
-            mainAxisExtent: 300,
-            crossAxisCount: 2),
-        itemBuilder: (context, index) {
-          ShopModel? background = ownedItems[index];
-          String id = background.id ?? '';
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: GridView.builder(
+          itemCount: ownedItems.length,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+              mainAxisExtent: 200,
+              crossAxisCount: 3),
+          itemBuilder: (context, index) {
+            ShopModel? background = ownedItems[index];
+            String id = background.id ?? '';
 
-          return GestureDetector(
-            onTap: () async {
-              AudioService.instance.playSound('tap');
-              ownList
-                ..remove(id)
-                ..insert(0, id);
-              await userProvider.updatedUserBackground(ownList);
-              provider.getById(id);
-              if (context.mounted) Navigator.pop(context);
-            },
-            child: Stack(
-              children: [
-                CcShadowedImageBoxWidget(
-                    width: 300,
-                    height: 300,
-                    shadowColor: Colors.transparent,
-                    boxFit: BoxFit.cover,
-                    image: "${CcConfig.image_base_url}${background.imageUrl}"),
-                Visibility(
-                  visible: ownList[0] == id,
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    alignment: Alignment.bottomRight,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border:
-                            Border.all(color: Colors.green.shade700, width: 3)),
-                    child: Icon(Icons.check_circle,
-                        color: Colors.green.shade700, size: 30),
+            return GestureDetector(
+                onTap: () async {
+                  AudioService.instance.playSound('tap');
+                  ownList
+                    ..remove(id)
+                    ..insert(0, id);
+                  await userProvider.updatedUserBackground(ownList);
+                  provider.getById(id);
+                  if (context.mounted) Navigator.pop(context);
+                },
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(radius),
+                    image: DecorationImage(
+                        image: Utils.checkImageType(
+                            "${CcConfig.image_base_url}${background.imageUrl}"),
+                        fit: BoxFit.cover),
                   ),
-                )
-              ],
-            ),
-          );
-        },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: (ownList[0] == id)
+                            ? Colors.transparent
+                            : Colors.black54,
+                        border: (ownList[0] == id)
+                            ? Border.all(color: Colors.white, width: 2)
+                            : Border.all(color: Colors.black, width: 2)),
+                    // child: Visibility(
+                    //   visible: ownList[0] == id,
+                    //   child: const Icon(
+                    //     Icons.check,
+                    //     color: Colors.white,
+                    //     size: 30,
+                    //     shadows: [BoxShadow(offset: Offset(1, 1))],
+                    //   ),
+                    // ),
+                  ),
+                ));
+          },
+        ),
       );
     });
   }

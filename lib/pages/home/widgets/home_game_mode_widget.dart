@@ -36,7 +36,7 @@ class _HomeGameModeWidgetState extends State<HomeGameModeWidget> {
         items: gameMode.map((mode) {
           return Center(
               child: CcShadowedTextWidget(
-                  text: mode, fontSize: 20, strokeWidth: 4));
+                  text: mode, fontSize: 20));
         }).toList(),
       ),
     );

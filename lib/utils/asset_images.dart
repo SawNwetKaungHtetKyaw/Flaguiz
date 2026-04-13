@@ -5,10 +5,8 @@ class AssetsImages {
   static const String adventure = 'assets/images/others/adventure.png';
   static const String challenge = 'assets/images/others/challenge.png';
   static const String battle = 'assets/images/others/battle.png';
-  static const String energyBox = 'assets/images/others/energy_box.png';
   static const String coinBox = 'assets/images/others/coin_box.png';
   static const String coin = 'assets/images/others/coin.png';
-  static const String defaultBanner = 'assets/images/others/default_banner.png';
   static const String pieceLeft = 'assets/images/others/piece_left.png';
   static const String pieceRight = 'assets/images/others/piece_right.png';
   static const String trophy = 'assets/images/others/trophy.png';
@@ -45,6 +43,11 @@ class AssetsImages {
   static const String coin4 = 'assets/images/coins/coin4.png';
   static const String coin5 = 'assets/images/coins/coin5.png';
   static const String coin6 = 'assets/images/coins/coin6.png';
+  static const String editDialog = 'assets/images/others/edit_dialog.png';
+  static const String battleRedCurtain = 'assets/images/battle/red_curtain.png';
+  static const String battlePurpleCurtain = 'assets/images/battle/purple_curtain.png';
+  static const String battleStage = 'assets/images/battle/stage.png';
+  static const String battleRope = 'assets/images/battle/kyoe.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';

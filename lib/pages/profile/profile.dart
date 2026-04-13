@@ -30,7 +30,7 @@ class Profile extends StatelessWidget {
         UserModel? user = provider.user;
         List<CountryModel> countryList = countryProvider.countryList;
 
-        provider.countryById(user?.country ?? '', countryList);
+        provider.countryById(user?.country ?? '0', countryList);
 
         return Container(
           width: double.maxFinite,
@@ -70,7 +70,8 @@ class Profile extends StatelessWidget {
                                 const SizedBox(height: 5),
 
                                 /// Player ID
-                                ProfilePlayerIdWidget(playerId: user?.playerID ?? ''),
+                                ProfilePlayerIdWidget(
+                                    playerId: user?.playerID ?? ''),
 
                                 /// Trophy
                                 ProfileTrophyWidget(trophy: user?.trophy ?? 0)
@@ -80,7 +81,7 @@ class Profile extends StatelessWidget {
                         ),
 
                         /// Country Section
-                        ProfileCountryWidget(countryId: user?.country ?? ''),
+                        ProfileCountryWidget(countryId: user?.country ?? '0'),
 
                         /// Game Status Section (Adventure & Challenge)
                         Row(
@@ -123,10 +124,27 @@ class Profile extends StatelessWidget {
                           image: AssetsImages.editButton,
                           onTap: () {
                             AudioService.instance.playSound('tap');
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    const EditDialog());
+                            showGeneralDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              barrierLabel: "Edit",
+                              barrierColor: Colors.black54,
+                              transitionDuration:
+                                  const Duration(milliseconds: 200),
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) {
+                                return const Center(
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: SizedBox(
+                                      width: double.maxFinite,
+                                      height: 650,
+                                      child: EditDialog(),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
                           })
                     ],
                   ),

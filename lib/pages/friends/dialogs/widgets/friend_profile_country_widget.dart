@@ -23,7 +23,9 @@ class FriendProfileCountryWidget extends StatelessWidget {
               : BoxDecoration(
                   image: DecorationImage(
                       image: CachedNetworkImageProvider(
-                          "${CcConfig.image_base_url}${playerCountry?.flagUrl}"),
+                          (playerCountry?.localFlagPath == null)
+                                        ? "${CcConfig.image_base_url}${playerCountry?.flagUrl}"
+                                        : playerCountry?.localFlagPath ?? ''),
                       fit: BoxFit.fill),
                   boxShadow: const [
                       BoxShadow(color: Colors.black, offset: Offset(2, 3))

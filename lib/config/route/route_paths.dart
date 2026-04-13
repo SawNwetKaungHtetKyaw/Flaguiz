@@ -6,6 +6,9 @@ class RoutePaths {
   static const String adventureLevel = '/adventure-level';
   static const String challenge = '/challenge';
   static const String battle = '/battle';
+  static const String battleIntro = '/battle-intro';
+  static const String battleGame = '/battle-game';
+  static const String battleGameResult = '/battle-game-result';
   static const String library = '/library';
   static const String countryDetail = '/country-detail';
   static const String shop = '/shop';

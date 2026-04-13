@@ -12,27 +12,39 @@ class AdventureGameAnswerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    Widget returnWidget (){
-
-      if(mode == CcConfig.GAME_MODE__FLAG){
+    Widget returnWidget() {
+      if (mode == CcConfig.GAME_MODE__FLAG) {
         return CcShadowedTextWidget(
-                  text: guess?.answer?.name ?? "", fontSize: 16,textAlign: TextAlign.center);
-      }else if(mode == CcConfig.GAME_MODE__MAP){
+            fontFamily: 'Roboto',
+            letterSpacing: 1,
+            text: guess?.answer?.name ?? "",
+            fontSize: 28,
+            textAlign: TextAlign.center);
+      } else if (mode == CcConfig.GAME_MODE__MAP) {
         return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: CcShadowedImageBoxWidget(
-                    width: double.maxFinite, height: 250, image: "${CcConfig.image_base_url}${guess?.answer?.mapUrl}",boxFit: BoxFit.fill,),
-              );
-      }else{
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: CcShadowedImageBoxWidget(
+            width: double.maxFinite,
+            height: 250,
+            image: (guess?.answer?.localMapPath == null)
+                ? "${CcConfig.image_base_url}${guess?.answer?.mapUrl}"
+                : guess?.answer?.localMapPath ?? '',
+            boxFit: BoxFit.fill,
+          ),
+        );
+      } else {
         return CcShadowedImageBoxWidget(
-                  width: 270, height: 180, image:"${CcConfig.image_base_url}${guess?.answer?.flagUrl}",boxFit: BoxFit.fill);
+            width: 270,
+            height: 180,
+            image: (guess?.answer?.localFlagPath == null)
+                ? "${CcConfig.image_base_url}${guess?.answer?.flagUrl}"
+                : guess?.answer?.localFlagPath ?? '',
+            boxFit: BoxFit.fill);
       }
     }
 
     return Expanded(
-      child: Center(
-          child: returnWidget()),
+      child: Center(child: returnWidget()),
     );
   }
 }

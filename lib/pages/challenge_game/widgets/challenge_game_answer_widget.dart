@@ -15,16 +15,20 @@ class ChallengeGameAnswerWidget extends StatelessWidget {
     Widget returnWidget() {
       if (mode == CcConfig.GAME_MODE__FLAG) {
         return CcShadowedTextWidget(
-            textAlign: TextAlign.center,
+            fontFamily: 'Roboto',
+            letterSpacing: 1,
             text: guess?.answer?.name ?? "",
-            fontSize: 16);
+            fontSize: 28,
+            textAlign: TextAlign.center);
       } else if (mode == CcConfig.GAME_MODE__MAP) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: CcShadowedImageBoxWidget(
             width: double.maxFinite,
             height: 250,
-            image:"${CcConfig.image_base_url}${guess?.answer?.mapUrl}",
+            image: (guess?.answer?.localMapPath == null)
+                ? "${CcConfig.image_base_url}${guess?.answer?.mapUrl}"
+                : guess?.answer?.localMapPath ?? '',
             boxFit: BoxFit.fill,
           ),
         );
@@ -32,7 +36,9 @@ class ChallengeGameAnswerWidget extends StatelessWidget {
         return CcShadowedImageBoxWidget(
             width: 270,
             height: 180,
-            image:"${CcConfig.image_base_url}${guess?.answer?.flagUrl}",
+            image: (guess?.answer?.localFlagPath == null)
+                ? "${CcConfig.image_base_url}${guess?.answer?.flagUrl}"
+                : guess?.answer?.localFlagPath ?? '',
             boxFit: BoxFit.fill);
       }
     }

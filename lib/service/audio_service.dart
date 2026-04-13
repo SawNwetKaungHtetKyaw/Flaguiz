@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum MusicType { home, adventure, challenge }
+enum MusicType { home, adventure, challenge , battle}
 
 class AudioService {
   AudioService._internal();
@@ -38,8 +38,10 @@ class AudioService {
       'wrong': AssetAudios.wrongSound,
       'adv-win': AssetAudios.adventureWinSound,
       'ch-win': AssetAudios.challengeWinSound,
+      'bt-win': AssetAudios.battleWinSound,
       'adv-lose': AssetAudios.adventureLoseSound,
       'ch-lose': AssetAudios.challengeLoseSound,
+      'bt-lose': AssetAudios.battleLoseSound,
       'claim': AssetAudios.claimSound,
     };
 
@@ -81,6 +83,7 @@ class AudioService {
       MusicType.home => AssetAudios.flaguizThemeSound,
       MusicType.adventure => AssetAudios.adventureThemeSound,
       MusicType.challenge => AssetAudios.challengeThemeSound,
+      MusicType.battle => AssetAudios.battleThemeSound
     };
     try {
       await _musicPlayer.stop();

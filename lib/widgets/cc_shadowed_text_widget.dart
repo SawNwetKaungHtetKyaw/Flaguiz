@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CcShadowedTextWidget extends StatelessWidget {
   final String text;
   final Color strokeColor, textColor;
-  final double strokeWidth, fontSize;
+  final double fontSize;
   final FontWeight fontWeight;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
@@ -11,6 +11,7 @@ class CcShadowedTextWidget extends StatelessWidget {
   final double dx, dy;
   final Color shadowColor;
   final double letterSpacing;
+  final double wordSpacing;
   final EdgeInsetsGeometry padding;
   final String? fontFamily;
 
@@ -22,7 +23,6 @@ class CcShadowedTextWidget extends StatelessWidget {
       this.fontSize = 12,
       this.fontWeight = FontWeight.bold,
       this.strokeColor = Colors.black,
-      this.strokeWidth = 5,
       this.textAlign,
       this.overflow,
       this.maxLines,
@@ -30,6 +30,7 @@ class CcShadowedTextWidget extends StatelessWidget {
       this.dy = 3,
       this.shadowColor = Colors.black,
       this.letterSpacing = 2,
+      this.wordSpacing = 1,
       this.padding = const EdgeInsets.all(0)});
 
   @override
@@ -42,8 +43,9 @@ class CcShadowedTextWidget extends StatelessWidget {
         overflow: overflow,
         maxLines: maxLines,
         style: TextStyle(
-          fontFamily: fontFamily,
+            fontFamily: fontFamily,
             letterSpacing: letterSpacing,
+            wordSpacing: wordSpacing,
             color: textColor,
             fontSize: fontSize,
             fontWeight: fontWeight,

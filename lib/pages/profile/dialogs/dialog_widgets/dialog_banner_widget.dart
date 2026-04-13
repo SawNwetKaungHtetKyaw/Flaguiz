@@ -3,7 +3,7 @@ import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,47 +20,44 @@ class DialogBannerWidget extends StatelessWidget {
 
       List<ShopModel> ownedItems =
           temp.where((item) => ownedSet.contains(item.id)).toList();
-      return ListView.builder(
-        itemCount: ownedItems.length,
-        itemBuilder: (context, index) {
-          ShopModel? banner = ownedItems[index];
-          String id = banner.id ?? '';
-
-          return GestureDetector(
-            onTap: () async {
-              AudioService.instance.playSound('tap');
-              ownList
-                ..remove(id)
-                ..insert(0, id);
-              await userProvider.updatedUserBanner(ownList);
-              if (context.mounted) Navigator.pop(context);
-            },
-            child: Stack(
-              children: [
-                CcShadowedImageBoxWidget(
-                    width: double.maxFinite,
-                    height: 150,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    shadowColor: Colors.transparent,
-                    image: "${CcConfig.image_base_url}${banner.imageUrl}"),
-                Visibility(
-                  visible: ownList[0] == id,
-                  child: Container(
-                    width: double.maxFinite,
-                    height: 150,
-                    alignment: Alignment.bottomRight,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border:
-                            Border.all(color: Colors.green.shade700, width: 3)),
-                    child: Icon(Icons.check_circle,
-                        color: Colors.green.shade700, size: 30),
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: GridView.builder(
+          itemCount: ownedItems.length,
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              mainAxisExtent: 70,
+              crossAxisCount: 2),
+          itemBuilder: (context, index) {
+            ShopModel? banner = ownedItems[index];
+            String id = banner.id ?? '';
+        
+            return GestureDetector(
+              onTap: () async {
+                AudioService.instance.playSound('tap');
+                ownList
+                  ..remove(id)
+                  ..insert(0, id);
+                await userProvider.updatedUserBanner(ownList);
+                if (context.mounted) Navigator.pop(context);
+              },
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(ownList[0] == id ? 0.0 : 0.6),
+                  BlendMode.srcATop,
+                ),
+                child: Image(
+                  image: Utils.checkImageType(
+                    "${CcConfig.image_base_url}${banner.imageUrl}",
                   ),
-                )
-              ],
-            ),
-          );
-        },
+                  fit: BoxFit.fill,
+                ),
+              ),
+            );
+          },
+        ),
       );
     });
   }

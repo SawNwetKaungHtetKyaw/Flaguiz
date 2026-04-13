@@ -46,7 +46,6 @@ class _AdventureGameGuessBoxWidgetState
                     widget.country.id ?? '0', widget.adventureCompletedList);
               } else {
                 if (mounted) {
-                  
                   await VibrationService.instance.medium();
                   provider.decreaseLife();
                   provider.addUserWrongGuesses(widget.index);
@@ -61,7 +60,9 @@ class _AdventureGameGuessBoxWidgetState
               child: CcShadowedImageBoxWidget(
                   width: screenWidth / 2 - 13,
                   height: 120,
-                  image: "${CcConfig.image_base_url}${widget.country.flagUrl}"),
+                  image: (widget.country.localFlagPath == null)
+                      ? "${CcConfig.image_base_url}${widget.country.flagUrl}"
+                      : widget.country.localFlagPath!),
             ),
           ),
 

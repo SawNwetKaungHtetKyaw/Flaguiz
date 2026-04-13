@@ -26,7 +26,7 @@ class FriendCardWidget extends StatelessWidget {
         onTap: () async {
           AudioService.instance.playSound('tap');
           CountryModel? country =
-              await countryProvider.countryById(player?.country ?? '');
+              await countryProvider.countryById(player?.country ?? '0');
 
           if (!context.mounted) return;
           showDialog(

@@ -1,0 +1,72 @@
+import 'package:flaguiz/bot/bot_factory.dart';
+import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/config/cc_colors.dart';
+import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/config/route/route_paths.dart';
+import 'package:flaguiz/models/battle_question_model.dart';
+import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/providers/country_provider.dart';
+import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/service/battle_question_service.dart';
+import 'package:flaguiz/utils/utils.dart';
+import 'package:flaguiz/widgets/cc_outlined_button.dart';
+import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class FindBattleButtonWidget extends StatelessWidget {
+  const FindBattleButtonWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer2<CountryProvider, UserProvider>(
+        builder: (context, countryProvider, userProvider, child) {
+      final UserModel? user = userProvider.user;
+      return CcOutlinedButton(
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          width: 150,
+          color: successColor,
+          child: const CcShadowedTextWidget(text: CcConstants.kFindBattle),
+          onTap: () async {
+            AudioService.instance.playSound('tap');
+
+            Utils.showLoadingDialog(context);
+
+            /// Generate Battle User Bot Data
+            BotModel userBot = await BotFactory().createUserBot(user);
+
+            /// Generate Bot
+            BotModel bot = await BotFactory().createBot();
+            bot.trophy = Utils.botTrophy(userBot.trophy ?? 0);
+
+            /// Generate Battle Question List
+            List<BattleQuestionModel> temp = BattleQuestionService()
+                .generateBattleList(countryProvider.countryList,
+                    Utils.battleDifficultyByTrophy(userBot.trophy ?? 0));
+
+            /// PreLoad Images(Avatar,Border,Banner)
+            if (!context.mounted) return;
+            await Utils.preloadImages(context, [
+              bot.avatar,
+              bot.border,
+              bot.banner,
+              userBot.avatar,
+              userBot.border,
+              userBot.banner
+            ]);
+
+            if (!context.mounted) return;
+            Utils.hideLoadingDialog(context);
+            Navigator.of(context).pushNamed(RoutePaths.battleIntro, arguments: [
+              temp,
+              userBot,
+              bot,
+              Utils.botDifficultyByTrophy(userBot.trophy ?? 0)
+            ]);
+          });
+    });
+  }
+}

@@ -13,7 +13,6 @@ import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/utils/asset_audios.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
@@ -50,7 +49,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
     coin = widget.isReplay ? 5 : 20;
     doubleCoin = widget.isReplay ? 10 : 40;
 
-    AudioService.instance.startSoundTrack(AssetAudios.adventureWinSound);
+    AudioService.instance.playSound('adv-win');
 
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);

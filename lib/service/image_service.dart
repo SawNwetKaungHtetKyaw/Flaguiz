@@ -1,80 +1,46 @@
-import 'package:flaguiz/service/cached_image_manager_service.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flaguiz/utils/utils.dart';
 
 class ImageService {
-  final List<String> imageUrls;
-  final int batchSize;
+  final Dio _dio = Dio();
 
-  ImageService({
-    required this.imageUrls,
-    this.batchSize = 10,
-  });
-
-  Future<void> preload({
-    required Function(double percent) onProgress,
+  Future<String?> downloadImage({
+    required String url,
+    required String countryId,
+    required String type,
   }) async {
-    final cacheManager = CachedImageManagerService();
-    int processed = 0;
+    try {
+      final dirPath = await Utils.getImageDir();
+      final fileName =
+          "${countryId}_${type}_${Utils.fileNameFromUrl(url)}";
 
-    /// Filter only missing images
-    List<String> missingImages = [];
+      final filePath = "$dirPath/$fileName";
+      final file = File(filePath);
 
-    final cacheResults = await Future.wait(
-      imageUrls.map((url) => cacheManager.getFileFromCache(url)),
-    );
-
-    for (int i = 0; i < imageUrls.length; i++) {
-      if (cacheResults[i] == null) {
-        missingImages.add(imageUrls[i]);
-      } else {
-        processed++;
+      if (await file.exists()) {
+        return filePath;
       }
-    }
 
-    /// If everything cached
-    if (missingImages.isEmpty) {
-      for (int i = 0; i <= 100; i += 5) {
-        await Future.delayed(const Duration(milliseconds: 20));
-        onProgress(i.toDouble());
+      final response = await _dio.download(url, filePath);
+
+      if (response.statusCode == 200) {
+        return filePath;
       }
-      return;
-    }
 
-    for (int i = 0; i < missingImages.length; i += batchSize) {
-      final batch = missingImages.skip(i).take(batchSize);
-
-      await Future.wait(
-        batch.map((url) async {
-          await cacheManager.downloadFile(url);
-          processed++;
-        }),
-      );
-
-      onProgress((processed / imageUrls.length) * 100);
+      return null;
+    } catch (e) {
+      return null;
     }
   }
+
+  Future<bool> deleteIfExists(String? path) async {
+    if (path == null) return false;
+    final file = File(path);
+    if (await file.exists()) {
+      await file.delete();
+      return true;
+    }
+    return false;
+  }
 }
-  // Future<void> preload({
-  //   required Function(double percent) onProgress,
-  //   required Function() onNoInternet,
-  // }) async {
-  //   final cacheManager = CachedImageManagerService();
-  //   int processed = 0;
-
-  //   for (int i = 0; i < imageUrls.length; i += batchSize) {
-  //     final batch = imageUrls.skip(i).take(batchSize);
-
-  //     await Future.wait(
-  //       batch.map((url) async {
-  //         final fileInfo = await cacheManager.getFileFromCache(url);
-
-  //         if (fileInfo == null) {
-  //           await cacheManager.downloadFile(url);
-  //         }
-  //         processed++;
-  //       }),
-  //     );
-
-  //     onProgress((processed / imageUrls.length) * 100);
-  //   }
-  // }
-

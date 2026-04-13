@@ -34,11 +34,16 @@ class CcConstants {
   static const String kPlayOn = 'Play On';
   static const String kAds = 'Ads';
   static const String kEdit = 'Edit';
+  static const String kAvatar = 'Avatar';
+  static const String kBorder = 'Border';
+  static const String kBackground = 'Background';
+  static const String kBanner = 'Banner';
   static const String kLogin = 'Login';
   static const String kLogout = 'Logout';
   static const String kRegister = 'Register';
   static const String kDeleteAccount = 'Delete Account';
   static const String kDoubleReward = 'Double Reward x2';
+  static const String kDoubleCoins = 'Double Coins x2';
   static const String kClaimed = 'Claimed';
   static const String kAchievement = 'Achievement';
   static const String kOwned = 'Owned';
@@ -79,12 +84,19 @@ class CcConstants {
   static const String kComfirmLogout = 'Comfirm Logout';
   static const String kSureLogout = 'Are you sure to Logout?';
 
+  /// Battle Result Key
+  static const String BATTLE_WIN = 'VICTORY';
+  static const String BATTLE_LOSE = 'YOU LOSE';
+  static const String BATTLE_DRAW = 'DRAW';
+
   /// Hero Tag Keys
   static const String kH_GAME_MODE = 'hero-game-mode';
   static const String kH_SHOP_AVATAR = 'shop-avatar';
   static const String kH_SHOP_BORDER = 'shop-border';
   static const String kH_SHOP_BACKGROUND = 'shop-background';
   static const String kH_SHOP_BANNER = 'shop-banner';
+  static const String kH_BATTLE_PROFILE_BANNER = 'battle-profile-banner';
+  static const String kH_BATTLE_BOT_BANNER = 'battle-bot-banner';
 
   /// Firebase
   static const String FIRESTORE_AVATAR = 'Avatars';

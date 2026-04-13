@@ -40,7 +40,7 @@ class CcConfig {
     energy: 0,
     trophy: 0,
     achievements: [],
-    country: '',
+    country: '0',
     avatars: ['AVT_001'],
     borders: ['BD_001'],
     backgrounds: ['BG_001'],

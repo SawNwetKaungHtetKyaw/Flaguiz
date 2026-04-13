@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/repositories/country_repository.dart';
@@ -8,19 +10,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CountryProvider extends ChangeNotifier {
   CountryProvider({required BuildContext buildContext}) {
     Utils.printLog('${runtimeType.toString()} Init $hashCode');
-    loadCountryList();
     loadKeenEye();
   }
 
-  late CountryRepository _repo;
+  final CountryRepository _repo = CountryRepository();
   List<CountryModel> _countryList = [];
   List<CountryModel> _filteredCountryList = [];
-  double downloadProgress = 0.0;
   List<String> _keenEyeList = [];
+  double _progress = 0.0;
+  bool isLoading = false;
+  Timer? _progressTimer;
 
   List<CountryModel> get countryList => _countryList;
   List<CountryModel> get filteredCountryList => _filteredCountryList;
   List<String> get keenEyeList => _keenEyeList;
+  double get progress => _progress;
 
   set setCountryList(List<CountryModel> countryList) {
     _countryList = countryList;
@@ -37,11 +41,35 @@ class CountryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadCountryList() async {
-    _repo = CountryRepository();
-    setCountryList = await _repo.loadDataList();
-    setFilteredCountryList = _countryList;
-    notifyListeners();
+  Future<void> syncCountries() async {
+    try {
+      _countryList = await loadDataList();
+      _countryList = await _repo.syncCountries(_countryList);
+    } catch (e) {
+      _countryList = await loadDataList();
+      debugPrint("Sync error ===>$e");
+    }
+  }
+
+  //// Cached Image Section
+  Future<void> startCachedCountryImage(
+    BuildContext context,
+  ) async {
+    List<CountryModel> temp = await _repo.loadDataList();
+
+    if (!context.mounted) return;
+    await _repo.preload(
+      context,
+      temp,
+      (progress) {
+        _progress = progress;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<List<CountryModel>> loadDataList() async {
+    return await _repo.loadDataList();
   }
 
   loadKeenEye() async {
@@ -56,11 +84,6 @@ class CountryProvider extends ChangeNotifier {
     await prefs.setStringList(CcConstants.KEEN_EYE, _keenEyeList);
   }
 
-  /// Load data from local or API (first time only)
-  Future<void> loadCountries() async {
-    _countryList = await _repo.getCountries();
-  }
-
   /// Filtered List
   filteredSearchList(String searchTerm) {
     setFilteredCountryList = countryList
@@ -71,7 +94,7 @@ class CountryProvider extends ChangeNotifier {
   }
 
   Future<CountryModel?> countryById(String countryId) async {
-    if (countryId != '' && _countryList != []) {
+    if (countryId != '0' && _countryList != []) {
       final int index =
           _countryList.indexWhere((country) => country.id == countryId);
       return _countryList[index];
@@ -80,27 +103,48 @@ class CountryProvider extends ChangeNotifier {
     }
   }
 
-  // /// Download all images and update progress
-  // Future<void> downloadImages() async {
-  //   notifyListeners();
+  Future<bool> isDownloaded() async {
+    final temp = await _repo.getCountries();
 
-  //   await _repo.downloadAllImagesWithProgress(
-  //     onProgress: (progress) {
-  //       downloadProgress = progress; // update progress (0-1)
-  //       notifyListeners();
-  //     },
-  //   );
+    if (temp.isEmpty) {
+      return false;
+    }
 
-  //   // 🔹 Refresh list after updating local paths
-  //   _countryList = await _repo.getCountries();
-  //   notifyListeners();
-  // }
+    return !temp.any((country) =>
+        country.localFlagPath == null || country.localMapPath == null);
+  }
 
-  /// Full setup process (first run / loading screen)
-  // Future<void> setupApp() async {
-  //   await loadCountries();   // Load models first
-  //   await downloadImages();  // Then download images once
-  // }
+  void animateToFullProgress() {
+    _progressTimer?.cancel();
+
+    const int durationMs = 2000;
+    const int tickMs = 50;
+
+    const int totalTicks = durationMs ~/ tickMs;
+    int currentTick = 0;
+
+    _progressTimer = Timer.periodic(
+      const Duration(milliseconds: 50),
+      (timer) {
+        currentTick++;
+
+        _progress = (currentTick / totalTicks).clamp(0.0, 1.0);
+
+        notifyListeners();
+
+        if (currentTick >= totalTicks) {
+          _progress = 1.0;
+          notifyListeners();
+          timer.cancel();
+        }
+      },
+    );
+  }
+
+  Future<void> getCountries() async {
+    _countryList = await _repo.getCountries();
+    notifyListeners();
+  }
 
   @override
   void dispose() {

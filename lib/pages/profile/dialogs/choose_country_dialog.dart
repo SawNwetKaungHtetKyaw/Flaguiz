@@ -16,7 +16,7 @@ class ChooseCountryDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<CountryProvider, UserProvider>(
-        builder: (context, provider,userProvider, child) {
+        builder: (context, provider, userProvider, child) {
       List<CountryModel> countryList = provider.countryList;
       return AlertDialog(
         contentPadding: EdgeInsets.zero,
@@ -48,15 +48,21 @@ class ChooseCountryDialog extends StatelessWidget {
                           return GestureDetector(
                             onTap: () {
                               AudioService.instance.playSound('tap');
-                              userProvider.updateUserDataForCountry(countryList[index].id ?? '',countryList);
+                              userProvider.updateUserDataForCountry(
+                                  countryList[index].id ?? '', countryList);
+                                  print(countryList[index].localFlagPath);
                               Navigator.of(context).pop();
                             },
                             child: CcShadowedImageBoxWidget(
                                 width: 80,
                                 height: 50,
                                 radius: 3,
-                                image:
-                                    "${CcConfig.image_base_url}${countryList[index].flagUrl}"),
+                                image: (countryList[index].localFlagPath ==
+                                        null)
+                                    ? 
+                                    "${CcConfig.image_base_url}${countryList[index].flagUrl}"
+                                    : 
+                                    countryList[index].localFlagPath!),
                           );
                         }),
                   )

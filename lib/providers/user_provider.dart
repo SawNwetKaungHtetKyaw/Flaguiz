@@ -240,6 +240,16 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateUserDataAfterBattle(int coin, int trophy) async {
+    UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
+
+    updateUser.coin = (updateUser.coin ?? 0) + coin;
+    updateUser.trophy = (updateUser.trophy ?? 0) + trophy;
+
+    await _repo.saveLocalUser(updateUser);
+    _user = updateUser;
+  }
+
   Future<void> updateUserDataForAchievement(String id, int coin) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
 
@@ -282,7 +292,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> updateUserDataForCountry(
       String countryId, List<CountryModel> list) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
-    if (countryId != '') updateUser.country = countryId;
+    if (countryId != '0') updateUser.country = countryId;
 
     await _repo.saveLocalUser(updateUser);
     _user = updateUser;
@@ -331,10 +341,15 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> countryById(String countryId, List<CountryModel> list) async {
-    if (countryId != '' && list != []) {
+    if (countryId != '0' && list != []) {
       final int index = list.indexWhere((country) => country.id == countryId);
       _country = list[index];
     }
+  }
+
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
   }
 
   // Future<void> logout() async {

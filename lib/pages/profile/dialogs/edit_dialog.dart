@@ -27,7 +27,6 @@ class _EditDialogState extends State<EditDialog>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 4, vsync: this);
     _pageController = PageController();
     _tabController.addListener(() {
@@ -47,137 +46,66 @@ class _EditDialogState extends State<EditDialog>
     return Consumer2<CountryProvider, UserProvider>(
       builder: (context, provider, userProvider, child) {
         return Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: Stack(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(AssetsImages.editDialog),
+                  fit: BoxFit.fill)),
+          child: Column(
             children: [
-              Container(
-                width: double.maxFinite,
-                height: 600,
-                margin: const EdgeInsets.symmetric(horizontal: 1),
-                padding: const EdgeInsets.only(
-                    top: 70, left: 10, right: 10, bottom: 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  border: Border.all(color: Colors.white, width: 3),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    AudioService.instance.playSound('back');
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 20, bottom: 59),
+                      width: 50,
+                      height: 50,
+                      color: Colors.transparent),
                 ),
-                child: Column(
-                  children: [
-                    Material(
-                      color: Colors.transparent,
-                      child: TabBar(
-                        controller: _tabController,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        labelColor: primaryLightColor,
-                        unselectedLabelColor: Colors.white,
-                        indicatorColor: primaryLightColor,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        onTap: (index) {
-                          AudioService.instance.playSound('tap');
-                          _pageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 100),
-                            curve: Curves.ease,
-                          );
-                        },
-                        tabs: [
-                          /// Avatar Icon
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.asset(
-                              AssetsImages.avatarIcon,
-                              height: 30,
-                              color: _tabController.index == 0
-                                  ? primaryLightColor
-                                  : Colors.white,
-                            ),
-                          ),
-
-                          /// Border Icon
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.asset(
-                              AssetsImages.borderIcon,
-                              height: 30,
-                              color: _tabController.index == 1
-                                  ? primaryLightColor
-                                  : Colors.white,
-                            ),
-                          ),
-
-                          /// Background Icon
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.asset(
-                              AssetsImages.backgroundIcon,
-                              height: 30,
-                              color: _tabController.index == 2
-                                  ? primaryLightColor
-                                  : Colors.white,
-                            ),
-                          ),
-
-                          /// Banner Icon
-                          Image.asset(
-                            AssetsImages.bannerIcon,
-                            height: 40,
-                            color: _tabController.index == 3
-                                ? primaryLightColor
-                                : Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: PageView(
-                        controller: _pageController,
-                        onPageChanged: (index) {
-                          _tabController.animateTo(index);
-                        },
-                        children: const [
-                          DialogAvatarWidget(),
-                          DialogBorderWidget(),
-                          DialogBackgroundWidget(),
-                          DialogBannerWidget(),
-                        ],
-                      ),
-                    ),
+              ),
+              Material(
+                color: editUnSelectedColor,
+                child: TabBar(
+                  controller: _tabController,
+                  dividerColor: Colors.transparent,
+                  indicator: const BoxDecoration(
+                    color: editSelectedColor,
+                  ),
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  onTap: (index) {
+                    AudioService.instance.playSound('tap');
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.ease,
+                    );
+                  },
+                  tabs: const [
+                    TabWidget(title: 'AVT', text: CcConstants.kAvatar),
+                    TabWidget(title: 'BD', text: CcConstants.kBorder),
+                    TabWidget(title: 'BG', text: CcConstants.kBackground),
+                    TabWidget(title: 'BN', text: CcConstants.kBanner),
                   ],
                 ),
               ),
-
-              /// HEADER
-              Container(
-                width: double.maxFinite,
-                height: 70,
-                decoration: const BoxDecoration(
-                  color: primaryColor,
-                  boxShadow: [BoxShadow(offset: Offset(0, 5))],
-                ),
-                child: Stack(
-                  children: [
-                    const Center(
-                      child: CcShadowedTextWidget(
-                        text: CcConstants.kEdit,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Positioned(
-                      top: 2,
-                      right: 2,
-                      child: IconButton(
-                        onPressed: () {
-                          AudioService.instance.playSound('back');
-                          Navigator.of(context).pop();
-                        },
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    )
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    _tabController.animateTo(index);
+                  },
+                  children: const [
+                    DialogAvatarWidget(),
+                    DialogBorderWidget(),
+                    DialogBackgroundWidget(),
+                    DialogBannerWidget(),
                   ],
                 ),
               ),
@@ -186,5 +114,30 @@ class _EditDialogState extends State<EditDialog>
         );
       },
     );
+  }
+}
+
+class TabWidget extends StatelessWidget {
+  const TabWidget({super.key, required this.title, required this.text});
+  final String title;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CcShadowedTextWidget(text: title, fontSize: 14),
+        const SizedBox(height: 5),
+        CcShadowedTextWidget(
+            fontSize: 5,
+            dx: 1,
+            dy: 1,
+            maxLines: 1,
+            text: text,
+            letterSpacing: 0.5),
+      ],
+    ));
   }
 }

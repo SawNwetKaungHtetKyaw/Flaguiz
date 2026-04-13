@@ -59,17 +59,20 @@ class _LibraryCardWidgetState extends State<LibraryCardWidget> {
                   CcShadowedImageBoxWidget(
                     width: 90,
                     height: double.maxFinite,
-                    image: "${CcConfig.image_base_url}${widget.country.flagUrl}",
+                    image: (widget.country.localFlagPath == null)
+                        ? "${CcConfig.image_base_url}${widget.country.flagUrl}"
+                        : widget.country.localFlagPath!,
                     radius: 5,
                   ),
                   const SizedBox(width: 8),
                   Flexible(
                     child: CcShadowedTextWidget(
                       text: widget.country.name ?? '',
-                      fontSize: 11,
-                      strokeWidth: 3,
-                      dx: 2,
-                      dy: 2.5,
+                      fontSize: 16,
+                      fontFamily: "Roboto",
+                      letterSpacing: 1,
+                      dx: 1,
+                      dy: 1.5,
                       overflow: TextOverflow.clip,
                     ),
                   )

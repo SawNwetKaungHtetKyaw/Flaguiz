@@ -1,14 +1,16 @@
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/pages/profile/dialogs/edit_dialog.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_avatar.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_background.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_banner.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_border.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
-import 'package:flaguiz/widgets/cc_energy_box_widget.dart';
+import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,19 +74,47 @@ class _ShopDetailState extends State<ShopDetail> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     /// Back Key
                     const CcBackWidget(image: AssetsImages.defaultBackKey),
 
-                    const SizedBox(width: 40),
-
-                    /// Energy
-                    CcEnergyBoxWidget(energy: user?.energy.toString() ?? '0'),
-
-                    const SizedBox(width: 10),
+                    const Spacer(),
 
                     /// Coin
-                    CcCoinBoxWidget(coin: user?.coin.toString() ?? '0')
+                    CcCoinBoxWidget(coin: user?.coin.toString() ?? '0'),
+
+                    /// Edit
+                    CcImageButton(
+                        width: 50,
+                        height: 50,
+                        margin: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.zero,
+                        image: AssetsImages.editButton,
+                        onTap: () {
+                          AudioService.instance.playSound('tap');
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: "Edit",
+                            barrierColor: Colors.black54,
+                            transitionDuration:
+                                const Duration(milliseconds: 200),
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              return const Center(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: SizedBox(
+                                    width: double.maxFinite,
+                                    height: 650,
+                                    child: EditDialog(),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        })
                   ],
                 ),
 
