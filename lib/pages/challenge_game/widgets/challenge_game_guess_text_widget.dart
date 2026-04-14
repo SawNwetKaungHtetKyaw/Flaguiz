@@ -62,8 +62,9 @@ class _ChallengeGameGuessTextWidgetState
             widget: Center(
               child: CcShadowedTextWidget(
                   fontFamily: 'Roboto',
-                  letterSpacing: 1,
-                  fontSize: 16,
+                  letterSpacing: 0.5,
+                  wordSpacing: 0.5,
+                  fontSize: 18,
                   dx: 1.5,
                   dy: 2,
                   text: widget.mode == CcConfig.GAME_MODE__COUNTRY

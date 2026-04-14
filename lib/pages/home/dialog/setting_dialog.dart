@@ -46,9 +46,9 @@ class _SettingDialogState extends State<SettingDialog> {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
-      builder: (context, userProvider, child) => AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        content: SingleChildScrollView(
+      builder: (context, userProvider, child) => Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
           child: Stack(
             children: [
               Container(
@@ -59,7 +59,10 @@ class _SettingDialogState extends State<SettingDialog> {
                     top: 90, left: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade900,
-                    border: Border.all(color: Colors.white, width: 3)),
+                    border: const Border(
+                        bottom: BorderSide(color: Colors.white, width: 3),
+                        left: BorderSide(color: Colors.white, width: 3),
+                        right: BorderSide(color: Colors.white, width: 3))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -126,11 +129,11 @@ class _SettingDialogState extends State<SettingDialog> {
                         child: const CcShadowedTextWidget(
                             text: CcConstants.kAbout)),
 
-                   Padding(
-                      padding: EdgeInsets.only(top: 10, bottom:userProvider.isLoggedIn ? 10 :  20),
-                      child:const Divider(),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 10, bottom: userProvider.isLoggedIn ? 10 : 20),
+                      child: const Divider(),
                     ),
-
 
                     /// Login With Google
                     const ConnectWithGoogleWidget(),

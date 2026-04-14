@@ -1,4 +1,3 @@
-import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +10,15 @@ class CcCoinBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
+      width: 150,
       height: height,
-      padding: const EdgeInsets.only(bottom: 6,right: 20),
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 10),
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AssetsImages.coinBox), fit: BoxFit.fill)),
       alignment: Alignment.centerRight,
-      child: CcShadowedTextWidget(text: coin, textAlign: TextAlign.right,textColor: primaryColor,dx: 0,dy: 0,letterSpacing: 1),
+      child: CcShadowedTextWidget(text: coin, textAlign: TextAlign.right,textColor: Colors.white,dx: 1,dy: 1,letterSpacing: 1),
     );
   }
 }
