@@ -78,7 +78,7 @@ class CcToastMessageWidgetState extends State<CcToastMessageWidget>
                     text: widget.message,
                     textAlign: TextAlign.center,
                     textColor: widget.textColor,
-                    fontSize: 14,
+                    fontSize: 12,
                     letterSpacing: 1)),
           ),
         ),

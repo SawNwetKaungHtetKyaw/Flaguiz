@@ -47,5 +47,7 @@ class BotData {
     "/Yq1PmhPK/banner-2.png",
     "/VLjhbdhm/banner-3.png",
     "/Gps5W1tC/banner-4.png",
+    "/DzwRN1zx/banner_5.png",
+    "/8CHRsgzy/banner_6.png",
   ];
 }

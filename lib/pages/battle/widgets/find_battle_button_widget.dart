@@ -33,6 +33,13 @@ class FindBattleButtonWidget extends StatelessWidget {
           onTap: () async {
             AudioService.instance.playSound('tap');
 
+            if (!await Utils.hasInternet()) {
+              if (!context.mounted) return;
+              Utils.showToastMessage(context, "No Internet Connection");
+              return;
+            }
+
+            if (!context.mounted) return;
             Utils.showLoadingDialog(context);
 
             /// Generate Battle User Bot Data
