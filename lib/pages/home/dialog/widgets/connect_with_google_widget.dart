@@ -75,6 +75,8 @@ class ConnectWithGoogleWidget extends StatelessWidget {
               /////====================================
               final status = await userProvider.loginWithGoogle(context);
 
+              print("====>$status");
+
               if (!context.mounted) return;
               Utils.hideLoadingDialog(context);
 

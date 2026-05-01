@@ -38,7 +38,7 @@ class BattleGameProvider extends ChangeNotifier {
   /// =========================
   /// Player & Bot State
   /// =========================
-  String? _playerAnswer;
+  String? _playerAnswerId;
   String? _botAnswer;
 
   bool _playerAnswered = false;
@@ -56,6 +56,7 @@ class BattleGameProvider extends ChangeNotifier {
   int get currentIndex => _currentIndex;
   int get trackPlayerGuess => _trackPlayerGuess;
   int get trackBotGuess => _trackBotGuess;
+  String? get playerAnswerId => _playerAnswerId;
   bool get isGameEnded => _gameEnded;
   String get battleResult => _battleResult;
   int get timerCount => _timerCount;
@@ -72,7 +73,7 @@ class BattleGameProvider extends ChangeNotifier {
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
-        if (_timerCount <= 4) {
+        if (_timerCount <= 6) {
           VibrationService.instance.heavy();
         }
         _timerCount--;
@@ -120,11 +121,11 @@ class BattleGameProvider extends ChangeNotifier {
   void playerAnswer(String guessId) {
     if (_gameEnded || _playerAnswered) return;
 
-    _playerAnswer = guessId;
+    _playerAnswerId = guessId;
     _playerAnswered = true;
 
     final correctId = currentQuestion.answer.id;
-    if (_playerAnswer == correctId) {
+    if (_playerAnswerId == correctId) {
       _trackPlayerGuess = 1;
       AudioService.instance.playSound('correct');
     } else {
@@ -145,7 +146,7 @@ class BattleGameProvider extends ChangeNotifier {
 
     final correctId = currentQuestion.answer.id;
 
-    bool playerCorrect = _playerAnswer == correctId;
+    bool playerCorrect = _playerAnswerId == correctId;
     bool botCorrect = _botAnswer == correctId;
 
     /// Small delay for UI feedback
@@ -174,7 +175,7 @@ class BattleGameProvider extends ChangeNotifier {
     /// Reset state
     _playerAnswered = false;
     _botAnswered = false;
-    _playerAnswer = null;
+    _playerAnswerId = null;
     _botAnswer = null;
     _trackPlayerGuess = 0;
     _trackBotGuess = 0;

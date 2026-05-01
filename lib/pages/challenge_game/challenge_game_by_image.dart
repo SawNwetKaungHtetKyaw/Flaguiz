@@ -75,12 +75,14 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
                           const SizedBox(width: 60),
 
                           CcCoinBoxWidget(
-                              coin: userCoin.toString(), height: 55),
+                              coin: userCoin.toString()),
 
                           /// Challenge Life Widget
                           const ChallengeGameLifeWidget()
                         ],
                       ),
+
+                      const SizedBox(height: 10),
 
                       /// Timer
                       Row(
@@ -96,13 +98,15 @@ class _ChallengeGameByImageState extends State<ChallengeGameByImage> {
                             child: CcShadowedTextWidget(
                               text: provider.timerCount.toString(),
                               fontSize: 14,
-                              textColor: (provider.timerCount) <= 3
+                              textColor: (provider.timerCount) <= 5
                                   ? Colors.red
                                   : Colors.white,
                             ),
                           )
                         ],
                       ),
+
+                      const SizedBox(height: 5),
 
                       /// Completed Guess
                       CcShadowedTextWidget(

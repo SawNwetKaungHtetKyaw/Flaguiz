@@ -73,17 +73,17 @@ class FriendProfileChallengeStatusWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CcShadowedTextWidget(
-                      text: "- ${flag.complete}/23", fontSize: statusFontSize),
+                      text: "${flag.complete}/233", fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- ${country.complete}/23",
+                      text: "${country.complete}/233",
                       fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- ${map.complete}/23", fontSize: statusFontSize),
+                      text: "${map.complete}/233", fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- ${capital.complete}/23",
+                      text: "${capital.complete}/233",
                       fontSize: statusFontSize),
                 ],
               ),

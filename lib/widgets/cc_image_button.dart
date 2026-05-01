@@ -14,6 +14,8 @@ class CcImageButton extends StatefulWidget {
     this.widget,
     this.margin = const EdgeInsets.only(bottom: 15, right: 20, left: 20),
     this.padding = const EdgeInsets.only(bottom: 2),
+    this.boxFit = BoxFit.fill,
+    this.alignment
   });
 
   final String image;
@@ -21,9 +23,11 @@ class CcImageButton extends StatefulWidget {
   final String text;
   final Widget? widget;
   final String? fontFamily;
+  final BoxFit boxFit;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final GestureTapCallback onTap;
+  final AlignmentGeometry? alignment;
 
   @override
   State<CcImageButton> createState() => _CcImageButtonState();
@@ -61,10 +65,11 @@ class _CcImageButtonState extends State<CcImageButton> {
             width: widget.width,
             height: widget.height,
             padding: widget.padding,
+            alignment: widget.alignment,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(widget.image),
-                fit: BoxFit.fill,
+                fit: widget.boxFit,
               ),
             ),
             child: widget.widget ??

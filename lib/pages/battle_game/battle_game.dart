@@ -1,6 +1,5 @@
 import 'package:flaguiz/bot/bot_difficulty.dart';
 import 'package:flaguiz/bot/bot_model.dart';
-import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/pages/battle_game/provider/battle_game_provider.dart';
@@ -79,14 +78,12 @@ class _BattleGameState extends State<BattleGame> {
                             /// Your Profile
                             BattlePlayerProfileWidget(
                                 isYou: true,
-                                player: widget.user,
-                                heroTag: CcConstants.kH_BATTLE_PROFILE_BANNER),
+                                player: widget.user),
 
                             /// Enemy Profile
                             BattlePlayerProfileWidget(
                                 isYou: false,
-                                player: widget.bot,
-                                heroTag: CcConstants.kH_BATTLE_BOT_BANNER),
+                                player: widget.bot),
                           ],
                         ),
 

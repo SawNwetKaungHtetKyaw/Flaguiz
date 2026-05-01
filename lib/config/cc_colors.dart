@@ -12,8 +12,8 @@ const Color errorColor = Color(0xFFCD170A);
 const Color successColor = Color(0xFF029C07);
 const Color warningColor = Color(0xFFFFCC80);
 const Color selectedColor = Color(0xFFa4643e);
-const Color editSelectedColor = Color(0xFF261503);
-const Color editUnSelectedColor = Color(0xFF180e02);
+const Color editSelectedColor = Color(0xFF4E2C06);
+const Color editUnSelectedColor = Color(0xFF281702);
 
 const Color battleLoseColor = Color(0xFF83120A);
 const Color battleWinColor = Color(0xFF06650C);

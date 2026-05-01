@@ -67,8 +67,7 @@ class AdventureLevelWidget extends StatelessWidget {
                 Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
                 Utils.preLoadRewardedAds(CcAdsKey.rewardContinueGame);
                 
-                if (mode == CcConfig.GAME_MODE__FLAG ||
-                    mode == CcConfig.GAME_MODE__MAP) {
+                if (mode == CcConfig.GAME_MODE__FLAG) {
                   Navigator.pushNamed(context, RoutePaths.adventureGameByImage,
                       arguments: [
                         Utils.prepareAdventureGameModeData(

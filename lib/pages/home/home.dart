@@ -96,10 +96,20 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               //   fit: BoxFit.cover,
               // ),
 
-              CcNetworkImageWidget(
-                  width: double.maxFinite,
-                  height: double.maxFinite,
-                  imageUrl: "${CcConfig.image_base_url}$backgroundURL"),
+              // CcNetworkImageWidget(
+              //     width: double.maxFinite,
+              //     height: double.maxFinite,
+              //     imageUrl: "${CcConfig.image_base_url}$backgroundURL"
+              //     ),
+
+
+              Container(
+                width:  double.maxFinite,
+                height: double.maxFinite,
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(AssetsImages.testBg),fit: BoxFit.cover)
+                ),
+              ),
 
               /// Friends
               const HomeFriendWidget(),

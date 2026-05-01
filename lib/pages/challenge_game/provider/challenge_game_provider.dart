@@ -69,7 +69,7 @@ class ChallengeGameProvider extends ChangeNotifier {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
-        if (_timerCount <= 4) {
+        if (_timerCount <= 6) {
           VibrationService.instance.heavy();
         }
         _timerCount--;

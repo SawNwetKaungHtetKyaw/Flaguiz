@@ -83,6 +83,10 @@ class CcConstants {
   static const String kComfirmDelete = 'Comfirm Delete';
   static const String kComfirmLogout = 'Comfirm Logout';
   static const String kSureLogout = 'Are you sure to Logout?';
+  static const String kBattleChallenge = 'Challenge';
+  static const String kBattleLeaderboard = 'Leaderboard';
+  static const String kUnFriend = 'Unfriend';
+  static const String kUnfriendDescripton = 'Are You Sure?';
 
   /// Battle Result Key
   static const String BATTLE_WIN = 'VICTORY';

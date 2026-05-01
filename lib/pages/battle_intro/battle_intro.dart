@@ -53,7 +53,6 @@ class _BattleIntroState extends State<BattleIntro> {
       body: Container(
         width: double.maxFinite,
         height: double.infinity,
-        padding: const EdgeInsets.only(bottom: 50),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: const AssetImage(AssetsImages.battleBg),

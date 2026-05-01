@@ -69,9 +69,9 @@ class _AdventureGameGuessTextWidgetState
                   fontSize: 18,
                   dx: 1.5,
                   dy: 2,
-                  text: widget.mode == CcConfig.GAME_MODE__COUNTRY
-                      ? widget.country.name ?? ''
-                      : widget.country.capital ?? ''),
+                  text: widget.mode == CcConfig.GAME_MODE__CAPITAL
+                      ? widget.country.capital ?? ''
+                      : widget.country.name ?? ''),
             ),
             image: AssetsImages.adventureButton,
           ),

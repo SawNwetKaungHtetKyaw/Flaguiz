@@ -97,7 +97,7 @@ class _ShopDetailState extends State<ShopDetail> {
                             context: context,
                             barrierDismissible: true,
                             barrierLabel: "Edit",
-                            barrierColor: Colors.black54,
+                            barrierColor: Colors.black87,
                             transitionDuration:
                                 const Duration(milliseconds: 200),
                             pageBuilder:

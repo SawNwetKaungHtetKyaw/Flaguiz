@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flutter/material.dart';
 
 class FriendProfileCountryWidget extends StatelessWidget {
@@ -14,26 +14,16 @@ class FriendProfileCountryWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(AssetsImages.pieceLeft, width: 30),
-        Container(
-          width: 54,
-          height: 35,
-          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          decoration: (playerCountry == null)
-              ? BoxDecoration(color: Colors.grey.shade600)
-              : BoxDecoration(
-                  image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                          (playerCountry?.localFlagPath == null)
-                                        ? "${CcConfig.image_base_url}${playerCountry?.flagUrl}"
-                                        : playerCountry?.localFlagPath ?? ''),
-                      fit: BoxFit.fill),
-                  boxShadow: const [
-                      BoxShadow(color: Colors.black, offset: Offset(2, 3))
-                    ]),
-          child: (playerCountry == null)
-              ? const Icon(Icons.question_mark, color: Colors.white)
-              : const SizedBox(),
-        ),
+        CcShadowedImageBoxWidget(
+            width: 55,
+            height: 36,
+            radius: 2,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            image: (playerCountry == null)
+                ? AssetsImages.regionIcon
+                : (playerCountry?.localFlagPath == null)
+                    ? "${CcConfig.image_base_url}${playerCountry?.flagUrl}"
+                    : playerCountry?.localFlagPath ?? ''),
         Image.asset(AssetsImages.pieceRight, width: 30),
       ],
     );

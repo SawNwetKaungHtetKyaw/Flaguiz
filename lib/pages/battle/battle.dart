@@ -4,6 +4,7 @@ import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
+import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,12 +57,12 @@ class _BattleState extends State<Battle> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 60),
+                      const SizedBox(height: 80),
 
                       /// Battle Iconic
                       Container(
                           alignment: Alignment.center,
-                          child: Image.asset(AssetsImages.battle, width: 200)),
+                          child: Image.asset(AssetsImages.battle, width: 150)),
 
                       const SizedBox(height: 10),
 
@@ -70,7 +71,47 @@ class _BattleState extends State<Battle> {
                         fontSize: 28,
                       ),
 
-                      const FindBattleButtonWidget()
+                      
+                      const FindBattleButtonWidget(),
+
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                CcImageButton(
+                                    width: 80,
+                                    height: 80,
+                                    boxFit: BoxFit.contain,
+                                    margin: const EdgeInsets.only(bottom: 5),
+                                    image: AssetsImages.battleChallenge,
+                                    onTap: () {}),
+                                const CcShadowedTextWidget(
+                                  text: CcConstants.kBattleChallenge,
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                CcImageButton(
+                                    width: 80,
+                                    height: 80,
+                                    boxFit: BoxFit.contain,
+                                    margin: const EdgeInsets.only(bottom: 5),
+                                    image: AssetsImages.leaderboard,
+                                    alignment: Alignment.bottomCenter,
+                                    onTap: () {}),
+                                const CcShadowedTextWidget(
+                                  text: CcConstants.kBattleLeaderboard,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
                     ],
                   ),
                 ],

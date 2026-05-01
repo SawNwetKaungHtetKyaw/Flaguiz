@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BatttleGamePageviewWidget extends StatefulWidget {
-  const BatttleGamePageviewWidget({super.key, required this.questions,required this.controller});
+  const BatttleGamePageviewWidget(
+      {super.key, required this.questions, required this.controller});
   final List<BattleQuestionModel> questions;
   final PageController controller;
 
@@ -28,15 +29,14 @@ class _BatttleGamePageviewWidgetState extends State<BatttleGamePageviewWidget> {
           itemCount: widget.questions.length,
           itemBuilder: (context, index) {
             final question = widget.questions[index];
-      
+
             return Column(
               children: [
                 BattleAnswerWidget(question: question),
-      
-                /// Guess 4 Options For Flag & Map
+
+                /// Guess 4 Options For Flag
                 Visibility(
-                  visible: question.type == QuestionType.flag ||
-                      question.type == QuestionType.map,
+                  visible: question.type == QuestionType.flag,
                   child: Column(
                     children: [
                       Row(
@@ -66,11 +66,12 @@ class _BatttleGamePageviewWidgetState extends State<BatttleGamePageviewWidget> {
                     ],
                   ),
                 ),
-      
-                /// Guess 4 Options For Flag & Map
+
+                /// Guess 4 Options For Country , Capital & Map
                 Visibility(
                   visible: question.type == QuestionType.country ||
-                      question.type == QuestionType.capital,
+                      question.type == QuestionType.capital ||
+                      question.type == QuestionType.map,
                   child: Column(
                     children: [
                       BattleOptionTextWidget(

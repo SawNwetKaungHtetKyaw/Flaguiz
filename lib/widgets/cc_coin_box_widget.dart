@@ -3,7 +3,7 @@ import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CcCoinBoxWidget extends StatelessWidget {
-  const CcCoinBoxWidget({super.key, required this.coin,this.height = 45});
+  const CcCoinBoxWidget({super.key, required this.coin, this.height = 48});
   final String coin;
   final double height;
 
@@ -15,10 +15,17 @@ class CcCoinBoxWidget extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.only(right: 10),
       decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(AssetsImages.coinBox), fit: BoxFit.fill)),
+        image: DecorationImage(
+            image: AssetImage(AssetsImages.coinBox), fit: BoxFit.fill),
+      ),
       alignment: Alignment.centerRight,
-      child: CcShadowedTextWidget(text: coin, textAlign: TextAlign.right,textColor: Colors.white,dx: 1,dy: 1,letterSpacing: 1),
+      child: CcShadowedTextWidget(
+          text: coin,
+          textAlign: TextAlign.right,
+          textColor: Colors.white,
+          dx: 1,
+          dy: 1,
+          letterSpacing: 1),
     );
   }
 }

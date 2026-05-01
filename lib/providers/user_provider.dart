@@ -48,7 +48,9 @@ class UserProvider extends ChangeNotifier {
 
       _user ??= await _repo.getLocalUser();
 
-      final firestoreUser = await _repo.getFirestoreUser(firebaseUser.uid);
+      final firestoreUserFuture = _repo.getFirestoreUser(firebaseUser.uid);
+
+      final firestoreUser = await firestoreUserFuture;
 
       if (firestoreUser != null) {
         return LoginStatus.existingUser;
@@ -56,14 +58,21 @@ class UserProvider extends ChangeNotifier {
         _user!.id = firebaseUser.uid;
         _user!.email = firebaseUser.email;
 
-        await _repo.createFirestoreUser(_user!);
-        await _repo.saveLocalUser(_user!);
+        Future.wait([
+          _repo.createFirestoreUser(_user!),
+          _repo.saveLocalUser(_user!),
+        ]);
 
         if (context.mounted) {
-          Utils.showToastMessage(context, 'Welcome to Flaguiz!',
-              backgroundColor: successColor);
+          Utils.showToastMessage(
+            context,
+            'Welcome to Flaguiz!',
+            backgroundColor: successColor,
+          );
         }
+
         notifyListeners();
+
         return LoginStatus.newUser;
       }
     } catch (e) {

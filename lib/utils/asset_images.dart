@@ -48,6 +48,9 @@ class AssetsImages {
   static const String battlePurpleCurtain = 'assets/images/battle/purple_curtain.png';
   static const String battleStage = 'assets/images/battle/stage.png';
   static const String battleRope = 'assets/images/battle/kyoe.png';
+  static const String leaderboard = 'assets/images/battle/leaderboard.png';
+  static const String battleChallenge = 'assets/images/battle/battle_challenge.png';
+  static const String battleFind = 'assets/images/battle/battle_find.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';
@@ -60,6 +63,7 @@ class AssetsImages {
   static const String achvTheBoss = 'assets/images/achievements/the_boss.jpg';
 
   /// Backgrounds
+  static const String testBg = 'assets/images/backgrounds/bg1.jpg';
   static const String loadingBg = 'assets/images/backgrounds/loading_bg.jpg';
   static const String defaultBackground = 'assets/images/backgrounds/default_background.jpg';
   static const String challengeBg = 'assets/images/backgrounds/challenge_bg.png';

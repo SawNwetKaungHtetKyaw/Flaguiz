@@ -13,54 +13,79 @@ class CountryService {
 
   CountryService();
 
+  ////////////////////////////////////
   //// Download Country Images Section
-
+  ////////////////////////////////////
   Future<List<CountryModel>> syncCountries(
-      List<CountryModel> countryList) async {
+    List<CountryModel> countryList,
+  ) async {
     final localList = await dao.getCountries();
 
-    /// Convert local list to Map (FAST lookup)
     final Map<String, CountryModel> localMap = {
       for (var c in localList) c.id!: c
     };
 
     List<CountryModel> result = [];
 
-    for (final country in countryList) {
-      final id = country.id;
-      if (id == null) continue;
+    const int batchSize = 5;
 
-      final local = localMap[id];
+    for (int i = 0; i < countryList.length; i += batchSize) {
+      final batch = countryList.skip(i).take(batchSize).toList();
 
-      bool needsUpdate =
-          local?.localFlagPath == null && local?.localMapPath == null;
+      final futures = batch.map((country) async {
+        try {
+          final id = country.id;
+          if (id == null) return country;
 
-      if (needsUpdate) {
-        final flagPath = country.flagUrl != null
-            ? await imageService.downloadImage(
-                url: "${CcConfig.image_base_url}${country.flagUrl!}",
-                countryId: country.id!,
-                type: "flag",
+          final local = localMap[id];
+
+          final bool needFlag = country.flagUrl != null &&
+              (local?.localFlagPath == null || local!.localFlagPath!.isEmpty);
+
+          final bool needMap = country.mapUrl != null &&
+              (local?.localMapPath == null || local!.localMapPath!.isEmpty);
+
+          final results = await Future.wait([
+            if (needFlag)
+              _safeDownload(
+                imageService.downloadImage(
+                  url: "${CcConfig.image_base_url}${country.flagUrl!}",
+                  countryId: id,
+                  type: "flag",
+                ),
               )
-            : null;
-
-        final mapPath = country.mapUrl != null
-            ? await imageService.downloadImage(
-                url: "${CcConfig.image_base_url}${country.mapUrl!}",
-                countryId: country.id!,
-                type: "map",
+            else
+              Future.value(local?.localFlagPath),
+            if (needMap)
+              _safeDownload(
+                imageService.downloadImage(
+                  url: "${CcConfig.image_base_url}${country.mapUrl!}",
+                  countryId: id,
+                  type: "map",
+                ),
               )
-            : null;
+            else
+              Future.value(local?.localMapPath),
+          ]);
 
-        country.localFlagPath = flagPath;
-        country.localMapPath = mapPath;
+          country.localFlagPath = results[0];
+          country.localMapPath = results[1];
 
-      } else {
-        country.localFlagPath = local?.localFlagPath;
-        country.localMapPath = local?.localMapPath;
-      }
+          if (needFlag || needMap) {
+            debugPrint("✅ ${country.name} processed");
+          }
 
-      result.add(country);
+          return country;
+        } catch (e) {
+          /// NEVER BREAK BATCH
+          debugPrint("❌ Country failed: ${country.name}");
+          return country;
+        }
+      }).toList();
+
+      /// Even if one fails → others continue
+      final batchResult = await Future.wait(futures);
+      result.addAll(batchResult);
     }
 
     await dao.saveCountries(result);
@@ -68,7 +93,17 @@ class CountryService {
     return result;
   }
 
+  Future<String?> _safeDownload(Future<String?> future) async {
+    try {
+      return await future;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  ////////////////////////////////////
   //// Cached Country Image Section
+  ////////////////////////////////////
 
   Future<void> preloadImages({
     required BuildContext context,
@@ -105,7 +140,7 @@ class CountryService {
   ) async {
     int attempt = 0;
 
-    while (attempt < 3) {
+    while (attempt < 1) {
       try {
         if (!context.mounted) return;
         await precacheImage(
@@ -119,10 +154,10 @@ class CountryService {
         return; // success
       } catch (_) {
         attempt++;
-        await Future.delayed(Duration(seconds: attempt * 2));
+        await Future.delayed(const Duration(milliseconds: 300));
       }
     }
 
-    Utils.printLog("Final fail after retries: $url",important: false);
+    Utils.printLog("Final fail after retries: $url", important: false);
   }
 }

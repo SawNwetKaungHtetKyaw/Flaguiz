@@ -116,8 +116,7 @@ class _ChallengeGameTypeWidgetState extends State<ChallengeGameTypeWidget>
                           Utils.preLoadRewardedAds(CcAdsKey.rewardContinueGame);
 
                           AudioService.instance.playSound('tap');
-                          if (mode == CcConfig.GAME_MODE__FLAG ||
-                              mode == CcConfig.GAME_MODE__MAP) {
+                          if (mode == CcConfig.GAME_MODE__FLAG) {
                             Navigator.pushNamed(
                                 context, RoutePaths.challengeGameByImage,
                                 arguments: [

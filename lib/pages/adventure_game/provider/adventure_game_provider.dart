@@ -32,6 +32,7 @@ class AdventureGameProvider extends ChangeNotifier {
   bool _youLose = false;
   int _remainingLife = 3;
   int _correctAnswerIndex = 0;
+  int _currentComplete = 0;
   int _timerCount = CcConfig.GAME_TIMER_COUNT;
   List<int> _userWrongGuesses = [];
   String _mode = '';
@@ -43,6 +44,7 @@ class AdventureGameProvider extends ChangeNotifier {
   int get remainingLife => _remainingLife;
   int get correctAnswerIndex => _correctAnswerIndex;
   int get timerCount => _timerCount;
+  int get currentComplete => _currentComplete;
   String get mode => _mode;
   String get levelId => _levelId;
   List<int> get userWrongGuesses => _userWrongGuesses;
@@ -70,9 +72,9 @@ class AdventureGameProvider extends ChangeNotifier {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
-        if (_timerCount <= 4) {
-        VibrationService.instance.heavy();
-      }
+        if (_timerCount <= 6) {
+          VibrationService.instance.heavy();
+        }
         _timerCount--;
         notifyListeners();
       } else {
@@ -94,11 +96,11 @@ class AdventureGameProvider extends ChangeNotifier {
       if (_pageController!.hasClients) {
         _userWrongGuesses = [];
         _timerCount = CcConfig.GAME_TIMER_COUNT;
-        final nextPage = _pageController!.page!.toInt() + 1;
+        _currentComplete = _pageController!.page!.toInt() + 1;
 
         if (answerId == guessId) {
-          if (nextPage < _guessList.length) {
-            _pageController!.animateToPage(nextPage,
+          if (_currentComplete < _guessList.length) {
+            _pageController!.animateToPage(currentComplete,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut);
           } else {
@@ -165,7 +167,8 @@ class AdventureGameProvider extends ChangeNotifier {
 
   Future<void> playLoseSound() async {
     if (_youLose) {
-      await AudioService.instance.startSoundTrack(AssetAudios.adventureLoseSound);
+      await AudioService.instance
+          .startSoundTrack(AssetAudios.adventureLoseSound);
     }
   }
 

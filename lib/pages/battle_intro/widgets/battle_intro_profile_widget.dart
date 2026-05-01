@@ -48,7 +48,9 @@ class _BattleIntroProfileWidgetState extends State<BattleIntroProfileWidget> {
                     width: 25,
                     height: 25,
                     radius: 25,
-                    image: (widget.player.country?.localFlagPath == null)
+                    image:(widget.player.country == null)
+                              ? AssetsImages.regionIcon
+                              :  (widget.player.country?.localFlagPath == null)
                         ? "${CcConfig.image_base_url}${widget.player.country?.flagUrl}"
                         : widget.player.country?.localFlagPath ?? ''),
               )

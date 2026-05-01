@@ -89,16 +89,16 @@ class FriendProfileAdventureStatusWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CcShadowedTextWidget(
-                      text: "- $flagCount/23", fontSize: statusFontSize),
+                      text: "$flagCount/23", fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- $countryCount/23", fontSize: statusFontSize),
+                      text: "$countryCount/23", fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- $mapCount/23", fontSize: statusFontSize),
+                      text: "$mapCount/23", fontSize: statusFontSize),
                   const SizedBox(height: 8),
                   CcShadowedTextWidget(
-                      text: "- $capitalCount/23", fontSize: statusFontSize),
+                      text: "$capitalCount/23", fontSize: statusFontSize),
                 ],
               ),
             ],

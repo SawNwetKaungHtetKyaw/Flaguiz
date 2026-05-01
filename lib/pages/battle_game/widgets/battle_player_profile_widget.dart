@@ -15,11 +15,9 @@ class BattlePlayerProfileWidget extends StatelessWidget {
   const BattlePlayerProfileWidget(
       {super.key,
       required this.isYou,
-      required this.player,
-      required this.heroTag});
+      required this.player});
   final bool isYou;
   final BotModel player;
-  final String heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +28,17 @@ class BattlePlayerProfileWidget extends StatelessWidget {
         height: 140,
         child: Stack(
           children: [
-            Hero(
-              tag: heroTag,
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()..scale(isYou ? 1.0 : -1.0, 1.0),
-                child: Container(
-                  height: screenSize.width / 4.7,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                              cacheManager: CachedImageManagerService(),
-                              "${CcConfig.image_base_url}${player.banner}"),
-                          fit: BoxFit.fill)),
-                ),
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()..scale(isYou ? 1.0 : -1.0, 1.0),
+              child: Container(
+                height: screenSize.width / 4.7,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                            cacheManager: CachedImageManagerService(),
+                            "${CcConfig.image_base_url}${player.banner}"),
+                        fit: BoxFit.fill)),
               ),
             ),
             Positioned(
@@ -100,7 +95,9 @@ class BattlePlayerProfileWidget extends StatelessWidget {
                             radius: 20,
                             dx: 1,
                             dy: 1,
-                            image: (player.country?.localFlagPath == null)
+                            image:(player.country == null)
+                              ? AssetsImages.regionIcon
+                              :  (player.country?.localFlagPath == null)
                                 ? "${CcConfig.image_base_url}${player.country?.flagUrl}"
                                 : player.country?.localFlagPath ?? ''),
                       )

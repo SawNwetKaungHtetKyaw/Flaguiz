@@ -21,15 +21,15 @@ class Utils {
   static void printLog(Object? object, {bool important = false}) {
     if (CcConfig.showLog & important) {
       // red
-      print('\u001b[31m $object \u001b[0m');
+      debugPrint('\u001b[31m $object \u001b[0m');
     } else {
       // green
-      print('\u001b[32m $object \u001b[0m');
+      debugPrint('\u001b[32m $object \u001b[0m');
     }
   }
 
   static void debugLog(String string) {
-    print('\u001b[35m ====>$string \u001b[0m');
+    debugPrint('\u001b[35m ====>$string \u001b[0m');
   }
 
   static Future<String> getImageDir() async {

@@ -46,8 +46,7 @@ class _EditDialogState extends State<EditDialog>
     return Consumer2<CountryProvider, UserProvider>(
       builder: (context, provider, userProvider, child) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(AssetsImages.editDialog),
@@ -62,7 +61,7 @@ class _EditDialogState extends State<EditDialog>
                     Navigator.of(context).pop();
                   },
                   child: Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 59),
+                      margin: const EdgeInsets.only(top: 18, bottom: 59),
                       width: 50,
                       height: 50,
                       color: Colors.transparent),

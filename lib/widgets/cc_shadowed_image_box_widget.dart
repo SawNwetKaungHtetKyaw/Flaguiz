@@ -11,6 +11,7 @@ class CcShadowedImageBoxWidget extends StatelessWidget {
       this.shadowColor = Colors.black,
       this.dx = 2,
       this.dy = 3,
+      this.border,
       this.padding,
       this.margin,
       this.boxFit = BoxFit.fill,
@@ -19,6 +20,7 @@ class CcShadowedImageBoxWidget extends StatelessWidget {
   final String image;
   final Color shadowColor;
   final BoxFit boxFit;
+  final BoxBorder? border;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final Widget? widget;
@@ -32,6 +34,7 @@ class CcShadowedImageBoxWidget extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
+          border: border,
           image:
               DecorationImage(image: Utils.checkImageType(image), fit: boxFit),
           boxShadow: [BoxShadow(color: shadowColor, offset: Offset(dx, dy))]),

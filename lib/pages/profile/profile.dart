@@ -5,6 +5,7 @@ import 'package:flaguiz/pages/profile/widgets/profile_achivement_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_adventure_status_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_banner_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_challenge_status_widget.dart';
+import 'package:flaguiz/pages/profile/widgets/profile_connect_with_google_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_country_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_name_widget.dart';
 import 'package:flaguiz/pages/profile/widgets/profile_player_id_widget.dart';
@@ -110,10 +111,12 @@ class Profile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const CcBackWidget(image: AssetsImages.defaultBackKey),
+                      const Spacer(),
+
+                      const ProfileConnectWithGoogleWidget(),
 
                       /// Edit
                       CcImageButton(
@@ -128,7 +131,7 @@ class Profile extends StatelessWidget {
                               context: context,
                               barrierDismissible: true,
                               barrierLabel: "Edit",
-                              barrierColor: Colors.black54,
+                              barrierColor: Colors.black87,
                               transitionDuration:
                                   const Duration(milliseconds: 200),
                               pageBuilder:

@@ -30,7 +30,7 @@ class BattleTimerWidget extends StatelessWidget {
               child: CcShadowedTextWidget(
                 text: value.toString(),
                 fontSize: 14,
-                textColor: value <= 3 ? Colors.red : Colors.white,
+                textColor: value <= 5 ? Colors.red : Colors.white,
               ),
             )
           ],

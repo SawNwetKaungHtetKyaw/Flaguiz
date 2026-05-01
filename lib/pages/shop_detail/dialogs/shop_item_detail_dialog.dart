@@ -5,6 +5,10 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/pages/shop_detail/dialogs/widgets/shop_dialog_avatar_image_widget.dart';
+import 'package:flaguiz/pages/shop_detail/dialogs/widgets/shop_dialog_background_image_widget.dart';
+import 'package:flaguiz/pages/shop_detail/dialogs/widgets/shop_dialog_banner_image_widget.dart';
+import 'package:flaguiz/pages/shop_detail/dialogs/widgets/shop_dialog_border_image_widget.dart';
 import 'package:flaguiz/providers/ads_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/ads_service.dart';
@@ -13,7 +17,6 @@ import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_outlined_button.dart';
-import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,67 +59,40 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             /// For Avatar
-            Visibility(
-              visible: widget.category == CcConstants.FIRESTORE_AVATAR,
-              child: CcShadowedImageBoxWidget(
-                width: 280,
-                height: 280,
-                radius: 100,
-                image: "${CcConfig.image_base_url}${widget.item.imageUrl}",
-                dx: 0,
-                dy: 0,
-                shadowColor: Colors.transparent,
-              ),
-            ),
+            ShopDialogAvatarImageWidget(
+                category: widget.category,
+                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Border
-            Visibility(
-              visible: widget.category == CcConstants.FIRESTORE_BORDER,
-              child: CcShadowedImageBoxWidget(
-                width: 280,
-                height: 280,
-                image: "${CcConfig.image_base_url}${widget.item.imageUrl}",
-                dx: 0,
-                dy: 0,
-                shadowColor: Colors.transparent,
-              ),
-            ),
+            ShopDialogBorderImageWidget(
+                category: widget.category,
+                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Background
-            Visibility(
-              visible: widget.category == CcConstants.FIRESTORE_BACKGROUND,
-              child: CcShadowedImageBoxWidget(
-                width: 250,
-                height: 500,
-                margin: const EdgeInsets.only(bottom: 10),
-                image: "${CcConfig.image_base_url}${widget.item.imageUrl}",
-                dx: 2,
-                dy: 2,
-                shadowColor: Colors.transparent,
-              ),
-            ),
+            ShopDialogBackgroundImageWidget(
+                category: widget.category,
+                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Banner
-            Visibility(
-              visible: widget.category == CcConstants.FIRESTORE_BANNER,
-              child: CcShadowedImageBoxWidget(
-                width: double.maxFinite,
-                height: 140,
-                boxFit: BoxFit.cover,
-                margin: const EdgeInsets.only(bottom: 20),
-                image: "${CcConfig.image_base_url}${widget.item.imageUrl}",
-                dx: 2,
-                dy: 2,
-                shadowColor: Colors.transparent,
-              ),
-            ),
+            ShopDialogBannerImageWidget(
+                category: widget.category,
+                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
-            CcShadowedTextWidget(text: widget.item.name ?? '', fontSize: 20,textAlign: TextAlign.center,),
-            const SizedBox(height: 10),
             CcShadowedTextWidget(
-                text: widget.item.subName ?? '',
-                fontSize: 14,
-                textColor: Colors.grey.shade300),
+              text: widget.item.name ?? '',
+              fontSize: 16,
+              letterSpacing: 1,
+              textAlign: TextAlign.center,
+            ),
+            Visibility(
+              visible: widget.item.subName != '',
+              child: CcShadowedTextWidget(
+                padding: const EdgeInsets.only(top: 5),
+                  text: widget.item.subName ?? '',
+                  fontSize: 10,
+                  letterSpacing: 1,
+                  textColor: Colors.grey.shade300),
+            ),
             CcOutlinedButton(
               onTap: () async {
                 if (!widget.ownList.contains(widget.item.id)) {
@@ -134,7 +110,8 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
                         }
                       });
                     } else {
-                      Utils.showToastMessage(context, CcConstants.kUnavailableNow);
+                      Utils.showToastMessage(
+                          context, CcConstants.kUnavailableNow);
                     }
                   } else {
                     if (userCoin >= itemPrice) {

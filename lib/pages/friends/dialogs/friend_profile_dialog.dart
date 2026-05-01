@@ -77,6 +77,8 @@ class FriendProfileDialog extends StatelessWidget {
                   textColor: Colors.white,
                 )),
 
+                const SizedBox(height: 5),
+
                 /// Player Banner
                 ProfileBannerWidget(
                     padding: EdgeInsets.zero,

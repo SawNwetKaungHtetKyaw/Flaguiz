@@ -1,7 +1,5 @@
 import 'package:flaguiz/bot/bot_factory.dart';
 import 'package:flaguiz/bot/bot_model.dart';
-import 'package:flaguiz/config/cc_colors.dart';
-import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/models/user_model.dart';
@@ -9,9 +7,9 @@ import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/battle_question_service.dart';
+import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
-import 'package:flaguiz/widgets/cc_outlined_button.dart';
-import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
+import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,11 +23,12 @@ class FindBattleButtonWidget extends StatelessWidget {
     return Consumer2<CountryProvider, UserProvider>(
         builder: (context, countryProvider, userProvider, child) {
       final UserModel? user = userProvider.user;
-      return CcOutlinedButton(
+      return CcImageButton(
           margin: const EdgeInsets.symmetric(vertical: 20),
-          width: 150,
-          color: successColor,
-          child: const CcShadowedTextWidget(text: CcConstants.kFindBattle),
+          width: 260,
+          height: 80,
+          image: AssetsImages.battleFind,
+          boxFit: BoxFit.contain,
           onTap: () async {
             AudioService.instance.playSound('tap');
 

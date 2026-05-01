@@ -1,8 +1,10 @@
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
+import 'package:flaguiz/pages/shop_detail/dialogs/shop_item_detail_dialog.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
+import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -32,35 +34,45 @@ class ShopBanner extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8),
               itemBuilder: (context, index) {
                 final ShopModel item = avatars[index];
-                return Column(
-                  children: [
-                    Stack(
-                      children: [
-                        CcNetworkImageWidget(
-                          imageUrl:
-                              "${CcConfig.image_base_url}${item.imageUrl}",
-                          width: double.maxFinite,
-                          height: 160,
-                          boxFit: BoxFit.fill,
+                return GestureDetector(
+                  onTap: () {
+                    AudioService.instance.playSound('tap');
+                    showDialog(
+                        context: context,
+                        barrierColor: Colors.black.withOpacity(0.85),
+                        builder: (BuildContext context) => ShopItemDetailDialog(
+                            item: item, ownList: ownList, category: category));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CcShadowedImageBoxWidget(
+                        image: "${CcConfig.image_base_url}${item.imageUrl}",
+                        margin: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.only(right: 8,bottom: 8),
+                        width: 300,
+                        height: 120,
+                        shadowColor: Colors.transparent,
+                        boxFit: BoxFit.fill,
+                        widget: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: ShopDetailBuyButton(
+                                width: 80,
+                                height: 30,
+                                  item: item,
+                                  color: Colors.black.withOpacity(0.7),
+                                  disableBoxShadow: false,
+                                  ownList: ownList,
+                                  isBanner: true,
+                                  userCoin: userCoin),
+                            ),
+                          ],
                         ),
-                        Positioned(
-                          bottom: 10,
-                          right: 10,
-                          child: ShopDetailBuyButton(
-                              item: item,
-                              color: Colors.black.withOpacity(0.7),
-                              disableBoxShadow: false,
-                              ownList: ownList,
-                              userCoin: userCoin,
-                              category: category),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Divider(),
-                    )
-                  ],
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

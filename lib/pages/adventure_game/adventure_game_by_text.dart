@@ -87,6 +87,8 @@ class _AdventureGameByTextState extends State<AdventureGameByText> {
                         ],
                       ),
 
+                      const SizedBox(height: 10),
+
                       /// Timer
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -101,13 +103,19 @@ class _AdventureGameByTextState extends State<AdventureGameByText> {
                             child: CcShadowedTextWidget(
                               text: provider.timerCount.toString(),
                               fontSize: 14,
-                              textColor: (provider.timerCount) <= 3
+                              textColor: (provider.timerCount) <= 5
                                   ? Colors.red
                                   : Colors.white,
                             ),
                           )
                         ],
                       ),
+                      const SizedBox(height: 5),
+
+                      /// Completed Guess
+                      CcShadowedTextWidget(
+                          text:
+                              "${provider.currentComplete + 1}/${provider.guessList.length}"),
 
                       Expanded(
                           child: PageView.builder(

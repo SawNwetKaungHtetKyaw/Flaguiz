@@ -2,6 +2,7 @@ import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/friend_request_model.dart';
 import 'package:flaguiz/models/user_model.dart';
+import 'package:flaguiz/pages/friends/dialogs/unfriend_dialog.dart';
 import 'package:flaguiz/providers/friends_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
@@ -39,13 +40,9 @@ class FriendActionButtonWidget extends StatelessWidget {
             iconData: Remix.user_minus_fill,
             onTap: () async {
               if (user == null) return;
-              Utils.showLoadingDialog(context);
-              await provider.unfriend(
-                  userId: user.id ?? '', playerId: playerId);
-              provider.listenFriends(user.id ?? '');
-
-              if (!context.mounted) return;
-              Utils.hideLoadingDialog(context);
+              showDialog(
+                  context: context,
+                  builder: (context) => UnfriendDialog(userId: user.id ?? '', playerId: playerId));
             });
       }
 
