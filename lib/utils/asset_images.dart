@@ -48,9 +48,11 @@ class AssetsImages {
   static const String battlePurpleCurtain = 'assets/images/battle/purple_curtain.png';
   static const String battleStage = 'assets/images/battle/stage.png';
   static const String battleRope = 'assets/images/battle/kyoe.png';
-  static const String leaderboard = 'assets/images/battle/leaderboard.png';
+  static const String battleLeaderboard = 'assets/images/battle/leaderboard.png';
   static const String battleChallenge = 'assets/images/battle/battle_challenge.png';
   static const String battleFind = 'assets/images/battle/battle_find.png';
+  static const String leaderboard = 'assets/images/others/leaderboard.jpg';
+  static const String premiumBox = 'assets/images/others/premium_box.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';
@@ -85,10 +87,12 @@ class AssetsImages {
   static const String leftMoveButton = 'assets/images/buttons/left_move_button.png';
   static const String rightMoveButton = 'assets/images/buttons/right_move_button.png';
   static const String editButton = 'assets/images/buttons/edit_button.png';
+  static const String connectButton = 'assets/images/buttons/connect_button.png';
 
   /// Back Key
   static const String adventureBackKey = 'assets/images/back_key/adventure_back_key.png';
   static const String challengeBackKey = 'assets/images/back_key/challenge_back_key.png';
   static const String defaultBackKey = 'assets/images/back_key/default_back_key.png';
   static const String libraryBackKey = 'assets/images/back_key/library_back_key.png';
+  static const String battleBackKey = 'assets/images/back_key/battle_back_key.png';
 }

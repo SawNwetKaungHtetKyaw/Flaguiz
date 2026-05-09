@@ -17,7 +17,7 @@ class HomeFriendWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<FriendsProvider, UserProvider>(
         builder: (context, provider, userProvider, child) {
-      int requestLength = provider.requests.length;
+      int requestLength = provider.getRequests.length;
 
       return Positioned(
           top: 200,

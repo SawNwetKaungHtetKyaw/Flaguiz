@@ -59,11 +59,11 @@ class FirestoreService {
   }
 
   /// Send Friend Request
-  Future<void> sendRequest(UserModel user, String to) async {
+  Future<void> sendRequest(UserModel user, UserModel friend) async {
     final existing = await _firestore
         .collection('friend_requests')
         .where('from', isEqualTo: user.id)
-        .where('to', isEqualTo: to)
+        .where('to', isEqualTo: friend.id)
         .where('status', isEqualTo: 'pending')
         .get();
 
@@ -71,8 +71,9 @@ class FirestoreService {
 
     await _firestore.collection('friend_requests').add({
       'from': user.id,
-      'to': to,
+      'to': friend.id,
       'user': user.toJson(),
+      'friend': friend.toJson(),
       'status': 'pending',
       'created_at': FieldValue.serverTimestamp(),
     });
@@ -128,11 +129,22 @@ class FirestoreService {
   });
   }
 
-  /// Listen Friend Request
-  Stream<List<FriendRequestModel>> listenRequests(String userId) {
+  /// Listen Friend Get Request
+  Stream<List<FriendRequestModel>> listenGetRequests(String userId) {
     return _firestore
         .collection('friend_requests')
         .where('to', isEqualTo: userId)
+        .where('status', isEqualTo: 'pending')
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((e) => FriendRequestModel.fromDoc(e)).toList());
+  }
+
+  /// Listen Friend Send Request
+  Stream<List<FriendRequestModel>> listenSendRequests(String userId) {
+    return _firestore
+        .collection('friend_requests')
+        .where('from', isEqualTo: userId)
         .where('status', isEqualTo: 'pending')
         .snapshots()
         .map((snapshot) =>

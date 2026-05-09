@@ -13,21 +13,44 @@ class FriendRequestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<FriendsProvider, UserProvider>(
       builder: (context, provider, userProvider, child) {
-        return provider.requests.isEmpty
+        return provider.getRequests.isEmpty && provider.sendRequests.isEmpty
             ? const Center(
                 child: CcShadowedTextWidget(
-                    text: 'There is no Friends Request Yet...'))
-            : ListView.builder(
-                shrinkWrap: true,
-                itemCount: provider.requests.length,
-                itemBuilder: (context, index) {
-                  final req = provider.requests[index];
+                    text: 'There is no Friends Request Yet...',
+                    textAlign: TextAlign.center))
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: provider.getRequests.length,
+                        itemBuilder: (context, index) {
+                          final req = provider.getRequests[index];
 
-                  return FriendCardWidget(
-                      player: req.user,
-                      page: CcConstants.K_REQUEST,
-                      requestModel: req);
-                });
+                          return FriendCardWidget(
+                              player: req.user,
+                              page: CcConstants.K_REQUEST,
+                              requestModel: req);
+                        }),
+
+                    const CcShadowedTextWidget(text: "Your Requests",padding: EdgeInsets.symmetric(vertical: 10)),
+
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: provider.sendRequests.length,
+                        itemBuilder: (context, index) {
+                          final req = provider.sendRequests[index];
+
+                          return FriendCardWidget(
+                              player: req.friend,
+                              page: CcConstants.K_SEARCH,
+                              requestModel: req);
+                        }),
+                  ],
+                ),
+              );
       },
     );
   }

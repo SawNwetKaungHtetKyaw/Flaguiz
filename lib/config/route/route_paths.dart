@@ -15,7 +15,7 @@ class RoutePaths {
   static const String shopDetail = '/shop-detail';
   static const String detail = '/detail';
   static const String profile = '/profile';
-  static const String setting = '/setting';
+  static const String leaderboard = '/leaderboard';
   static const String adventureGameByImage = '/adventure-game-image';
   static const String adventureGameByText = '/adventure-game-text';
   static const String challengeGameByImage = '/challenge-game-image';

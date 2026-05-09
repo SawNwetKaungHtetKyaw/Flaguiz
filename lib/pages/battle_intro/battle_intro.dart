@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flaguiz/animations/scale_animation.dart';
 import 'package:flaguiz/bot/bot_difficulty.dart';
 import 'package:flaguiz/bot/bot_model.dart';
-import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/pages/battle_intro/widgets/battle_intro_banner_widget.dart';
@@ -66,15 +65,13 @@ class _BattleIntroState extends State<BattleIntro> {
             /// User Banner
             BattleIntroBannerWidget(
               player: widget.user,
-              isYou: true,
-              heroTag: CcConstants.kH_BATTLE_PROFILE_BANNER,
+              isYou: true
             ),
 
             /// Bot Banner
             BattleIntroBannerWidget(
                 player: widget.bot,
-                isYou: false,
-                heroTag: CcConstants.kH_BATTLE_BOT_BANNER),
+                isYou: false),
 
             /// Vs
             const ScaleAnimation(

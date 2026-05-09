@@ -4,7 +4,7 @@ import 'package:flaguiz/pages/shop_detail/dialogs/shop_item_detail_dialog.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -54,13 +54,13 @@ class ShopBackground extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: CcNetworkImageWidget(
-                          imageUrl:
-                              "${CcConfig.image_base_url}${item.imageUrl}",
-                          width: 140,
-                          height: 260),
+                    Container(
+                      width: 140,
+                      height: 260,
+                      margin: const EdgeInsets.only(right: 5),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: Utils.checkImageType(item.localPath ?? "${CcConfig.image_base_url}${item.imageUrl}"))),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),

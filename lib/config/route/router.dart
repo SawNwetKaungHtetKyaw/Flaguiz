@@ -19,6 +19,7 @@ import 'package:flaguiz/pages/adventure_game/adventure_game_by_image.dart';
 import 'package:flaguiz/pages/adventure_game/adventure_game_by_text.dart';
 import 'package:flaguiz/pages/friends/friends.dart';
 import 'package:flaguiz/pages/home/home.dart';
+import 'package:flaguiz/pages/leaderboard/leaderboard.dart';
 import 'package:flaguiz/pages/library/library.dart';
 import 'package:flaguiz/pages/loading/loading.dart';
 import 'package:flaguiz/pages/privacy_policies/privacy_policies.dart';
@@ -199,7 +200,13 @@ Route<dynamic> generateRoute(RouteSettings setting) {
             final String result = args[0];
             final BotModel user = args[1];
             final BotModel bot = args[2];
-            return BattleGameResult(result: result,user: user,bot: bot);
+            return BattleGameResult(result: result, user: user, bot: bot);
+          });
+    case RoutePaths.leaderboard:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.leaderboard),
+          builder: (BuildContext context) {
+            return const Leaderboard();
           });
     case RoutePaths.friends:
       return MaterialPageRoute(

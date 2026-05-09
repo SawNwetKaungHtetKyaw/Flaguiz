@@ -61,22 +61,26 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
             /// For Avatar
             ShopDialogAvatarImageWidget(
                 category: widget.category,
-                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
+                imageUrl: widget.item.localPath ??
+                    "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Border
             ShopDialogBorderImageWidget(
                 category: widget.category,
-                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
+                imageUrl: widget.item.localPath ??
+                    "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Background
             ShopDialogBackgroundImageWidget(
                 category: widget.category,
-                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
+                imageUrl: widget.item.localPath ??
+                    "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             /// For Banner
             ShopDialogBannerImageWidget(
                 category: widget.category,
-                imageUrl: "${CcConfig.image_base_url}${widget.item.imageUrl}"),
+                imageUrl: widget.item.localPath ??
+                    "${CcConfig.image_base_url}${widget.item.imageUrl}"),
 
             CcShadowedTextWidget(
               text: widget.item.name ?? '',
@@ -84,15 +88,17 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
               letterSpacing: 1,
               textAlign: TextAlign.center,
             ),
+
             Visibility(
               visible: widget.item.subName != '',
               child: CcShadowedTextWidget(
-                padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 5),
                   text: widget.item.subName ?? '',
                   fontSize: 10,
                   letterSpacing: 1,
                   textColor: Colors.grey.shade300),
             ),
+
             CcOutlinedButton(
               onTap: () async {
                 if (!widget.ownList.contains(widget.item.id)) {

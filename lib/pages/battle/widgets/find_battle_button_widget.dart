@@ -1,10 +1,12 @@
 import 'package:flaguiz/bot/bot_factory.dart';
 import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/battle_question_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
@@ -24,9 +26,9 @@ class FindBattleButtonWidget extends StatelessWidget {
         builder: (context, countryProvider, userProvider, child) {
       final UserModel? user = userProvider.user;
       return CcImageButton(
-          margin: const EdgeInsets.symmetric(vertical: 20),
-          width: 260,
-          height: 80,
+          margin: const EdgeInsets.only(top: 40),
+          width: 250,
+          height: 70,
           image: AssetsImages.battleFind,
           boxFit: BoxFit.contain,
           onTap: () async {
@@ -40,6 +42,9 @@ class FindBattleButtonWidget extends StatelessWidget {
 
             if (!context.mounted) return;
             Utils.showLoadingDialog(context);
+
+            /// Load Ads
+            AdsService.instance.loadInterstitialAds(CcAdsKey.interstitialBattleAds);
 
             /// Generate Battle User Bot Data
             BotModel userBot = await BotFactory().createUserBot(user);

@@ -2,6 +2,17 @@ class CcAdsKey {
   static String androidAdMobAdsIdKey = 'ca-app-pub-9116233154962039~2763776279';
   static String iosAdMobAdsIdKey = 'ca-app-pub-2551462005480530~6522585821';
 
+  /// Interstitial Ads
+  static const interstitialBattleAds = "interstitial-battle-ads";
+
+  static const Map<String, Map<String, String>> interstitialAds = {
+    interstitialBattleAds: {
+      "android": "ca-app-pub-3940256099942544/1033173712",
+      // "android": "ca-app-pub-9116233154962039/6139694678",
+      "ios": "ca-app-pub-xxxx/reward_main_ios",
+    },
+  };
+
   /// Reward Ads Keys
   static const rewardDouble = "reward-double";
   static const rewardContinueGame = "reward-continue-game";
@@ -29,6 +40,7 @@ class CcAdsKey {
   static const bannerLibrary = "banner-library";
   static const bannerAdventure = "banner-adventure";
   static const bannerChallenge = "banner-challenge";
+  static const bannerBattle = "banner-battle";
   static const bannerCountryDetail = "banner-country-detail";
   static const bannerShop = "banner-shop";
 
@@ -39,6 +51,11 @@ class CcAdsKey {
       "ios": "ca-app-pub-xxxxxxxx/home_ios",
     },
     bannerChallenge: {
+      // "android": "ca-app-pub-3940256099942544/6300978111",
+      "android": "ca-app-pub-9116233154962039/5071187485",
+      "ios": "ca-app-pub-xxxxxxxx/game_ios",
+    },
+    bannerBattle: {
       // "android": "ca-app-pub-3940256099942544/6300978111",
       "android": "ca-app-pub-9116233154962039/5071187485",
       "ios": "ca-app-pub-xxxxxxxx/game_ios",

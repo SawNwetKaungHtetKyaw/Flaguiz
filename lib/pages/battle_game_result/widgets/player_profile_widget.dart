@@ -54,6 +54,7 @@ class PlayerProfileWidget extends StatelessWidget {
                         radius: 20,
                         dx: 1,
                         dy: 1,
+                        boxFit: BoxFit.cover,
                         image: (user.country == null)
                             ? AssetsImages.regionIcon
                             : (user.country?.localFlagPath == null)

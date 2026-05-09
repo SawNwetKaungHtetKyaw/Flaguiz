@@ -1,17 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/databases/background_dao.dart';
 import 'package:flaguiz/models/shop_model.dart';
+import 'package:flaguiz/service/image_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 class BackgroundRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final BackgroundDao _dao = BackgroundDao();
+  final ImageService _imageService = ImageService();
 
   void startSync() {
-    _firestore.collection(CcConstants.FIRESTORE_BACKGROUND).snapshots().listen((snapshot) {
-
+    _firestore
+        .collection(CcConstants.FIRESTORE_BACKGROUND)
+        .snapshots()
+        .listen((snapshot) {
       for (final change in snapshot.docChanges) {
         final data = change.doc.data();
         if (data == null) continue;
@@ -19,10 +24,9 @@ class BackgroundRepository {
         final item = ShopModel.fromJson(data);
 
         switch (change.type) {
-
           case DocumentChangeType.added:
           case DocumentChangeType.modified:
-            put(item);
+            _handleItem(item);
             break;
 
           case DocumentChangeType.removed:
@@ -31,6 +35,25 @@ class BackgroundRepository {
         }
       }
     });
+  }
+
+  Future<void> _handleItem(ShopModel item) async {
+    await put(item);
+
+    if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+      final fileName = "${item.id}/${item.name}";
+
+      final path = await _imageService.downloadImage(
+        url: "${CcConfig.image_base_url}${item.imageUrl!}",
+        fileName: fileName,
+      );
+
+      if (path != null) {
+        item.localPath = path;
+
+        await put(item);
+      }
+    }
   }
 
   List<ShopModel> getAll() {

@@ -12,8 +12,8 @@ class FriendsRepository {
     return await _firestore.searchUserByPlayerId(playerID);
   }
 
-  Future<void> sendRequest(UserModel user, String to) async {
-    await _firestore.sendRequest(user, to);
+  Future<void> sendRequest(UserModel user, UserModel friend) async {
+    await _firestore.sendRequest(user, friend);
   }
 
   Future<void> cancelRequest(String from, String to) async {
@@ -24,8 +24,12 @@ class FriendsRepository {
     return _firestore.getFriendStatus(myId, otherId);
   }
 
-  Stream<List<FriendRequestModel>> listenRequest(String userId) {
-    return _firestore.listenRequests(userId);
+  Stream<List<FriendRequestModel>> listenGetRequest(String userId) {
+    return _firestore.listenGetRequests(userId);
+  }
+
+  Stream<List<FriendRequestModel>> listenSendRequest(String userId) {
+    return _firestore.listenSendRequests(userId);
   }
 
   Future<void> unfriend({

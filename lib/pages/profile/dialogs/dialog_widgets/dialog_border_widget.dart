@@ -49,7 +49,8 @@ class DialogBorderWidget extends StatelessWidget {
                       ),
                       child: Image(
                         image: Utils.checkImageType(
-                          "${CcConfig.image_base_url}${border.imageUrl}",
+                          border.localPath ??
+                              "${CcConfig.image_base_url}${border.imageUrl}",
                         ),
                         fit: BoxFit.fill,
                       ),

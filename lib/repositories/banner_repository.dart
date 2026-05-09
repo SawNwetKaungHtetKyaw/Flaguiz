@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/databases/banner_dao.dart';
 import 'package:flaguiz/models/shop_model.dart';
+import 'package:flaguiz/service/image_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 class BannerRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final BannerDao _dao = BannerDao();
+  final ImageService _imageService = ImageService();
 
   void startSync() {
     _firestore.collection(CcConstants.FIRESTORE_BANNER).snapshots().listen((snapshot) {
@@ -22,7 +25,7 @@ class BannerRepository {
 
           case DocumentChangeType.added:
           case DocumentChangeType.modified:
-            put(item);
+            _handleItem(item);
             break;
 
           case DocumentChangeType.removed:
@@ -31,6 +34,26 @@ class BannerRepository {
         }
       }
     });
+  }
+
+  
+  Future<void> _handleItem(ShopModel item) async {
+    await put(item);
+
+    if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+      final fileName = "${item.id}/${item.name}";
+
+      final path = await _imageService.downloadImage(
+        url: "${CcConfig.image_base_url}${item.imageUrl!}",
+        fileName: fileName,
+      );
+
+      if (path != null) {
+        item.localPath = path;
+
+        await put(item);
+      }
+    }
   }
 
   List<ShopModel> getAll() {

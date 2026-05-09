@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flaguiz/bot/bot_brain.dart';
 import 'package:flaguiz/bot/bot_difficulty.dart';
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/utils.dart';
@@ -69,7 +71,7 @@ class BattleGameProvider extends ChangeNotifier {
 
   startTimerCount() {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
-    if(_gameEnded) return;
+    if (_gameEnded) return;
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
@@ -80,7 +82,7 @@ class BattleGameProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         _timer?.cancel();
-        if(_gameEnded) return;
+        if (_gameEnded) return;
         _endGame(CcConstants.BATTLE_LOSE);
       }
     });
@@ -196,11 +198,17 @@ class BattleGameProvider extends ChangeNotifier {
   /// End Game
   /// =========================
   void _endGame(String result) {
-    _gameEnded = true;
-    _battleResult = result;
-    notifyListeners();
+    _timer?.cancel();
+    AdsService.instance.showInterstitialAds(
+      CcAdsKey.interstitialBattleAds,
+      onComplete: () {
+        _gameEnded = true;
+        _battleResult = result;
+        notifyListeners();
 
-    debugPrint("Game Result: $result");
+        debugPrint("Game Result: $result");
+      },
+    );
   }
 
   @override

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdsService {
-
   AdsService._internal();
 
   static final AdsService instance = AdsService._internal();
@@ -14,7 +13,7 @@ class AdsService {
     loadBannerAds(CcAdsKey.bannerAdventure);
     loadBannerAds(CcAdsKey.bannerChallenge);
     loadBannerAds(CcAdsKey.bannerCountryDetail);
-    loadBannerAds(CcAdsKey.bannerShop,size: AdSize.largeBanner);
+    loadBannerAds(CcAdsKey.bannerShop, size: AdSize.largeBanner);
     loadBannerAds(CcAdsKey.bannerLibrary);
   }
 
@@ -22,6 +21,72 @@ class AdsService {
   final Map<String, bool> _loaded = {};
   final Map<String, RewardedAd?> _rewarded = {};
   final Map<String, bool> _isReady = {};
+  final Map<String, InterstitialAd?> _interstitial = {};
+  final Map<String, VoidCallback?> _onComplete = {};
+
+  /// Interstitial Ads Section
+  void loadInterstitialAds(String key) {
+    InterstitialAd.load(
+      adUnitId: Utils.getInterstitialAdUnitId(key),
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+        _interstitial[key] = ad;
+
+        ad.setImmersiveMode(true);
+
+        ad.fullScreenContentCallback = FullScreenContentCallback(
+          onAdDismissedFullScreenContent: (ad) {
+            ad.dispose();
+            _interstitial[key] = null;
+
+            // 👇 RUN YOUR NEXT ACTION HERE
+            _onComplete[key]?.call();
+            _onComplete[key] = null;
+
+            // preload next
+            loadInterstitialAds(key);
+          },
+          onAdFailedToShowFullScreenContent: (ad, error) {
+            ad.dispose();
+            _interstitial[key] = null;
+
+            // still continue flow if failed
+            _onComplete[key]?.call();
+            _onComplete[key] = null;
+          },
+        );
+      }, onAdFailedToLoad: (error) {
+        _interstitial[key] = null;
+
+        _onComplete[key]?.call();
+        _onComplete[key] = null;
+      }),
+    );
+  }
+
+  void showInterstitialAds(
+    String key, {
+    VoidCallback? onComplete,
+  }) {
+    final ad = _interstitial[key];
+
+    // store callback
+    _onComplete[key] = onComplete;
+
+    if (ad != null) {
+      ad.show();
+    } else {
+      print("Ad not ready: $key");
+
+      // try load again
+      loadInterstitialAds(key);
+
+      Future.delayed(const Duration(milliseconds: 300), () {
+        onComplete?.call();
+        _onComplete[key] = null;
+      });
+    }
+  }
 
   /// Rewarded Ads Section
   void loadRewardedAds(String key) {
@@ -45,12 +110,11 @@ class AdsService {
     );
   }
 
-
   // Check if ad is ready
- bool isReady(String key) => _isReady[key] ?? false;
+  bool isReady(String key) => _isReady[key] ?? false;
 
   // Show the ad
-   void show(String key,BuildContext context, Function() onRewardEarned) {
+  void show(String key, BuildContext context, Function() onRewardEarned) {
     final ad = _rewarded[key];
 
     if (ad == null || _isReady[key] != true) {

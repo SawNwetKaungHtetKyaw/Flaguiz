@@ -6,6 +6,7 @@ import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/home/dialog/daily_reward_dialog.dart';
 import 'package:flaguiz/pages/home/dialog/exit_dialog.dart';
+import 'package:flaguiz/pages/home/dialog/premium_dialog.dart';
 import 'package:flaguiz/pages/home/provider/home_provider.dart';
 import 'package:flaguiz/pages/home/widgets/home_friend_widget.dart';
 import 'package:flaguiz/pages/home/widgets/home_game_button_widget.dart';
@@ -20,7 +21,6 @@ import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:rive/rive.dart' as rive;
@@ -76,10 +76,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           Consumer3<HomeProvider, UserProvider, BackgroundProvider>(builder:
               (context, provider, userProvider, backgroundProvider, child) {
         UserModel? user = userProvider.user;
-        String? backgroundURL =
-            (backgroundProvider.background?.imageUrl == null)
-                ? CcConfig.default_background
-                : backgroundProvider.background?.imageUrl;
+        // String backgroundImage = 'https://res.cloudinary.com/dafxhhban/image/upload/v1778309388/brazil_BG_copy_aqhxyo.jpg';
+        String? backgroundImage = (backgroundProvider.background?.imageUrl ==
+                null)
+            ? AssetsImages.testBg
+            : (backgroundProvider.background?.localPath == null)
+                ? "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"
+                : backgroundProvider.background?.localPath;
         return PopScope(
           canPop: false,
           onPopInvokedWithResult: (didPop, result) {
@@ -102,13 +105,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               //     imageUrl: "${CcConfig.image_base_url}$backgroundURL"
               //     ),
 
-
               Container(
-                width:  double.maxFinite,
+                width: double.maxFinite,
                 height: double.maxFinite,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(AssetsImages.testBg),fit: BoxFit.cover)
-                ),
+                    image: DecorationImage(
+                        image: Utils.checkImageType(
+                            backgroundImage ?? AssetsImages.testBg),
+                        fit: BoxFit.cover)),
               ),
 
               /// Friends
@@ -121,7 +125,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   child: GestureDetector(
                     onTap: () async {
                       audioService.playSound("tap");
-                      Utils.showToastMessage(context, CcConstants.kComingSoon);
+                       showGeneralDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          barrierLabel: "Premium",
+                          barrierColor: Colors.black87,
+                          transitionDuration: const Duration(milliseconds: 200),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return const Center(
+                              child: Material(
+                                color: Colors.transparent,
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  height: 550,
+                                  child: PremiumDialog(),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                     },
                     child: Container(
                       width: 75,

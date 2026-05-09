@@ -51,7 +51,7 @@ class DialogBackgroundWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     // borderRadius: BorderRadius.circular(radius),
                     image: DecorationImage(
-                        image: Utils.checkImageType(
+                        image: Utils.checkImageType(background.localPath ??
                             "${CcConfig.image_base_url}${background.imageUrl}"),
                         fit: BoxFit.cover),
                   ),

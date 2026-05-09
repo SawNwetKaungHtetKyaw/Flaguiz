@@ -6,7 +6,7 @@ import 'package:flaguiz/pages/friends/widgets/friend_action_button_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/friends_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_profile_provider.dart';
+import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class FriendCardWidget extends StatelessWidget {
   const FriendCardWidget(
       {super.key, required this.player, required this.page, this.requestModel});
-  final UserModel? player;
+  final UserModel player;
   final String page;
   final FriendRequestModel? requestModel;
 
@@ -26,7 +26,7 @@ class FriendCardWidget extends StatelessWidget {
         onTap: () async {
           AudioService.instance.playSound('tap');
           CountryModel? country =
-              await countryProvider.countryById(player?.country ?? '0');
+              await countryProvider.countryById(player.country ?? '0');
 
           if (!context.mounted) return;
           showDialog(
@@ -37,7 +37,7 @@ class FriendCardWidget extends StatelessWidget {
         child: Container(
           width: double.maxFinite,
           height: 70,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
               color: Colors.grey.shade800,
               boxShadow: const [BoxShadow(offset: Offset(4, 4))]),
@@ -46,14 +46,14 @@ class FriendCardWidget extends StatelessWidget {
             children: [
               const SizedBox(width: 5),
               CcProfileImageWidget(
-                  avatar: player?.avatars?[0] ?? '',
-                  border: player?.borders?[0] ?? '',
+                  avatar: player.avatars?[0] ?? '',
+                  border: player.borders?[0] ?? '',
                   size: 60),
               const SizedBox(width: 10),
-              CcShadowedTextWidget(text: player?.username ?? ''),
+              CcShadowedTextWidget(text: player.username ?? ''),
               const Spacer(),
               FriendActionButtonWidget(
-                playerId: player?.id ?? '',
+                friend: player,
                 requestModel: requestModel,
                 page: page,
               ),

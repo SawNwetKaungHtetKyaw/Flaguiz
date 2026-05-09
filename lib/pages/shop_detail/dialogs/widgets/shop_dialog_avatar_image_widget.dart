@@ -7,7 +7,7 @@ class ShopDialogAvatarImageWidget extends StatelessWidget {
   final String imageUrl,category;
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return Visibility(
       visible: category == CcConstants.FIRESTORE_AVATAR,
       child: Container(

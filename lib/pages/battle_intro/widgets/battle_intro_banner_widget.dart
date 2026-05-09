@@ -1,21 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flaguiz/animations/fade_animation.dart';
 import 'package:flaguiz/animations/slide_animation.dart';
 import 'package:flaguiz/bot/bot_model.dart';
 import 'package:flaguiz/config/cc_config.dart';
-import 'package:flaguiz/service/cached_image_manager_service.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class BattleIntroBannerWidget extends StatelessWidget {
   const BattleIntroBannerWidget(
       {super.key,
       required this.isYou,
-      required this.player,
-      required this.heroTag});
+      required this.player});
 
   final BotModel player;
   final bool isYou;
-  final String heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +36,7 @@ class BattleIntroBannerWidget extends StatelessWidget {
                   top: isYou ? 0 : screenSize.width / 3),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                          cacheManager: CachedImageManagerService(),
-                          "${CcConfig.image_base_url}${player.banner}"),
+                      image: Utils.checkImageType("${CcConfig.image_base_url}${player.banner}"),
                       fit: BoxFit.cover)),
             ),
           ),

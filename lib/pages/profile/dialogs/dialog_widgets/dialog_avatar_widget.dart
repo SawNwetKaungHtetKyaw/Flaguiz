@@ -44,7 +44,7 @@ class DialogAvatarWidget extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: Utils.checkImageType(
+                      image: Utils.checkImageType(avatar.localPath ??
                           "${CcConfig.image_base_url}${avatar.imageUrl}"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(

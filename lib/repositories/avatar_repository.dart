@@ -1,16 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/databases/avatar_dao.dart';
 import 'package:flaguiz/models/shop_model.dart';
+import 'package:flaguiz/service/image_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 class AvatarRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AvatarDao _dao = AvatarDao();
+  final ImageService _imageService = ImageService();
 
   void startSync() {
-    _firestore.collection(CcConstants.FIRESTORE_AVATAR).snapshots().listen((snapshot) {
+    _firestore
+        .collection(CcConstants.FIRESTORE_AVATAR)
+        .snapshots()
+        .listen((snapshot) {
       for (final change in snapshot.docChanges) {
         final data = change.doc.data();
         if (data == null) continue;
@@ -18,10 +24,9 @@ class AvatarRepository {
         final avatar = ShopModel.fromJson(data);
 
         switch (change.type) {
-
           case DocumentChangeType.added:
           case DocumentChangeType.modified:
-            put(avatar);
+            _handleAvatar(avatar);
             break;
 
           case DocumentChangeType.removed:
@@ -30,6 +35,25 @@ class AvatarRepository {
         }
       }
     });
+  }
+
+  Future<void> _handleAvatar(ShopModel item) async {
+    await put(item);
+
+    if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+      final fileName = "${item.id}/${item.name}";
+
+      final path = await _imageService.downloadImage(
+        url: "${CcConfig.image_base_url}${item.imageUrl!}",
+        fileName: fileName,
+      );
+
+      if (path != null) {
+        item.localPath = path;
+
+        await put(item);
+      }
+    }
   }
 
   List<ShopModel> getAll() {

@@ -60,10 +60,11 @@ class BotProfileWidget extends StatelessWidget {
                       right: 0,
                       child: CcShadowedImageBoxWidget(
                           width: 20,
-                            height: 20,
-                            radius: 20,
-                            dx: 1,
-                            dy: 1,
+                          height: 20,
+                          radius: 20,
+                          dx: 1,
+                          dy: 1,
+                          boxFit: BoxFit.cover,
                           image: (bot.country == null)
                               ? AssetsImages.regionIcon
                               : (bot.country?.localFlagPath == null)

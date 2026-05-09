@@ -214,6 +214,12 @@ class Utils {
         : CcAdsKey.rewardedAds[key]!["ios"]!;
   }
 
+  static String getInterstitialAdUnitId(String key) {
+    return Platform.isAndroid
+        ? CcAdsKey.interstitialAds[key]!["android"]!
+        : CcAdsKey.interstitialAds[key]!["ios"]!;
+  }
+
   static preLoadRewardedAds(String key) {
     AdsService.instance.loadRewardedAds(key);
   }
@@ -316,6 +322,8 @@ class Utils {
 
   static int calculateLosePenalty(int trophy) {
     if (trophy <= 0) return 0;
+    if (trophy <= 1) return 1;
+    if (trophy <= 2) return 2;
 
     double percent = 0.05;
     int loss = (trophy * percent).round();

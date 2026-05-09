@@ -31,15 +31,17 @@ class _BattleGameResultState extends State<BattleGameResult> {
   @override
   void initState() {
     super.initState();
+    AudioService.instance.allowMusic = false;
+    AudioService.instance.pause();
     coin = Utils.battleCoinByResult(widget.result);
     trophy = Utils.battleTrophyByResult(widget.result, widget.user.trophy ?? 0);
     context.read<UserProvider>().updateUserDataAfterBattle(coin, trophy);
 
-    if(widget.result == CcConstants.BATTLE_WIN){
+    if (widget.result == CcConstants.BATTLE_WIN) {
       AudioService.instance.playSound('bt-win');
-    }else if(widget.result == CcConstants.BATTLE_LOSE){
+    } else if (widget.result == CcConstants.BATTLE_LOSE) {
       AudioService.instance.playSound('bt-lose');
-    }else{
+    } else {
       AudioService.instance.playSound('bt-lose');
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_profile_provider.dart';
+import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeProfileWidget extends StatelessWidget {

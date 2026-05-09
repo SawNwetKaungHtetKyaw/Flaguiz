@@ -6,10 +6,10 @@ import 'package:flaguiz/pages/loading/dialogs/no_internet_dialog.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/enum/login_status.dart';
 import 'package:flaguiz/utils/utils.dart';
-import 'package:flaguiz/widgets/cc_outlined_button.dart';
-import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
+import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,10 +21,11 @@ class ProfileConnectWithGoogleWidget extends StatelessWidget {
     return Consumer<UserProvider>(
       builder: (context, userProvider, child) => Visibility(
         visible: !userProvider.isLoggedIn,
-        child: CcOutlinedButton(
-            width: 150,
+        child: CcImageButton(
+            width: 120,
+            height: 50,
             margin: const EdgeInsets.only(right: 10),
-            child: const CcShadowedTextWidget(fontSize: 10, text: 'Connect'),
+            image: AssetsImages.connectButton,
             onTap: () async {
               AudioService.instance.playSound('tap');
               if (!await Utils.hasInternet() && context.mounted) {

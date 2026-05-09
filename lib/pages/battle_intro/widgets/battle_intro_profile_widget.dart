@@ -48,6 +48,7 @@ class _BattleIntroProfileWidgetState extends State<BattleIntroProfileWidget> {
                     width: 25,
                     height: 25,
                     radius: 25,
+                    boxFit: BoxFit.cover,
                     image:(widget.player.country == null)
                               ? AssetsImages.regionIcon
                               :  (widget.player.country?.localFlagPath == null)

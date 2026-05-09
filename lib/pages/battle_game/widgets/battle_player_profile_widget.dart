@@ -95,6 +95,7 @@ class BattlePlayerProfileWidget extends StatelessWidget {
                             radius: 20,
                             dx: 1,
                             dy: 1,
+                            boxFit: BoxFit.cover,
                             image:(player.country == null)
                               ? AssetsImages.regionIcon
                               :  (player.country?.localFlagPath == null)

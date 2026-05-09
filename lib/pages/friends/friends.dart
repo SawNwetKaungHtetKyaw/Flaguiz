@@ -54,7 +54,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
             ),
           )),
           child: Consumer<FriendsProvider>(builder: (context, provider, child) {
-            final int requestLength = provider.requests.length;
+            final int requestLength = provider.getRequests.length;
             return Column(
               children: [
                 Material(

@@ -33,7 +33,7 @@ class DialogBannerWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             ShopModel? banner = ownedItems[index];
             String id = banner.id ?? '';
-        
+
             return GestureDetector(
               onTap: () async {
                 AudioService.instance.playSound('tap');
@@ -50,7 +50,8 @@ class DialogBannerWidget extends StatelessWidget {
                 ),
                 child: Image(
                   image: Utils.checkImageType(
-                    "${CcConfig.image_base_url}${banner.imageUrl}",
+                    banner.localPath ??
+                        "${CcConfig.image_base_url}${banner.imageUrl}",
                   ),
                   fit: BoxFit.fill,
                 ),

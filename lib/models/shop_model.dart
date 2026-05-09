@@ -18,7 +18,10 @@ class ShopModel {
   @HiveField(4)
   int? price;
 
-  ShopModel({this.id, this.name, this.subName, this.imageUrl, this.price});
+  @HiveField(5)
+  String? localPath;
+
+  ShopModel({this.id, this.name, this.subName, this.imageUrl, this.price,this.localPath});
 
   factory ShopModel.fromJson(Map<String, dynamic> json) {
     return ShopModel(
@@ -26,7 +29,9 @@ class ShopModel {
         name: json["name"],
         subName: json["sub_name"],
         imageUrl: json["image_url"],
-        price: json["price"]);
+        price: json["price"],
+        localPath: json["local_path"],
+        );
   }
 
   List<ShopModel> fromJsonList(List<dynamic> dynamicDataList) {
@@ -46,6 +51,7 @@ class ShopModel {
     data['sub_name'] = object.subName;
     data['image_url'] = object.imageUrl;
     data['price'] = object.price;
+    data['local_path'] = object.localPath;
     return data;
   }
 

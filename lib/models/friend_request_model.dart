@@ -6,6 +6,7 @@ class FriendRequestModel {
   final String from;
   final String to;
   final UserModel user;
+  final UserModel friend;
   final String status;
   final DateTime createdAt;
 
@@ -14,20 +15,24 @@ class FriendRequestModel {
     required this.from,
     required this.to,
     required this.user,
+    required this.friend,
     required this.status,
     required this.createdAt,
   });
 
   factory FriendRequestModel.fromDoc(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  final data = doc.data() as Map<String, dynamic>;
 
-    return FriendRequestModel(
-      id: doc.id,
-      from: data['from'],
-      to: data['to'],
-      user: UserModel.fromJson(data['user']),
-      status: data['status'],
-      createdAt: (data['created_at'] as Timestamp).toDate(),
-    );
-  }
+  final timestamp = data['created_at'] as Timestamp?;
+
+  return FriendRequestModel(
+    id: doc.id,
+    from: data['from'] ?? '',
+    to: data['to'] ?? '',
+    user: UserModel.fromJson(data['user'] ?? {}),
+    friend: UserModel.fromJson(data['friend'] ?? {}),
+    status: data['status'] ?? 'pending',
+    createdAt: timestamp?.toDate() ?? DateTime.now(),
+  );
+}
 }

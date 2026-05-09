@@ -16,12 +16,12 @@ import 'package:remixicon/remixicon.dart';
 class FriendActionButtonWidget extends StatelessWidget {
   const FriendActionButtonWidget(
       {super.key,
-      required this.playerId,
+      required this.friend,
       this.requestModel,
       this.page = CcConstants.K_FRIENDS,
       this.margin = const EdgeInsets.only(right: 10)});
   final EdgeInsets margin;
-  final String playerId;
+  final UserModel friend;
   final String page;
   final FriendRequestModel? requestModel;
 
@@ -42,7 +42,7 @@ class FriendActionButtonWidget extends StatelessWidget {
               if (user == null) return;
               showDialog(
                   context: context,
-                  builder: (context) => UnfriendDialog(userId: user.id ?? '', playerId: playerId));
+                  builder: (context) => UnfriendDialog(userId: user.id ?? '', playerId: friend.id ?? ''));
             });
       }
 
@@ -77,7 +77,7 @@ class FriendActionButtonWidget extends StatelessWidget {
 
       if (page == CcConstants.K_SEARCH) {
         return StreamBuilder<FriendStatus>(
-          stream: provider.getFriendStatus(user?.id ?? '', playerId),
+          stream: provider.getFriendStatus(user?.id ?? '', friend.id ?? ''),
           builder: (context, snapshot) {
             final status = snapshot.data ?? FriendStatus.none;
 
@@ -91,7 +91,7 @@ class FriendActionButtonWidget extends StatelessWidget {
                   onTap: () async {
                     if (user == null) return;
                     Utils.showLoadingDialog(context);
-                    await provider.sendRequest(user, playerId);
+                    await provider.sendRequest(user, friend);
                     if (!context.mounted) return;
                     Utils.hideLoadingDialog(context);
                   },
@@ -107,7 +107,7 @@ class FriendActionButtonWidget extends StatelessWidget {
                   onTap: () async {
                     if (user == null) return;
                     Utils.showLoadingDialog(context);
-                    await provider.cancelRequest(user.id!, playerId);
+                    await provider.cancelRequest(user.id!, friend.id ?? '');
                     if (!context.mounted) return;
                     Utils.hideLoadingDialog(context);
                   },
@@ -137,7 +137,7 @@ class FriendActionButtonWidget extends StatelessWidget {
                     if (user == null) return;
                     Utils.showLoadingDialog(context);
                     await provider.unfriend(
-                        userId: user.id ?? '', playerId: playerId);
+                        userId: user.id ?? '', playerId: friend.id ?? '');
                     provider.listenFriends(user.id ?? '');
 
                     if (!context.mounted) return;

@@ -48,7 +48,7 @@ class CountryService {
           final results = await Future.wait([
             if (needFlag)
               _safeDownload(
-                imageService.downloadImage(
+                imageService.downloadCountryImage(
                   url: "${CcConfig.image_base_url}${country.flagUrl!}",
                   countryId: id,
                   type: "flag",
@@ -58,7 +58,7 @@ class CountryService {
               Future.value(local?.localFlagPath),
             if (needMap)
               _safeDownload(
-                imageService.downloadImage(
+                imageService.downloadCountryImage(
                   url: "${CcConfig.image_base_url}${country.mapUrl!}",
                   countryId: id,
                   type: "map",

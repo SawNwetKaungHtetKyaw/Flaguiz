@@ -57,49 +57,73 @@ class _LoadingBarWidgetState extends State<LoadingBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Consumer<CountryProvider>(builder: (context, provider, child) {
-        double progress =
-            double.parse(provider.progress.toStringAsFixed(2)) * 100;
-
-        return Container(
-          height: 30,
-          width: 250,
-          margin: const EdgeInsets.only(bottom: 100),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: const Color.fromARGB(255, 215, 191, 246),
-          ),
-          child: Stack(
-            children: [
-              FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: provider.progress,
-                child: Container(
-                  width: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: const LinearGradient(
-                      colors: [secondryColor, primaryColor],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+    return Consumer<CountryProvider>(
+      builder: (context, countryProvider, child) => Column(
+        children: [
+          FutureBuilder(
+              future: countryProvider.isDownloaded(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final isDownloaded = snapshot.data ?? false;
+                  return Visibility(
+                    visible: !isDownloaded,
+                    child: const CcShadowedTextWidget(
+                      text: "Downloading",
+                      fontSize: 12,
+                      dx: 1.5,
+                      dy: 1.5,
                     ),
-                  ),
+                  );
+                }
+
+                return const SizedBox();
+              }),
+          Center(
+            child:
+                Consumer<CountryProvider>(builder: (context, provider, child) {
+              double progress =
+                  double.parse(provider.progress.toStringAsFixed(2)) * 100;
+
+              return Container(
+                height: 30,
+                width: 250,
+                margin: const EdgeInsets.only(bottom: 100, top: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color.fromARGB(255, 215, 191, 246),
                 ),
-              ),
-              Center(
-                child: CcShadowedTextWidget(
-                  text:
-                      "${progress.toStringAsFixed(0)}%",
-                  fontSize: 10,
-                  dx: 1.5,
-                  dy: 1.5,
+                child: Stack(
+                  children: [
+                    FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: provider.progress,
+                      child: Container(
+                        width: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: const LinearGradient(
+                            colors: [secondryColor, primaryColor],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: CcShadowedTextWidget(
+                        text: "${progress.toStringAsFixed(0)}%",
+                        fontSize: 10,
+                        dx: 1.5,
+                        dy: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              );
+            }),
           ),
-        );
-      }),
+        ],
+      ),
     );
   }
 

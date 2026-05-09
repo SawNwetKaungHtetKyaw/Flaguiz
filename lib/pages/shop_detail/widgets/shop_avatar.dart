@@ -4,8 +4,8 @@ import 'package:flaguiz/pages/shop_detail/dialogs/shop_item_detail_dialog.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/avatar_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_glass_widget.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -54,9 +54,15 @@ class ShopAvatar extends StatelessWidget {
                         height: 110,
                         child: Row(
                           children: [
-                            CcNetworkImageWidget(
-                                imageUrl:
-                                    "${CcConfig.image_base_url}${item.imageUrl}"),
+                            Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: Utils.checkImageType(item
+                                              .localPath ??
+                                          "${CcConfig.image_base_url}${item.imageUrl}"))),
+                            ),
                             const SizedBox(width: 5),
                             Expanded(
                               child: Column(

@@ -14,16 +14,19 @@ class FriendsProvider extends ChangeNotifier {
     final uid = _auth.currentUser?.uid;
     _repo = FriendsRepository();
     if (uid != null) {
-      listenRequests(uid);
+      listenGetRequests(uid);
+      listenSendRequests(uid);
     }
   }
   final AuthService _auth = AuthService();
   late FriendsRepository _repo;
   Future<UserModel?>? searchFuturePlayer;
-  List<FriendRequestModel> requests = [];
+  List<FriendRequestModel> getRequests = [];
+  List<FriendRequestModel> sendRequests = [];
   bool isLoading = false;
 
-  StreamSubscription? _sub;
+  StreamSubscription? _getSubscription;
+  StreamSubscription? _sendSubscription;
 
   Future<void> searchUserByPlayerId(String userId, String playerID) async {
     searchFuturePlayer = _repo.searchUserByPlayerId(playerID);
@@ -34,17 +37,27 @@ class FriendsProvider extends ChangeNotifier {
     return _repo.searchUserByPlayerId(playerID);
   }
 
-  void listenRequests(String userId) {
-    _sub?.cancel();
+  void listenGetRequests(String userId) {
+    _getSubscription?.cancel();
 
-    _sub = _repo.listenRequest(userId).listen((data) {
-      requests = data;
+    _getSubscription = _repo.listenGetRequest(userId).listen((data) {
+      getRequests = data;
       notifyListeners();
     });
   }
 
-  Future<void> sendRequest(UserModel user, String to) async {
-    await _repo.sendRequest(user, to);
+  void listenSendRequests(String userId) {
+    _sendSubscription?.cancel();
+
+    _sendSubscription = _repo.listenSendRequest(userId).listen((data) {
+      print("=====>$data");
+      sendRequests = data;
+      notifyListeners();
+    });
+  }
+
+  Future<void> sendRequest(UserModel user, UserModel friend) async {
+    await _repo.sendRequest(user, friend);
   }
 
   Future<void> cancelRequest(String from, String to) async {
@@ -82,7 +95,8 @@ class FriendsProvider extends ChangeNotifier {
   void dispose() {
     Utils.printLog('${runtimeType.toString()} Dispose $hashCode',
         important: true);
-    _sub?.cancel();
+    _getSubscription?.cancel();
+    _sendSubscription?.cancel();
     super.dispose();
   }
 }

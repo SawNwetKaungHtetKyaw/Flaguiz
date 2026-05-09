@@ -4,7 +4,7 @@ import 'package:flaguiz/pages/shop_detail/dialogs/shop_item_detail_dialog.dart';
 import 'package:flaguiz/pages/shop_detail/widgets/shop_detail_buy_button.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
-import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -46,31 +46,31 @@ class ShopBanner extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CcShadowedImageBoxWidget(
-                        image: "${CcConfig.image_base_url}${item.imageUrl}",
-                        margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.only(right: 8,bottom: 8),
-                        width: 300,
-                        height: 120,
-                        shadowColor: Colors.transparent,
-                        boxFit: BoxFit.fill,
-                        widget: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ShopDetailBuyButton(
-                                width: 80,
-                                height: 30,
-                                  item: item,
-                                  color: Colors.black.withOpacity(0.7),
-                                  disableBoxShadow: false,
-                                  ownList: ownList,
-                                  isBanner: true,
-                                  userCoin: userCoin),
-                            ),
-                          ],
-                        ),
-                      ),
+                      Container(
+                          width: 300,
+                          height: 120,
+                          margin: const EdgeInsets.only(bottom: 15),
+                          padding: const EdgeInsets.only(right: 8, bottom: 8),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: Utils.checkImageType(item.localPath ?? "${CcConfig.image_base_url}${item.imageUrl}"),
+                                  fit: BoxFit.fill)),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: ShopDetailBuyButton(
+                                    width: 80,
+                                    height: 30,
+                                    item: item,
+                                    color: Colors.black.withOpacity(0.7),
+                                    disableBoxShadow: false,
+                                    ownList: ownList,
+                                    isBanner: true,
+                                    userCoin: userCoin),
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 );
