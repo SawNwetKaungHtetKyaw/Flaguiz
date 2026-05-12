@@ -53,6 +53,9 @@ class AssetsImages {
   static const String battleFind = 'assets/images/battle/battle_find.png';
   static const String leaderboard = 'assets/images/others/leaderboard.jpg';
   static const String premiumBox = 'assets/images/others/premium_box.png';
+  static const String badges1 = 'assets/images/others/badges1.png';
+  static const String badges2 = 'assets/images/others/badges2.png';
+  static const String badges3 = 'assets/images/others/badges3.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';

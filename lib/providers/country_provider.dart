@@ -94,7 +94,7 @@ class CountryProvider extends ChangeNotifier {
   }
 
   Future<CountryModel?> countryById(String countryId) async {
-    if (countryId != '0' && _countryList != []) {
+    if (countryId != '0' && _countryList != [] && countryId != '-1' && countryId != '') {
       final int index =
           _countryList.indexWhere((country) => country.id == countryId);
       return _countryList[index];

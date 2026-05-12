@@ -16,6 +16,7 @@ import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/friends_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
+import 'package:flaguiz/service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -28,13 +29,12 @@ void main() async {
 
   await MobileAds.instance.initialize();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   /// Firebase
   await Firebase.initializeApp();
-
+  final authService = AuthService();
+  await authService.init();
   /// Hive
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
@@ -62,41 +62,52 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CountryProvider>(
-            create: (BuildContext context) =>
-                CountryProvider(buildContext: context)),
+          create:
+              (BuildContext context) => CountryProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<UserProvider>(
-            create: (BuildContext context) =>
-                UserProvider(buildContext: context)),
+          create: (BuildContext context) => UserProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<AdventureProvider>(
-            create: (BuildContext context) =>
-                AdventureProvider(buildContext: context)),
+          create:
+              (BuildContext context) =>
+                  AdventureProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<AchievementProvider>(
-            create: (BuildContext context) =>
-                AchievementProvider(buildContext: context)),
+          create:
+              (BuildContext context) =>
+                  AchievementProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<AvatarProvider>(
-            create: (BuildContext context) =>
-                AvatarProvider(buildContext: context)),
+          create:
+              (BuildContext context) => AvatarProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<BorderProvider>(
-            create: (BuildContext context) =>
-                BorderProvider(buildContext: context)),
+          create:
+              (BuildContext context) => BorderProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<BackgroundProvider>(
-            create: (BuildContext context) =>
-                BackgroundProvider(buildContext: context)),
+          create:
+              (BuildContext context) =>
+                  BackgroundProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<BannerProvider>(
-            create: (BuildContext context) =>
-                BannerProvider(buildContext: context)),
+          create:
+              (BuildContext context) => BannerProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<DailyRewardProvider>(
-            create: (_) => DailyRewardProvider(buildContext: context)),
+          create: (_) => DailyRewardProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<AdsProvider>(
-            create: (_) => AdsProvider(buildContext: context)),
+          create: (_) => AdsProvider(buildContext: context),
+        ),
         ChangeNotifierProvider<FriendsProvider>(
-            create: (_) => FriendsProvider(buildContext: context)),
+          create: (_) => FriendsProvider(buildContext: context),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'SupplyCenter',
-        ),
+        theme: ThemeData(fontFamily: 'SupplyCenter'),
         title: 'Flaguiz',
         onGenerateRoute: router.generateRoute,
       ),

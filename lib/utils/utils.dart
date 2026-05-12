@@ -69,7 +69,8 @@ class Utils {
   }
 
   static List<GuessModel> prepareChallengeGameModeData(
-      List<CountryModel> countries) {
+    List<CountryModel> countries,
+  ) {
     List<GuessModel> gameGuessList = [];
 
     for (var guess in countries) {
@@ -88,8 +89,9 @@ class Utils {
 
       final randomThreeCountries = shuffled.take(3).toList();
       for (var c in randomThreeCountries) {
-        CountryModel otherSimilarCountry =
-            countries.firstWhere((country) => country.id == c);
+        CountryModel otherSimilarCountry = countries.firstWhere(
+          (country) => country.id == c,
+        );
         gameGuess.countryList!.add(otherSimilarCountry);
       }
 
@@ -106,15 +108,18 @@ class Utils {
   }
 
   static List<GuessModel> prepareAdventureGameModeData(
-      AdventureModel adventureModel, List<CountryModel> countries) {
+    AdventureModel adventureModel,
+    List<CountryModel> countries,
+  ) {
     List<GuessModel> gameGuessList = [];
     adventureModel.guessList!.shuffle();
     for (var guess in adventureModel.guessList!) {
       GuessModel gameGuess = GuessModel();
 
       /// Prepare Correct Country
-      CountryModel correctCountry =
-          countries.firstWhere((country) => country.id == guess);
+      CountryModel correctCountry = countries.firstWhere(
+        (country) => country.id == guess,
+      );
       gameGuess.answer = correctCountry;
 
       /// Prepare Guess Countries
@@ -128,8 +133,9 @@ class Utils {
       final randomThreeCountries = shuffled.take(3).toList();
 
       for (var c in randomThreeCountries) {
-        CountryModel otherSimilarCountry =
-            countries.firstWhere((country) => country.id == c);
+        CountryModel otherSimilarCountry = countries.firstWhere(
+          (country) => country.id == c,
+        );
         gameGuess.countryList!.add(otherSimilarCountry);
       }
 
@@ -144,8 +150,10 @@ class Utils {
   static ImageProvider<Object> checkImageType(String path) {
     if (path.startsWith('http')) {
       // Network image
-      return CachedNetworkImageProvider(path,
-          cacheManager: CachedImageManagerService());
+      return CachedNetworkImageProvider(
+        path,
+        cacheManager: CachedImageManagerService(),
+      );
     } else if (path.startsWith('/data') ||
         path.startsWith('/storage') ||
         File(path).existsSync()) {
@@ -157,19 +165,24 @@ class Utils {
     }
   }
 
-  static showToastMessage(BuildContext context, String message,
-      {Color? textColor, Color? backgroundColor}) {
+  static showToastMessage(
+    BuildContext context,
+    String message, {
+    Color? textColor,
+    Color? backgroundColor,
+  }) {
     final overlay = Overlay.of(context);
 
     late OverlayEntry overlayEntry;
 
     overlayEntry = OverlayEntry(
-      builder: (context) => CcToastMessageWidget(
-        message: message,
-        onFinish: () => overlayEntry.remove(),
-        textColor: textColor ?? Colors.white,
-        backgroundColor: backgroundColor ?? Colors.black87,
-      ),
+      builder:
+          (context) => CcToastMessageWidget(
+            message: message,
+            onFinish: () => overlayEntry.remove(),
+            textColor: textColor ?? Colors.white,
+            backgroundColor: backgroundColor ?? Colors.black87,
+          ),
     );
 
     overlay.insert(overlayEntry);
@@ -177,8 +190,9 @@ class Utils {
 
   static Future<bool> hasInternet() async {
     try {
-      final result = await InternetAddress.lookup('google.com')
-          .timeout(const Duration(seconds: 5));
+      final result = await InternetAddress.lookup(
+        'google.com',
+      ).timeout(const Duration(seconds: 5));
       return result.isNotEmpty;
     } catch (_) {
       return false;
@@ -261,6 +275,26 @@ class Utils {
     return id;
   }
 
+  static String getLastSeen(DateTime? lastSeen) {
+    if (lastSeen == null) return "Offline";
+
+    final diff = DateTime.now().difference(lastSeen);
+
+    if (diff.inMinutes < 1) {
+      return "Online";
+    }
+
+    if (diff.inMinutes < 60) {
+      return "${diff.inMinutes} min ago";
+    }
+
+    if (diff.inHours < 24) {
+      return "${diff.inHours} hours ago";
+    }
+
+    return "${diff.inDays} days ago";
+  }
+
   static Future<void> preloadImages(
     BuildContext context,
     List<String?> images,
@@ -269,8 +303,10 @@ class Utils {
     await Future.wait(
       uniqueImages.map(
         (url) => precacheImage(
-          CachedNetworkImageProvider("${CcConfig.image_base_url}$url",
-              cacheManager: CachedImageManagerService()),
+          CachedNetworkImageProvider(
+            "${CcConfig.image_base_url}$url",
+            cacheManager: CachedImageManagerService(),
+          ),
           context,
         ),
       ),
@@ -363,9 +399,7 @@ class Utils {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => const Center(
-        child: CircularProgressIndicator(),
-      ),
+      builder: (_) => const Center(child: CircularProgressIndicator()),
     );
   }
 
