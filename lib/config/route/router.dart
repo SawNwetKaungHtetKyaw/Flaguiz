@@ -7,6 +7,7 @@ import 'package:flaguiz/pages/about/about.dart';
 import 'package:flaguiz/pages/adventure/adventure.dart';
 import 'package:flaguiz/pages/adventure/adventure_level.dart';
 import 'package:flaguiz/pages/battle/battle.dart';
+import 'package:flaguiz/pages/battle_challenge/battle_challenge.dart';
 import 'package:flaguiz/pages/battle_game/battle_game.dart';
 import 'package:flaguiz/pages/battle_game_result/battle_game_result.dart';
 import 'package:flaguiz/pages/battle_intro/battle_intro.dart';
@@ -100,7 +101,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.adventureLevel),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) => AdventureLevel(mode: args ?? ''),
+        pageBuilder: (_, _, _) => AdventureLevel(mode: args ?? ''),
       );
     case RoutePaths.adventureGameByImage:
       final List<dynamic> args = setting.arguments as List<dynamic>;
@@ -111,7 +112,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.adventureGameByImage),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) => AdventureGameByImage(
+        pageBuilder: (_, _, _) => AdventureGameByImage(
             guessList: guessList, mode: mode, levelId: levelId),
       );
     case RoutePaths.adventureGameByText:
@@ -123,7 +124,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.adventureGameByText),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) => AdventureGameByText(
+        pageBuilder: (_,_, _) => AdventureGameByText(
             guessList: guessList, mode: mode, levelId: levelId),
       );
     case RoutePaths.challenge:
@@ -140,7 +141,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.challengeGameByImage),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) =>
+        pageBuilder: (_, _, _) =>
             ChallengeGameByImage(guessList: guessList, mode: mode),
       );
     case RoutePaths.challengeGameByText:
@@ -151,7 +152,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.challengeGameByText),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) =>
+        pageBuilder: (_, _, _) =>
             ChallengeGameByText(guessList: guessList, mode: mode),
       );
     case RoutePaths.battle:
@@ -208,6 +209,12 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           builder: (BuildContext context) {
             return const Leaderboard();
           });
+    case RoutePaths.battleChallenge:
+      return MaterialPageRoute(
+          settings: const RouteSettings(name: RoutePaths.battleChallenge),
+          builder: (BuildContext context) {
+            return const BattleChallenge();
+          });
     case RoutePaths.friends:
       return MaterialPageRoute(
           settings: const RouteSettings(name: RoutePaths.friends),
@@ -239,7 +246,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.adventureVictory),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) => AdventureVictory(
+        pageBuilder: (_, _, _) => AdventureVictory(
             mode: mode,
             levelId: levelId,
             life: life,
@@ -256,7 +263,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         settings: const RouteSettings(name: RoutePaths.challengeVictory),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
-        pageBuilder: (_, __, ___) => ChallengeVictory(
+        pageBuilder: (_, _, _) => ChallengeVictory(
             mode: mode,
             life: life,
             currentIndex: currentIndex,

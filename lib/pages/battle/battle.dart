@@ -99,6 +99,8 @@ class _BattleState extends State<Battle> {
                                     image: AssetsImages.battleChallenge,
                                     onTap: () {
                                       AudioService.instance.playSound('tap');
+                                      Navigator.of(context)
+                                          .pushNamed(RoutePaths.battleChallenge);
                                     }),
                                 const CcShadowedTextWidget(
                                   text: CcConstants.kBattleChallenge,

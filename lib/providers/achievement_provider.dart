@@ -22,13 +22,13 @@ class AchievementProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadAchvList() async {
+  void loadAchvList() async {
     _repo = AchievementRepository();
     setAchvList = await _repo.loadAchvDataList();
     notifyListeners();
   }
 
-  getAchievement(String id){
+  void getAchievement(String id){
     int index = _achvList.indexWhere((achv) => achv.id == id);
      _achv = _achvList[index];
   }

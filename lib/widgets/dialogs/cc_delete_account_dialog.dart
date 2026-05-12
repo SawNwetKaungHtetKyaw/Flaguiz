@@ -104,7 +104,7 @@ class _CcDeleteAccountDialogState extends State<CcDeleteAccountDialog> {
                         const SizedBox(width: 10),
                         ValueListenableBuilder<bool>(
                           valueListenable: isValid,
-                          builder: (_, valid, __) {
+                          builder: (_, valid, _) {
                             return Expanded(
                               child: CcOutlinedButton(
                                   color: valid ? errorColor : Colors.black45,

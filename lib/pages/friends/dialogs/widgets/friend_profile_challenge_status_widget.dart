@@ -26,7 +26,7 @@ class FriendProfileChallengeStatusWidget extends StatelessWidget {
       height: 130,
       margin: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.5),
+          color: primaryColor.withValues(alpha: 0.5),
           border: Border.all(color: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(8)),
       child: Row(

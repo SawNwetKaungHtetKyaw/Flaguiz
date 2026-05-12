@@ -85,7 +85,7 @@ class _AdventureGameGuessTextWidgetState
               height: 65,
               margin: const EdgeInsets.only(bottom: 5, right: 10, left: 10),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),

@@ -62,7 +62,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
     showAchievementDialog(userProvider);
   }
 
-  showAchievementDialog(UserProvider provider) {
+  void showAchievementDialog(UserProvider provider) {
     UserModel? user = provider.user;
 
     bool hasAchv = user?.achievements!.contains('ACHV_001') ?? false;

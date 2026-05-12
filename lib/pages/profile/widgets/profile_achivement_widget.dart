@@ -52,7 +52,7 @@ class ProfileAchivementWidget extends StatelessWidget {
                         AudioService.instance.playSound('tap');
                         showDialog(
                             context: context,
-                            barrierColor: Colors.black.withOpacity(0.8),
+                            barrierColor: Colors.black.withValues(alpha: 0.8),
                             builder: (BuildContext context) =>
                                 CcAchievementDialog(
                                   achievementId: achv.id ?? 'ACHV_001',
@@ -80,7 +80,7 @@ class ProfileAchivementWidget extends StatelessWidget {
                             height: 150,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.black.withOpacity(0.8)),
+                                color: Colors.black.withValues(alpha: 0.8)),
                           ),
                         )
                       ]),

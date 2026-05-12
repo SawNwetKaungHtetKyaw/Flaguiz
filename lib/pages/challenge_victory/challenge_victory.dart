@@ -52,7 +52,7 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
     showAchievementDialog(userProvider);
   }
 
-  showAchievementDialog(UserProvider provider) {
+  void showAchievementDialog(UserProvider provider) {
     UserModel? user = provider.user;
 
     List<ChallengeCompletedModel> temp = user?.challengeCompletedList ?? [];

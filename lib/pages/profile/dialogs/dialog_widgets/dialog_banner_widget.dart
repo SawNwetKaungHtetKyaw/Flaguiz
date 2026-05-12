@@ -45,7 +45,7 @@ class DialogBannerWidget extends StatelessWidget {
               },
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(ownList[0] == id ? 0.0 : 0.6),
+                  Colors.black.withValues(alpha: ownList[0] == id ? 0.0 : 0.6),
                   BlendMode.srcATop,
                 ),
                 child: Image(

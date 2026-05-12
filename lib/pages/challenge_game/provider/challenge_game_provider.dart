@@ -65,7 +65,7 @@ class ChallengeGameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  startTimerCount() {
+  void startTimerCount() {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
@@ -87,7 +87,7 @@ class ChallengeGameProvider extends ChangeNotifier {
     });
   }
 
-  goToNext(BuildContext context, String answerId, String guessId,
+  void goToNext(BuildContext context, String answerId, String guessId,
       List<ChallengeCompletedModel> chList) {
     if (_pageController != null) {
       if (_pageController!.hasClients) {

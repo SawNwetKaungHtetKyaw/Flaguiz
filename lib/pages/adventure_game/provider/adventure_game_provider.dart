@@ -68,7 +68,7 @@ class AdventureGameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  startTimerCount() {
+  void startTimerCount() {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timerCount > 0) {
@@ -90,7 +90,7 @@ class AdventureGameProvider extends ChangeNotifier {
     });
   }
 
-  goToNext(BuildContext context, String answerId, String guessId,
+  void goToNext(BuildContext context, String answerId, String guessId,
       List<AdventureCompletedModel> list) {
     if (_pageController != null) {
       if (_pageController!.hasClients) {

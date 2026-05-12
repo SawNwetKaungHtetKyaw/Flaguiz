@@ -220,7 +220,7 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
                 Navigator.of(context).pop();
               },
               color: Colors.transparent,
-              shadowColor: Colors.black.withOpacity(0.3),
+              shadowColor: Colors.black.withValues(alpha: 0.3),
               borderColor: primaryColor,
               child: const CcShadowedTextWidget(text: CcConstants.kClose),
             ),

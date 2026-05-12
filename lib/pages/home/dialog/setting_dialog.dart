@@ -200,7 +200,7 @@ class SettingWithSwitch extends StatelessWidget {
         Transform.scale(
           scale: 0.9,
           child: Switch(
-            activeColor: Colors.white,
+            activeThumbColor: Colors.white,
             activeTrackColor: primaryColor,
             trackOutlineColor: WidgetStateProperty.resolveWith<Color?>(
                 (Set<WidgetState> states) {

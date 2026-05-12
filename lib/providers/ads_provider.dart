@@ -20,13 +20,13 @@ class AdsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadAdsBorderProgress() async {
+  void loadAdsBorderProgress() async {
     final prefs = await SharedPreferences.getInstance();
     setAdsBorderProgressCount = int.parse(prefs.getString(CcConstants.ADS_BORDER_PROGRESS) ?? '0');
     notifyListeners();
   }
 
-  addAdsBorderProgress() async {
+  void addAdsBorderProgress() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(CcConstants.ADS_BORDER_PROGRESS, _adsBorderProgressCount.toString());
   }

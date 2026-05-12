@@ -19,7 +19,7 @@ class AvatarProvider extends ChangeNotifier {
   late AvatarRepository _repo;
   ShopModel? avatar;
 
-  getById(String id) async{
+  void getById(String id) async{
     avatar = _repo.getById(id);
   }
   

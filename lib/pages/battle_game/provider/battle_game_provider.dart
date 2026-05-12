@@ -69,7 +69,7 @@ class BattleGameProvider extends ChangeNotifier {
   /// Start Timer
   /// =========================
 
-  startTimerCount() {
+  void startTimerCount() {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
     if (_gameEnded) return;
 

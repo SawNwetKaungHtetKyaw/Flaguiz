@@ -47,7 +47,7 @@ class FriendProfileAchievementWidget extends StatelessWidget {
                       image: Utils.checkImageType(achv.imageUrl ?? ''),
                       fit: BoxFit.fill,
                       colorFilter:!playerAchievements.contains(achv.id) ? ColorFilter.mode(
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withValues(alpha: 0.7),
                         BlendMode.darken,
                       ) : null,
                     ),

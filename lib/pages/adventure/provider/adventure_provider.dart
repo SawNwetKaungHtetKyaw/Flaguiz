@@ -20,7 +20,7 @@ class AdventureProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadCountryList() async {
+  void loadCountryList() async {
     _repo = AdventureRepository();
     setLevelList = await _repo.loadDataList();
     notifyListeners();

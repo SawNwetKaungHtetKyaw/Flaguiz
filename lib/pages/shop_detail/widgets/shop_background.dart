@@ -47,7 +47,7 @@ class ShopBackground extends StatelessWidget {
                   AudioService.instance.playSound('tap');
                   showDialog(
                       context: context,
-                      barrierColor: Colors.black.withOpacity(0.85),
+                      barrierColor: Colors.black.withValues(alpha: 0.85),
                       builder: (BuildContext context) => ShopItemDetailDialog(
                           item: item, ownList: ownList, category: category));
                 },

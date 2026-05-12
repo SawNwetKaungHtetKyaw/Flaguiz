@@ -45,7 +45,7 @@ class BotFactory {
         country: country);
   }
 
-  static String _randomItem<String>(List<String> list) {
+  static String _randomItem(List<String> list) {
     return list[_random.nextInt(list.length)];
   }
 }

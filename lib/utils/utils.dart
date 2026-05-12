@@ -9,6 +9,7 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/adventure_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/guess_model.dart';
+import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/cached_image_manager_service.dart';
 import 'package:flaguiz/service/firestore_service.dart';
@@ -165,7 +166,7 @@ class Utils {
     }
   }
 
-  static showToastMessage(
+  static void showToastMessage(
     BuildContext context,
     String message, {
     Color? textColor,
@@ -234,7 +235,7 @@ class Utils {
         : CcAdsKey.interstitialAds[key]!["ios"]!;
   }
 
-  static preLoadRewardedAds(String key) {
+  static void preLoadRewardedAds(String key) {
     AdsService.instance.loadRewardedAds(key);
   }
 
@@ -260,6 +261,31 @@ class Utils {
         (_) => chars.codeUnitAt(random.nextInt(chars.length)),
       ),
     );
+  }
+
+  static List<UserModel> sortFriends(List<UserModel> friends) {
+    friends.sort((a, b) {
+      final aOnline = a.isOnline ?? false;
+      final bOnline = b.isOnline ?? false;
+
+      // online first
+      if (aOnline && !bOnline) {
+        return -1;
+      }
+
+      if (!aOnline && bOnline) {
+        return 1;
+      }
+
+      // optional:
+      // latest active first
+      final aLastSeen = a.lastSeen ?? DateTime(2000);
+      final bLastSeen = b.lastSeen ?? DateTime(2000);
+
+      return bLastSeen.compareTo(aLastSeen);
+    });
+
+    return friends;
   }
 
   static Future<String> generateUniqueId() async {

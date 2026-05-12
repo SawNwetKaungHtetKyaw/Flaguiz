@@ -39,7 +39,7 @@ class ShopBanner extends StatelessWidget {
                     AudioService.instance.playSound('tap');
                     showDialog(
                         context: context,
-                        barrierColor: Colors.black.withOpacity(0.85),
+                        barrierColor: Colors.black.withValues(alpha: 0.85),
                         builder: (BuildContext context) => ShopItemDetailDialog(
                             item: item, ownList: ownList, category: category));
                   },
@@ -63,7 +63,7 @@ class ShopBanner extends StatelessWidget {
                                     width: 80,
                                     height: 30,
                                     item: item,
-                                    color: Colors.black.withOpacity(0.7),
+                                    color: Colors.black.withValues(alpha: 0.7),
                                     disableBoxShadow: false,
                                     ownList: ownList,
                                     isBanner: true,

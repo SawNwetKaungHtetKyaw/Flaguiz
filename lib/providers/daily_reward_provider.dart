@@ -13,7 +13,7 @@ class DailyRewardProvider extends ChangeNotifier {
     return DailyRewardRepository();
   }
 
-  initReward() async {
+  void initReward() async {
     reward = await _repo.getReward();
     notifyListeners();
   }

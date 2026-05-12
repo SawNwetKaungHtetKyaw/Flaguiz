@@ -57,7 +57,7 @@ class _BattleIntroState extends State<BattleIntro> {
                 image: const AssetImage(AssetsImages.battleBg),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.6),
+                  Colors.black.withValues(alpha: 0.6),
                   BlendMode.darken,
                 ))),
         child: Stack(

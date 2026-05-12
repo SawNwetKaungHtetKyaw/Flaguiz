@@ -45,8 +45,8 @@ class CcGlassWidget extends StatelessWidget {
               begin: gradientBegin,
               end: gradientEnd,
               colors: [
-                const Color.fromARGB(255, 208, 208, 208).withOpacity(0.12),
-                Colors.white.withOpacity(0.06),
+                const Color.fromARGB(255, 208, 208, 208).withValues(alpha: 0.12),
+                Colors.white.withValues(alpha: 0.06),
               ],
             ),
             border: Border(

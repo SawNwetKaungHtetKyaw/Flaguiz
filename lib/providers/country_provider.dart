@@ -72,20 +72,20 @@ class CountryProvider extends ChangeNotifier {
     return await _repo.loadDataList();
   }
 
-  loadKeenEye() async {
+  void loadKeenEye() async {
     final prefs = await SharedPreferences.getInstance();
     setKeenEyeList = prefs.getStringList(CcConstants.KEEN_EYE) ?? [];
     notifyListeners();
   }
 
-  addKeenKye() async {
+  void addKeenKye() async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setStringList(CcConstants.KEEN_EYE, _keenEyeList);
   }
 
   /// Filtered List
-  filteredSearchList(String searchTerm) {
+  void filteredSearchList(String searchTerm) {
     setFilteredCountryList = countryList
         .where((country) =>
             country.name!.toLowerCase().contains(searchTerm.toLowerCase()))

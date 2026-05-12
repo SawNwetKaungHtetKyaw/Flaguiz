@@ -19,7 +19,7 @@ class BannerProvider extends ChangeNotifier {
   late BannerRepository _repo;
   ShopModel? banner;
 
-  getById(String id) async{
+  void getById(String id) async{
     banner = _repo.getById(id);
   }
   

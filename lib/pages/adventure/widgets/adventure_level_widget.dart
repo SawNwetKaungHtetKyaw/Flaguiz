@@ -96,7 +96,7 @@ class AdventureLevelWidget extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 8, right: 20, left: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withValues(alpha: 0.4),
                 ),
               ),
             ),

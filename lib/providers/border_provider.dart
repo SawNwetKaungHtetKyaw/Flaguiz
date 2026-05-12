@@ -19,7 +19,7 @@ class BorderProvider extends ChangeNotifier {
   late BorderRepository _repo;
   ShopModel? border;
 
-  getById(String id) async{
+  void getById(String id) async{
     border = _repo.getById(id);
   }
   

@@ -11,7 +11,7 @@ PreferredSizeWidget friendAppBar() {
     preferredSize: const Size.fromHeight(70),
     child: AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0.3),
+        statusBarColor: Colors.black.withValues(alpha: 0.3),
       ),
       backgroundColor: primaryColor,
       leading: const SizedBox(),

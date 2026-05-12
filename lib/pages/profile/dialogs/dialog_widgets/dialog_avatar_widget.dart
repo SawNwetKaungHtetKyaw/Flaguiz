@@ -48,7 +48,7 @@ class DialogAvatarWidget extends StatelessWidget {
                           "${CcConfig.image_base_url}${avatar.imageUrl}"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(ownList[0] == id ? 0.0 : 0.7),
+                        Colors.black.withValues(alpha: ownList[0] == id ? 0.0 : 0.7),
                         BlendMode.srcATop,
                       ),
                     ),

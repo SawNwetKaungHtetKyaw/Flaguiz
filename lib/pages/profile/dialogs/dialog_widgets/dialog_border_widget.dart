@@ -44,7 +44,7 @@ class DialogBorderWidget extends StatelessWidget {
                   children: [
                     ColorFiltered(
                       colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(ownList[0] == id ? 0.0 : 0.7),
+                        Colors.black.withValues(alpha: ownList[0] == id ? 0.0 : 0.7),
                         BlendMode.srcATop,
                       ),
                       child: Image(

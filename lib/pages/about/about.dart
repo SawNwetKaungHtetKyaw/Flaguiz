@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 class About extends StatelessWidget {
   const About({super.key});
 
-  showSupporterAchvDialog(BuildContext context) {
+  void showSupporterAchvDialog(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       UserProvider userProvider =
           Provider.of<UserProvider>(context, listen: false);
@@ -47,7 +47,7 @@ class About extends StatelessWidget {
           image: const AssetImage(AssetsImages.aboutBg),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.4),
+            Colors.black.withValues(alpha: 0.4),
             BlendMode.darken,
           ),
         )),

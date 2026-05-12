@@ -242,7 +242,7 @@ class DailyRewadCardWidget extends StatelessWidget {
             height: 110,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Colors.black.withOpacity(0.5)),
+                color: Colors.black.withValues(alpha: 0.5)),
             child: Icon(
               Icons.done_outline,
               color: Colors.green.shade700,

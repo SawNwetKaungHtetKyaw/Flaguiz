@@ -37,7 +37,7 @@ class BattleOptionBoxWidget extends StatelessWidget {
                       colorFilter: (provider.trackPlayerGuess != 0 &&
                               (provider.playerAnswerId != country.id))
                           ? ColorFilter.mode(
-                              Colors.black.withOpacity(0.4),
+                              Colors.black.withValues(alpha: 0.4),
                               BlendMode.darken,
                             ) :  null),
                   border: (provider.trackPlayerGuess == 0 ||

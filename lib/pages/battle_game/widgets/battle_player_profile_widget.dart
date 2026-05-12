@@ -30,7 +30,7 @@ class BattlePlayerProfileWidget extends StatelessWidget {
           children: [
             Transform(
               alignment: Alignment.center,
-              transform: Matrix4.identity()..scale(isYou ? 1.0 : -1.0, 1.0),
+              transform: Matrix4.diagonal3Values(isYou ? 1.0 : -1.0, 1.0, 1.0),
               child: Container(
                 height: screenSize.width / 4.7,
                 decoration: BoxDecoration(

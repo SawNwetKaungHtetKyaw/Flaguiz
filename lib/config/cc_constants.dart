@@ -11,6 +11,7 @@ class CcConstants {
   static const String kLibrary = 'Library';
   static const String kBattle = 'Battle';
   static const String kFindBattle = 'Find';
+  static const String kChallengeFriends = 'Challenge Friends';
   static const String kShop = 'Shop';
   static const String kEnter = 'Enter';
   static const String kSearch = 'Search';

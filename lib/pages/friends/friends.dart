@@ -49,7 +49,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
             image: const AssetImage(AssetsImages.aboutBg),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.5),
+              Colors.black.withValues(alpha: 0.5),
               BlendMode.darken,
             ),
           )),

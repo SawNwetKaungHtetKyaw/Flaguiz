@@ -35,7 +35,7 @@ class _LoadingState extends State<Loading> {
     _preloadingForHome();
   }
 
-  _preloadingForHome() async {
+  void _preloadingForHome() async {
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
     BackgroundProvider backgroundProvider =
