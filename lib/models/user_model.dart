@@ -45,27 +45,34 @@ class UserModel {
   DateTime? updatedAt;
   @HiveField(18)
   DateTime? syncedAt;
+  @HiveField(19)
+  bool? isOnline;
+  @HiveField(20)
+  DateTime? lastSeen;
 
-  UserModel(
-      {this.id,
-      this.playerID,
-      this.username,
-      this.email,
-      this.country,
-      this.avatars,
-      this.borders,
-      this.backgrounds,
-      this.banners,
-      this.achievements,
-      this.trophy,
-      this.coin,
-      this.energy,
-      this.adventureCompletedList,
-      this.challengeCompletedList,
-      this.friendIds,
-      this.hasPremium,
-      this.updatedAt,
-      this.syncedAt});
+  UserModel({
+    this.id,
+    this.playerID,
+    this.username,
+    this.email,
+    this.country,
+    this.avatars,
+    this.borders,
+    this.backgrounds,
+    this.banners,
+    this.achievements,
+    this.trophy,
+    this.coin,
+    this.energy,
+    this.adventureCompletedList,
+    this.challengeCompletedList,
+    this.friendIds,
+    this.hasPremium,
+    this.updatedAt,
+    this.syncedAt,
+    this.isOnline,
+    this.lastSeen,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     DateTime? parseDate(dynamic value) {
@@ -91,23 +98,31 @@ class UserModel {
       trophy: json['trophy'],
       coin: json['coin'],
       energy: json['energy'],
-      adventureCompletedList: json['adventure_completed'] != null
-          ? AdventureCompletedModel().fromJsonList(json['adventure_completed'])
-          : [],
-      challengeCompletedList: json['challenge_completed'] != null
-          ? ChallengeCompletedModel().fromJsonList(json['challenge_completed'])
-          : [],
+      adventureCompletedList:
+          json['adventure_completed'] != null
+              ? AdventureCompletedModel().fromJsonList(
+                json['adventure_completed'],
+              )
+              : [],
+      challengeCompletedList:
+          json['challenge_completed'] != null
+              ? ChallengeCompletedModel().fromJsonList(
+                json['challenge_completed'],
+              )
+              : [],
       friendIds: List<String>.from(json['friend_ids'] ?? []),
       hasPremium: json['has_premium'],
       updatedAt: parseDate(json['updated_at']),
       syncedAt: parseDate(json['synced_at']),
+      isOnline: json['is_online'] ?? false,
+      lastSeen: parseDate(json['last_seen']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "player_id" : playerID,
+      "player_id": playerID,
       "username": username,
       "email": email,
       "country": country,
@@ -119,14 +134,18 @@ class UserModel {
       "trophy": trophy,
       "coin": coin,
       "energy": energy,
-      "adventure_completed":
-          AdventureCompletedModel().toJsonList(adventureCompletedList),
-      "challenge_completed":
-          ChallengeCompletedModel().toJsonList(challengeCompletedList),
+      "adventure_completed": AdventureCompletedModel().toJsonList(
+        adventureCompletedList,
+      ),
+      "challenge_completed": ChallengeCompletedModel().toJsonList(
+        challengeCompletedList,
+      ),
       "friend_ids": friendIds,
       "has_premium": hasPremium,
       "updated_at": updatedAt,
-      "synced_at" : syncedAt
+      "synced_at": syncedAt,
+      "is_online": isOnline,
+      "last_seen": lastSeen,
     };
   }
 }

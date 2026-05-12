@@ -17,3 +17,5 @@ const Color editUnSelectedColor = Color(0xFF281702);
 
 const Color battleLoseColor = Color(0xFF83120A);
 const Color battleWinColor = Color(0xFF06650C);
+
+const Color leaderboardColor = Color(0xFFF4AB00);

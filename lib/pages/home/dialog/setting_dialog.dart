@@ -47,14 +47,13 @@ class _SettingDialogState extends State<SettingDialog> {
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
       builder: (context, userProvider, child) => Dialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(
           child: Stack(
             children: [
               Container(
                 width: double.maxFinite,
                 height: 540,
-                margin: const EdgeInsets.symmetric(horizontal: 1),
                 padding: const EdgeInsets.only(
                     top: 90, left: 20, right: 20, bottom: 20),
                 decoration: BoxDecoration(

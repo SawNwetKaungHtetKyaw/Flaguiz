@@ -3,68 +3,34 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // Sign in with Google
+  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+
+  /// Call once before using Google Sign-In
+  Future<void> init() async {
+    await _googleSignIn.initialize(
+      serverClientId: '916738715936-844qlradgiq0k9i7cbe8c5st2mlp1kcs.apps.googleusercontent.com',
+    );
+  }
+
+  // Google Login
   Future<User?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null; // User cancelled
+      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+        idToken: googleAuth.idToken,
+      );
 
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      final userCredential = await _auth.signInWithCredential(credential);
 
       return userCredential.user;
     } catch (e) {
-      print('Google sign-in error: $e');
-      try {
-        final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-        if (googleUser == null) return null; // User cancelled
-
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-
-        final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-        final UserCredential userCredential =
-            await _auth.signInWithCredential(credential);
-
-        return userCredential.user;
-      } catch (e) {
-        print("Retry failed: $e");
-        return null;
-      }
+      print("Google Sign-In Error: $e");
+      return null;
     }
-  }
-
-  Future<void> deleteAccount() async {
-    final user = _auth.currentUser;
-    if (user == null) return;
-
-    // 🔥 Re-authenticate with Google
-    final googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) throw Exception("Re-auth cancelled");
-
-    final googleAuth = await googleUser.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    await user.reauthenticateWithCredential(credential);
-
-    await user.delete();
-
-    await _auth.signOut();
-    await _googleSignIn.signOut();
   }
 
   // Logout
@@ -73,6 +39,26 @@ class AuthService {
     await _googleSignIn.signOut();
   }
 
-  // Current user
+  // Delete account
+  Future<void> deleteAccount() async {
+    final user = _auth.currentUser;
+
+    if (user == null) return;
+
+    final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
+
+    final googleAuth = googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+
+    await user.reauthenticateWithCredential(credential);
+
+    await user.delete();
+
+    await logout();
+  }
+
   User? get currentUser => _auth.currentUser;
 }

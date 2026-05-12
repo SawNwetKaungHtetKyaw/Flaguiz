@@ -1,4 +1,3 @@
-
 class CcConstants {
   CcConstants._();
 
@@ -23,6 +22,10 @@ class CcConstants {
   static const String kCurrency = 'Currency';
   static const String kCapital = 'Capital';
   static const String kHint = 'Hint';
+  static const String kLeaderboard = 'Leaderboard';
+  static const String kLeaderboardGlobal = 'Global';
+  static const String kLeaderboardLocal = 'Local';
+  static const String kLeaderboardCountry = 'Country';
   static const String kFLAG = 'Flag';
   static const String kMAP = 'Map';
   static const String kCOUNTRY = 'Country';
@@ -77,7 +80,8 @@ class CcConstants {
   static const String kDoYouWantToExit = 'Do You Want To Exit?';
   static const String kAccountFound = 'Account Founded';
   static const String kAlreadyExist = "This account already exists. Login?";
-  static const String kAccWarning = 'Warning : Current Data Will Delete Permanently!';
+  static const String kAccWarning =
+      'Warning : Current Data Will Delete Permanently!';
   static const String kLoginWithGoogle = 'Connect With Google';
   static const String kWarning = 'Warning';
   static const String kComfirmDelete = 'Comfirm Delete';
@@ -86,7 +90,7 @@ class CcConstants {
   static const String kBattleChallenge = 'Challenge';
   static const String kBattleLeaderboard = 'Leaderboard';
   static const String kUnFriend = 'Unfriend';
-  static const String kUnfriendDescripton = 'Are You Sure?';
+  static const String kUnfriendDescripton = 'Remove this player from your friends list?';
 
   /// Battle Result Key
   static const String BATTLE_WIN = 'VICTORY';
@@ -120,8 +124,10 @@ class CcConstants {
   static const String K_FRIENDS = 'K_FRIENDS';
   static const String K_REQUEST = 'K_REQUEST';
   static const String K_SEARCH = 'K_SEARCH';
+  static const String K_LEADERBOARD = 'K_LEADERBOARD';
   static const String STATUS_ADD_FRIEND = 'ADD FRIEND';
   static const String STATUS_FRIEND = 'FRIEND';
+  static const String STATUS_UNFRIEND = 'UNFRIEND';
   static const String STATUS_PENDING = 'PENDING';
 
   /// Preload image
