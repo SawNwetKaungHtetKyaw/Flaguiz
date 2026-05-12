@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flaguiz/config/cc_ads_key.dart';
-import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/user_model.dart';
@@ -106,13 +105,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               child,
             ) {
               UserModel? user = userProvider.user;
-              // String backgroundImage = 'https://res.cloudinary.com/dafxhhban/image/upload/v1778309388/brazil_BG_copy_aqhxyo.jpg';
               String? backgroundImage =
-                  (backgroundProvider.background?.imageUrl == null)
+                  (backgroundProvider.background?.imageUrl == null ||
+                          backgroundProvider.background?.localPath == null)
                       ? AssetsImages.testBg
-                      : (backgroundProvider.background?.localPath == null)
-                      ? "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"
-                      : backgroundProvider.background?.localPath;
+                      : backgroundProvider.background?.localPath ??
+                          backgroundProvider.background?.imageUrl;
               return PopScope(
                 canPop: false,
                 onPopInvokedWithResult: (didPop, result) {
@@ -131,11 +129,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       //   fit: BoxFit.cover,
                       // ),
 
-                      // CcNetworkImageWidget(
-                      //     width: double.maxFinite,
-                      //     height: double.maxFinite,
-                      //     imageUrl: "${CcConfig.image_base_url}$backgroundURL"
-                      //     ),
                       Container(
                         width: double.maxFinite,
                         height: double.maxFinite,

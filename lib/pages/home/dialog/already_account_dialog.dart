@@ -12,12 +12,12 @@ class AlreadyAccountDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
+      insetPadding: EdgeInsets.symmetric(horizontal: 25),
       content: Stack(
         children: [
           Container(
             width: double.maxFinite,
             height: 280,
-            margin: const EdgeInsets.symmetric(horizontal: 1),
             padding: const EdgeInsets.only(
                 top: 110, left: 10, right: 10, bottom: 20),
             decoration: BoxDecoration(

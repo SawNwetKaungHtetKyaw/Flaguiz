@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/databases/background_dao.dart';
 import 'package:flaguiz/models/shop_model.dart';
@@ -44,7 +43,7 @@ class BackgroundRepository {
       final fileName = "${item.id}/${item.name}";
 
       final path = await _imageService.downloadImage(
-        url: "${CcConfig.image_base_url}${item.imageUrl!}",
+        url: item.imageUrl!,
         fileName: fileName,
       );
 

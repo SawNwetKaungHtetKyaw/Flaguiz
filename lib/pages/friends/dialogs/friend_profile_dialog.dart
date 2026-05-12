@@ -1,4 +1,3 @@
-import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/friends/dialogs/widgets/friend_profile_achievement_widget.dart';
 import 'package:flaguiz/pages/friends/dialogs/widgets/friend_profile_adventure_status_widget.dart';
@@ -46,7 +45,7 @@ class FriendProfileDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                     image: Utils.checkImageType(backgroundProvider.background?.localPath ??
-                        "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),fit: BoxFit.cover,
+                        "${backgroundProvider.background?.imageUrl}"),fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withValues(alpha: 0.6),
                     BlendMode.darken,

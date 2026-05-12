@@ -74,7 +74,7 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
             ShopDialogBackgroundImageWidget(
                 category: widget.category,
                 imageUrl: widget.item.localPath ??
-                    "${CcConfig.image_base_url}${widget.item.imageUrl}"),
+                    "${widget.item.imageUrl}"),
 
             /// For Banner
             ShopDialogBannerImageWidget(

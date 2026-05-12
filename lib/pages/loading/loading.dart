@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/loading/widgets/loading_bar_widget.dart';
 import 'package:flaguiz/providers/achievement_provider.dart';
@@ -47,8 +46,7 @@ class _LoadingState extends State<Loading> {
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
       precacheImage(
-          CachedNetworkImageProvider(
-              "${CcConfig.image_base_url}${backgroundProvider.background?.imageUrl}"),
+          CachedNetworkImageProvider("${backgroundProvider.background?.imageUrl}"),
           context);
     });
   }

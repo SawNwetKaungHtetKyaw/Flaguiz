@@ -1,4 +1,3 @@
-import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
@@ -49,10 +48,9 @@ class DialogBackgroundWidget extends StatelessWidget {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(radius),
                     image: DecorationImage(
                         image: Utils.checkImageType(background.localPath ??
-                            "${CcConfig.image_base_url}${background.imageUrl}"),
+                            "${background.imageUrl}"),
                         fit: BoxFit.cover),
                   ),
                   child: Container(

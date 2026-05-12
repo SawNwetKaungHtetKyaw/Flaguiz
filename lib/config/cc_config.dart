@@ -10,7 +10,6 @@ class CcConfig {
   static String companyMail = 'caffeinecup2025.co@gmail.com';
   static bool showLog = false;
   static String image_base_url = 'https://i.postimg.cc';
-  static String default_background = '/x8qTz724/bg1.jpg';
   static String WEBSITE_URL = 'https://caffeinecup-flaguiz.netlify.app';
   static String YOUTUBE_URL = 'https://www.youtube.com/channel/UCi-HAqfMdXohP4skT7DriIA';
   static String FACEBOOK_URL = 'https://www.facebook.com/share/1CXtae9kCS';
