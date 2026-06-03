@@ -28,7 +28,7 @@ class CcOnlineStatusWidget extends StatelessWidget {
         ),
     
         Text(
-          Utils.getLastSeen(dateTime),
+          isOnline ? "Online" : Utils.getLastSeen(dateTime),
           style: TextStyle(
             fontSize: 12,
             color: Colors.white,

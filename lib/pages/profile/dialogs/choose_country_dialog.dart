@@ -16,86 +16,104 @@ class ChooseCountryDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<CountryProvider, UserProvider>(
-        builder: (context, provider, userProvider, child) {
-      List<CountryModel> countryList = provider.countryList;
-      return AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        content: Stack(
-          children: [
-            Container(
-              width: double.maxFinite,
-              height: 600,
-              margin: const EdgeInsets.symmetric(horizontal: 1),
-              padding: const EdgeInsets.only(
-                  top: 80, left: 10, right: 10, bottom: 10),
-              decoration: BoxDecoration(
+      builder: (context, provider, userProvider, child) {
+        List<CountryModel> countryList = provider.countryList;
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          insetPadding: EdgeInsets.symmetric(horizontal: 25),
+          content: Stack(
+            children: [
+              Container(
+                width: double.maxFinite,
+                height: 600,
+                margin: const EdgeInsets.symmetric(horizontal: 1),
+                padding: const EdgeInsets.only(
+                  top: 80,
+                  left: 10,
+                  right: 10,
+                  bottom: 10,
+                ),
+                decoration: BoxDecoration(
                   color: Colors.grey.shade900,
-                  border: Border.all(color: Colors.white, width: 3)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: GridView.builder(
+                  border: Border.all(color: Colors.white, width: 3),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
                         padding: const EdgeInsets.only(top: 5),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                mainAxisExtent: 40,
-                                mainAxisSpacing: 15,
-                                crossAxisSpacing: 15,
-                                crossAxisCount: 4),
+                              mainAxisExtent: 45,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              crossAxisCount: 4,
+                            ),
                         itemCount: countryList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
                               AudioService.instance.playSound('tap');
                               userProvider.updateUserDataForCountry(
-                                  countryList[index].id ?? '', countryList);
-                                  print(countryList[index].localFlagPath);
+                                countryList[index].id ?? '',
+                                countryList,
+                              );
+                              print(countryList[index].localFlagPath);
                               Navigator.of(context).pop();
                             },
                             child: CcShadowedImageBoxWidget(
-                                width: 80,
-                                height: 50,
-                                radius: 3,
-                                image: (countryList[index].localFlagPath ==
-                                        null)
-                                    ? 
-                                    "${CcConfig.image_base_url}${countryList[index].flagUrl}"
-                                    : 
-                                    countryList[index].localFlagPath!),
+                              width: 80,
+                              height: 50,
+                              radius: 3,
+                              image:
+                                  countryList[index].localFlagPath ??
+                                  "${CcConfig.image_base_url}${countryList[index].flagUrl}",
+                            ),
                           );
-                        }),
-                  )
-                ],
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: double.maxFinite,
-              height: 80,
-              decoration: const BoxDecoration(
+              Container(
+                width: double.maxFinite,
+                height: 80,
+                decoration: const BoxDecoration(
                   color: primaryColor,
-                  boxShadow: [BoxShadow(offset: Offset(0, 5))]),
-              child: Stack(
-                children: [
-                  const Center(
+                  boxShadow: [BoxShadow(offset: Offset(0, 5))],
+                ),
+                child: Stack(
+                  children: [
+                    const Center(
                       child: CcShadowedTextWidget(
-                          text: CcConstants.kChooseCountry, fontSize: 16)),
-                  Positioned(
+                        text: CcConstants.kChooseCountry,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Positioned(
                       top: 2,
                       right: 2,
                       child: IconButton(
-                          onPressed: () {
-                            AudioService.instance.playSound('back');
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close,
-                              color: Colors.white, size: 30)))
-                ],
+                        onPressed: () {
+                          AudioService.instance.playSound('back');
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
-      );
-    });
+            ],
+          ),
+        );
+      },
+    );
   }
 }

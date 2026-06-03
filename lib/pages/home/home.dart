@@ -22,6 +22,7 @@ import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
+import 'package:flaguiz/widgets/dialogs/cc_friend_challenge_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:rive/rive.dart' as rive;
@@ -367,6 +368,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           ),
                         ),
                       ),
+
+                      const CcFriendChallengeDialog()
                     ],
                   ),
                 ),

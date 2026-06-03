@@ -6,6 +6,7 @@ import 'package:flaguiz/pages/battle/widgets/find_battle_button_widget.dart';
 import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_image_button.dart';
@@ -35,82 +36,95 @@ class _BattleState extends State<Battle> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<UserProvider>(builder: (context, userProvider, child) {
-      final UserModel? user = userProvider.user;
-      return Scaffold(
-        body: Stack(
-          children: [
-            Hero(
-              tag: CcConstants.kH_GAME_MODE,
-              child: SizedBox.expand(
-                child: Image.asset(
-                  AssetsImages.battleBg,
-                  fit: BoxFit.cover,
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        final UserModel? user = userProvider.user;
+        return Scaffold(
+          body: Stack(
+            children: [
+              Hero(
+                tag: CcConstants.kH_GAME_MODE,
+                child: SizedBox.expand(
+                  child: Image.asset(AssetsImages.battleBg, fit: BoxFit.cover),
                 ),
               ),
-            ),
-            SafeArea(
-              child: Stack(
-                children: [
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: CcBackWidget(
+              SafeArea(
+                child: Stack(
+                  children: [
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: CcBackWidget(
                         image: AssetsImages.battleBackKey,
-                        margin: EdgeInsets.all(8)),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 100),
-
-                      /// Battle Iconic
-                      Container(
-                          alignment: Alignment.center,
-                          child: Image.asset(AssetsImages.battle, width: 150)),
-
-                      const SizedBox(height: 10),
-
-                      const CcShadowedTextWidget(
-                        text: CcConstants.kBattle,
-                        fontSize: 28,
+                        margin: EdgeInsets.all(8),
                       ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 100),
 
-                      Row(
+                        /// Battle Iconic
+                        Container(
+                          alignment: Alignment.center,
+                          child: Image.asset(AssetsImages.battle, width: 150),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        const CcShadowedTextWidget(
+                          text: CcConstants.kBattle,
+                          fontSize: 28,
+                        ),
+
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(AssetsImages.trophy, width: 50),
                             CcShadowedTextWidget(
-                                text: (user?.trophy ?? 0).toString(),
-                                fontSize: 16)
-                          ]),
+                              text: (user?.trophy ?? 0).toString(),
+                              fontSize: 16,
+                            ),
+                          ],
+                        ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                CcImageButton(
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  CcImageButton(
                                     width: 70,
                                     height: 70,
                                     boxFit: BoxFit.contain,
                                     margin: const EdgeInsets.only(bottom: 10),
                                     image: AssetsImages.battleChallenge,
-                                    onTap: () {
+                                    onTap: () async {
                                       AudioService.instance.playSound('tap');
-                                      Navigator.of(context)
-                                          .pushNamed(RoutePaths.battleChallenge);
-                                    }),
-                                const CcShadowedTextWidget(
-                                  text: CcConstants.kBattleChallenge,
-                                  letterSpacing: 1,
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                CcImageButton(
+                                      if (!await Utils.hasInternet()) {
+                                        if (!context.mounted) return;
+                                        Utils.showToastMessage(
+                                          context,
+                                          "No Internet Connection",
+                                        );
+                                        return;
+                                      }
+                                      if (!context.mounted) return;
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamed(RoutePaths.battleChallenge);
+                                    },
+                                  ),
+                                  const CcShadowedTextWidget(
+                                    text: CcConstants.kBattleChallenge,
+                                    letterSpacing: 1,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  CcImageButton(
                                     width: 70,
                                     height: 70,
                                     boxFit: BoxFit.contain,
@@ -119,32 +133,35 @@ class _BattleState extends State<Battle> {
                                     alignment: Alignment.bottomCenter,
                                     onTap: () {
                                       AudioService.instance.playSound('tap');
-                                      Navigator.of(context)
-                                          .pushNamed(RoutePaths.leaderboard);
-                                    }),
-                                const CcShadowedTextWidget(
-                                  text: CcConstants.kBattleLeaderboard,
-                                  letterSpacing: 1,
-                                )
-                              ],
-                            )
-                          ],
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamed(RoutePaths.leaderboard);
+                                    },
+                                  ),
+                                  const CcShadowedTextWidget(
+                                    text: CcConstants.kBattleLeaderboard,
+                                    letterSpacing: 1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
 
-                      const FindBattleButtonWidget(),
+                        const FindBattleButtonWidget(),
 
-                      const Spacer(),
+                        const Spacer(),
 
-                      const CcAdsBannerWidget(adKey: CcAdsKey.bannerLibrary)
-                    ],
-                  ),
-                ],
+                        const CcAdsBannerWidget(adKey: CcAdsKey.bannerLibrary),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      );
-    });
+            ],
+          ),
+        );
+      },
+    );
   }
 }

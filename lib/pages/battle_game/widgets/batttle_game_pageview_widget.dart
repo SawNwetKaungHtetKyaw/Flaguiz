@@ -43,24 +43,24 @@ class _BatttleGamePageviewWidgetState extends State<BatttleGamePageviewWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BattleOptionBoxWidget(
-                              country: question.options[0],
-                              answerId: question.answer.id ?? '0'),
+                              country: question.options![0],
+                              answerId: question.answer?.id ?? '0'),
                           const SizedBox(width: 10),
                           BattleOptionBoxWidget(
-                              country: question.options[1],
-                              answerId: question.answer.id ?? '0'),
+                              country: question.options![1],
+                              answerId: question.answer?.id ?? '0'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BattleOptionBoxWidget(
-                              country: question.options[2],
-                              answerId: question.answer.id ?? '0'),
+                              country: question.options![2],
+                              answerId: question.answer?.id ?? '0'),
                           const SizedBox(width: 10),
                           BattleOptionBoxWidget(
-                              country: question.options[3],
-                              answerId: question.answer.id ?? '0'),
+                              country: question.options![3],
+                              answerId: question.answer?.id ?? '0'),
                         ],
                       ),
                     ],
@@ -75,20 +75,20 @@ class _BatttleGamePageviewWidgetState extends State<BatttleGamePageviewWidget> {
                   child: Column(
                     children: [
                       BattleOptionTextWidget(
-                          country: question.options[0],
-                          answerId: question.answer.id ?? '0',
+                          country: question.options![0],
+                          answerId: question.answer?.id ?? '0',
                           type: question.type),
                       BattleOptionTextWidget(
-                          country: question.options[1],
-                          answerId: question.answer.id ?? '0',
+                          country: question.options![1],
+                          answerId: question.answer?.id ?? '0',
                           type: question.type),
                       BattleOptionTextWidget(
-                          country: question.options[2],
-                          answerId: question.answer.id ?? '0',
+                          country: question.options![2],
+                          answerId: question.answer?.id ?? '0',
                           type: question.type),
                       BattleOptionTextWidget(
-                          country: question.options[3],
-                          answerId: question.answer.id ?? '0',
+                          country: question.options![3],
+                          answerId: question.answer?.id ?? '0',
                           type: question.type),
                     ],
                   ),

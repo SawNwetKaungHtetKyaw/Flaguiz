@@ -10,11 +10,8 @@ import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlayerProfileWidget extends StatelessWidget {
-  const PlayerProfileWidget({
-    super.key,
-    required this.user,
-    required this.result,
-  });
+  const PlayerProfileWidget(
+      {super.key, required this.user, required this.result});
 
   final MiniProfileModel user;
   final String result;
@@ -30,10 +27,9 @@ class PlayerProfileWidget extends StatelessWidget {
           height: 80,
           padding: const EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
-            color:
-                (result == CcConstants.BATTLE_WIN)
-                    ? battleWinColor
-                    : (result == CcConstants.BATTLE_LOSE)
+            color: (result == CcConstants.BATTLE_WIN)
+                ? battleWinColor
+                : (result == CcConstants.BATTLE_LOSE)
                     ? battleLoseColor
                     : primaryColor,
           ),
@@ -42,45 +38,40 @@ class PlayerProfileWidget extends StatelessWidget {
               Stack(
                 children: [
                   CcNetworkImageWidget(
-                    width: 60,
-                    height: 60,
-                    imageUrl: "${CcConfig.image_base_url}${user.avatar}",
-                  ),
+                      width: 60,
+                      height: 60,
+                      imageUrl: "${CcConfig.image_base_url}${user.avatar}"),
                   CcNetworkImageWidget(
-                    width: 60,
-                    height: 60,
-                    imageUrl: "${CcConfig.image_base_url}${user.border}",
-                  ),
+                      width: 60,
+                      height: 60,
+                      imageUrl: "${CcConfig.image_base_url}${user.border}"),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: CcShadowedImageBoxWidget(
-                      width: 20,
-                      height: 20,
-                      radius: 20,
-                      dx: 1,
-                      dy: 1,
-                      boxFit: BoxFit.cover,
-                      image:
-                          (user.country == null)
-                              ? AssetsImages.regionIcon
-                              : (user.country?.localFlagPath == null)
-                              ? "${CcConfig.image_base_url}${user.country?.flagUrl}"
-                              : user.country?.localFlagPath ?? '',
-                    ),
-                  ),
+                        width: 20,
+                        height: 20,
+                        radius: 20,
+                        dx: 1,
+                        dy: 1,
+                        boxFit: BoxFit.cover,
+                        image: (user.country == null)
+                            ? AssetsImages.regionIcon
+                            : (user.country?.localFlagPath == null)
+                                ? "${CcConfig.image_base_url}${user.country?.flagUrl}"
+                                : user.country?.localFlagPath ?? ''),
+                  )
                 ],
               ),
               CcShadowedTextWidget(
-                padding: const EdgeInsets.only(left: 3),
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-                fontSize: 10,
-                dx: 1,
-                dy: 1.5,
-                text: user.username ?? "Player",
-                letterSpacing: 1,
-              ),
+                  padding: const EdgeInsets.only(left: 3),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
+                  fontSize: 10,
+                  dx: 1,
+                  dy: 1.5,
+                  text: user.username ?? "Player",
+                  letterSpacing: 1)
             ],
           ),
         ),

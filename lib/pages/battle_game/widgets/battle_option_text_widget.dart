@@ -16,7 +16,7 @@ class BattleOptionTextWidget extends StatelessWidget {
       required this.type});
   final CountryModel country;
   final String answerId;
-  final QuestionType type;
+  final QuestionType? type;
   @override
   Widget build(BuildContext context) {
     return Consumer<BattleGameProvider>(

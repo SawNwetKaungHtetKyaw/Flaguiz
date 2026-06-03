@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/pages/battle_game/provider/battle_game_provider.dart';
@@ -17,7 +17,7 @@ class BattlePlayerProfileWidget extends StatelessWidget {
       required this.isYou,
       required this.player});
   final bool isYou;
-  final BotModel player;
+  final MiniProfileModel player;
 
   @override
   Widget build(BuildContext context) {

@@ -23,6 +23,32 @@ class BattleQuestionService {
       list.add(_generateQuestionWithAnswer(allCountries, config, country));
     }
 
+    print(list[0].answer);
+
+    return list;
+  }
+
+  List<BattleQuestionModel> generateBattleChallengeList(
+    List<CountryModel> allCountries,
+    List<int> questions,
+  ) {
+    final config = difficultyConfigs[1]!;
+
+    final List<CountryModel> selected =
+        questions.map((id) {
+          return allCountries.firstWhere(
+            (country) => country.id == id.toString(),
+          );
+        }).toList();
+
+    final List<BattleQuestionModel> list = [];
+
+    for (final country in selected) {
+      list.add(_generateQuestionWithAnswer(allCountries, config, country));
+    }
+
+    print(list[0].answer);
+
     return list;
   }
 
@@ -35,11 +61,7 @@ class BattleQuestionService {
 
     final options = _generateOptions(answer, allCountries);
 
-    return BattleQuestionModel(
-      answer: answer,
-      options: options,
-      type: type,
-    );
+    return BattleQuestionModel(answer: answer, options: options, type: type);
   }
 
   QuestionType _pickWeighted(Map<QuestionType, double> weights) {
@@ -86,13 +108,8 @@ class BattleQuestionService {
   }
 
   final difficultyConfigs = {
-    1: DifficultyConfig({
-      QuestionType.flag: 1.0,
-    }),
-    2: DifficultyConfig({
-      QuestionType.flag: 0.7,
-      QuestionType.country: 0.3,
-    }),
+    1: DifficultyConfig({QuestionType.flag: 1.0}),
+    2: DifficultyConfig({QuestionType.flag: 0.7, QuestionType.country: 0.3}),
     3: DifficultyConfig({
       QuestionType.flag: 0.5,
       QuestionType.country: 0.3,

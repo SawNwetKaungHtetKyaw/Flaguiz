@@ -9,6 +9,10 @@ class RoutePaths {
   static const String battleIntro = '/battle-intro';
   static const String battleGame = '/battle-game';
   static const String battleGameResult = '/battle-game-result';
+  static const String battleChallengeResult = '/battle-challenge-result';
+  static const String battleChallenge = '/battle-challenge';
+  static const String battleChallengeIntro = '/battle-challenge-intro';
+  static const String battleChallengeGame = '/battle-challenge-game';
   static const String library = '/library';
   static const String countryDetail = '/country-detail';
   static const String shop = '/shop';
@@ -16,7 +20,6 @@ class RoutePaths {
   static const String detail = '/detail';
   static const String profile = '/profile';
   static const String leaderboard = '/leaderboard';
-  static const String battleChallenge = '/battle-challenge';
   static const String adventureGameByImage = '/adventure-game-image';
   static const String adventureGameByText = '/adventure-game-text';
   static const String challengeGameByImage = '/challenge-game-image';

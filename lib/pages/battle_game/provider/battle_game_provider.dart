@@ -109,7 +109,7 @@ class BattleGameProvider extends ChangeNotifier {
     _botAnswer = answer;
     _botAnswered = true;
 
-    final correctId = question.answer.id;
+    final correctId = question.answer?.id;
     _trackBotGuess = (_botAnswer == correctId) ? 1 : -1;
 
     notifyListeners();
@@ -126,7 +126,7 @@ class BattleGameProvider extends ChangeNotifier {
     _playerAnswerId = guessId;
     _playerAnswered = true;
 
-    final correctId = currentQuestion.answer.id;
+    final correctId = currentQuestion.answer?.id;
     if (_playerAnswerId == correctId) {
       _trackPlayerGuess = 1;
       AudioService.instance.playSound('correct');
@@ -146,7 +146,7 @@ class BattleGameProvider extends ChangeNotifier {
   void _checkAndProceed() async {
     if (!_playerAnswered || !_botAnswered) return;
 
-    final correctId = currentQuestion.answer.id;
+    final correctId = currentQuestion.answer?.id;
 
     bool playerCorrect = _playerAnswerId == correctId;
     bool botCorrect = _botAnswer == correctId;

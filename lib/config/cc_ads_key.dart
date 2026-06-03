@@ -7,8 +7,8 @@ class CcAdsKey {
 
   static const Map<String, Map<String, String>> interstitialAds = {
     interstitialBattleAds: {
-      "android": "ca-app-pub-3940256099942544/1033173712",
-      // "android": "ca-app-pub-9116233154962039/6139694678",
+      // "android": "ca-app-pub-3940256099942544/1033173712",
+      "android": "ca-app-pub-9116233154962039/6139694678",
       "ios": "ca-app-pub-xxxx/reward_main_ios",
     },
   };

@@ -306,19 +306,30 @@ class Utils {
 
     final diff = DateTime.now().difference(lastSeen);
 
-    if (diff.inMinutes < 1) {
-      return "Online";
+    // Seconds
+    if (diff.inSeconds < 60) {
+      return "${diff.inSeconds} sec ago";
     }
 
+    // Minutes
     if (diff.inMinutes < 60) {
       return "${diff.inMinutes} min ago";
     }
 
+    // Hours
     if (diff.inHours < 24) {
-      return "${diff.inHours} hours ago";
+      return "${diff.inHours} hour${diff.inHours > 1 ? "s" : ""} ago";
     }
 
-    return "${diff.inDays} days ago";
+    // Days
+    if (diff.inDays < 365) {
+      return "${diff.inDays} day${diff.inDays > 1 ? "s" : ""} ago";
+    }
+
+    // Years
+    final years = (diff.inDays / 365).floor();
+
+    return "$years year${years > 1 ? "s" : ""} ago";
   }
 
   static Future<void> preloadImages(

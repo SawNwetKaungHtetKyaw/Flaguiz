@@ -1,12 +1,11 @@
 import 'package:flaguiz/animations/fade_animation.dart';
 import 'package:flaguiz/animations/slide_animation.dart';
 import 'package:flaguiz/models/mini_profile_model.dart';
-import 'package:flaguiz/config/cc_config.dart';
-import 'package:flaguiz/utils/utils.dart';
+import 'package:flaguiz/pages/profile/widgets/profile_banner_widget.dart';
 import 'package:flutter/material.dart';
 
-class BattleIntroBannerWidget extends StatelessWidget {
-  const BattleIntroBannerWidget({
+class BattleChallengeIntroBannerWidget extends StatelessWidget {
+  const BattleChallengeIntroBannerWidget({
     super.key,
     required this.isYou,
     required this.player,
@@ -27,24 +26,17 @@ class BattleIntroBannerWidget extends StatelessWidget {
           child: Transform(
             alignment: Alignment.center,
             transform: Matrix4.diagonal3Values(isYou ? 1.0 : -1.0, 1.0, 1.0),
-            child: Container(
-              width: double.infinity,
+            child: ProfileBannerWidget(
               height: screenSize.width / 3,
-              margin: EdgeInsets.only(
+              padding: EdgeInsets.only(
                 right: 85,
                 left: 5,
                 bottom: isYou ? screenSize.width / 3 : 0,
                 top: isYou ? 0 : screenSize.width / 3,
               ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Utils.checkImageType(
-                    "${CcConfig.image_base_url}${player.banner}",
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              id: player.banner ?? 'BN_001',
             ),
+
           ),
         ),
       ),

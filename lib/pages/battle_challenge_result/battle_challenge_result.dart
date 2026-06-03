@@ -13,20 +13,20 @@ import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BattleGameResult extends StatefulWidget {
-  const BattleGameResult(
+class BattleChallengeResult extends StatefulWidget {
+  const BattleChallengeResult(
       {super.key, required this.result, required this.user, required this.bot});
   final String result;
   final MiniProfileModel user;
   final MiniProfileModel bot;
 
   @override
-  State<BattleGameResult> createState() => _BattleGameResultState();
+  State<BattleChallengeResult> createState() => _BattleChallengeResultState();
 }
 
-class _BattleGameResultState extends State<BattleGameResult> {
+class _BattleChallengeResultState extends State<BattleChallengeResult> {
   int coin = 10;
-  int trophy = 5;
+  int trophy = 0;
 
   @override
   void initState() {
@@ -34,7 +34,6 @@ class _BattleGameResultState extends State<BattleGameResult> {
     AudioService.instance.allowMusic = false;
     AudioService.instance.pause();
     coin = Utils.battleCoinByResult(widget.result);
-    trophy = Utils.battleTrophyByResult(widget.result, widget.user.trophy ?? 0);
     context.read<UserProvider>().updateUserDataAfterBattle(coin, trophy);
 
     if (widget.result == CcConstants.BATTLE_WIN) {
@@ -118,21 +117,6 @@ class _BattleGameResultState extends State<BattleGameResult> {
                           children: [
                             Image.asset(AssetsImages.coin, width: 30),
                             CcShadowedTextWidget(text: " +$coin", fontSize: 14),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ScaleAnimation(
-                        milisecond: 1000,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(AssetsImages.trophy, width: 40),
-                            CcShadowedTextWidget(
-                                text: (widget.result == CcConstants.BATTLE_LOSE)
-                                    ? trophy.toString()
-                                    : " +$trophy",
-                                fontSize: 14),
                           ],
                         ),
                       ),

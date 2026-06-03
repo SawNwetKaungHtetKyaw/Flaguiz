@@ -14,6 +14,7 @@ class BotBrain {
     if (questionIndex < 3) return true;
 
     double chance = _correctChance();
+    print("========>$chance");
     return _random.nextDouble() < chance;
   }
 
@@ -46,10 +47,10 @@ class BotBrain {
     bool correct = shouldAnswerCorrect(questionIndex);
 
     if (correct) {
-      return question.answer.id ?? '0';
+      return question.answer?.id ?? '0';
     } else {
-      final wrongOptions = question.options
-          .where((e) => e.id != question.answer.id)
+      final wrongOptions = question.options!
+          .where((e) => e.id != question.answer?.id)
           .toList();
 
       return wrongOptions[_random.nextInt(wrongOptions.length)].id ?? "0";

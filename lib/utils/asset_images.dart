@@ -56,6 +56,7 @@ class AssetsImages {
   static const String badges1 = 'assets/images/others/badges1.png';
   static const String badges2 = 'assets/images/others/badges2.png';
   static const String badges3 = 'assets/images/others/badges3.png';
+  static const String friendChallengeBox = 'assets/images/others/friend_challenge_box.png';
 
   /// Achievements
   static const String achvAdventurer = 'assets/images/achievements/adventurer.jpg';

@@ -1,5 +1,5 @@
 import 'package:flaguiz/bot/bot_factory.dart';
-import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
@@ -47,10 +47,10 @@ class FindBattleButtonWidget extends StatelessWidget {
             AdsService.instance.loadInterstitialAds(CcAdsKey.interstitialBattleAds);
 
             /// Generate Battle User Bot Data
-            BotModel userBot = await BotFactory().createUserBot(user);
+            MiniProfileModel userBot = await BotFactory().createUserBot(user);
 
             /// Generate Bot
-            BotModel bot = await BotFactory().createBot();
+            MiniProfileModel bot = await BotFactory().createBot();
             bot.trophy = Utils.botTrophy(userBot.trophy ?? 0);
 
             /// Generate Battle Question List

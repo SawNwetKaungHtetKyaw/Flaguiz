@@ -74,7 +74,7 @@ class FirestoreService {
     }
   }
 
-  /// Local Leaderboard Section
+  /// Global Leaderboard Section
   Future<List<UserModel>> getGlobalLeaderBoard() async {
     try {
       final snapshot =
@@ -319,7 +319,9 @@ class FirestoreService {
           final query =
               await FirebaseFirestore.instance
                   .collection('users')
-                  .where(FieldPath.documentId, whereIn: ids.take(10).toList())
+                  .where(FieldPath.documentId
+                  , whereIn: ids.take(50).toList()
+                  )
                   .get();
 
           return query.docs.map((e) => UserModel.fromJson(e.data())).toList();

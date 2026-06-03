@@ -16,7 +16,7 @@ class BattleAnswerWidget extends StatelessWidget {
         return CcShadowedTextWidget(
             fontFamily: 'Roboto',
             letterSpacing: 1,
-            text: question.answer.name ?? "",
+            text: question.answer?.name ?? "",
             fontSize: 28,
             textAlign: TextAlign.center);
       } else if (question.type == QuestionType.map) {
@@ -25,9 +25,9 @@ class BattleAnswerWidget extends StatelessWidget {
           child: CcShadowedImageBoxWidget(
             width: double.maxFinite,
             height: 250,
-            image: (question.answer.localMapPath == null)
-                ? "${CcConfig.image_base_url}${question.answer.mapUrl}"
-                : question.answer.localMapPath ?? '',
+            image: (question.answer?.localMapPath == null)
+                ? "${CcConfig.image_base_url}${question.answer?.mapUrl}"
+                : question.answer?.localMapPath ?? '',
             boxFit: BoxFit.fill,
           ),
         );
@@ -37,9 +37,9 @@ class BattleAnswerWidget extends StatelessWidget {
           child: CcShadowedImageBoxWidget(
             width: 270,
             height: 180,
-            image: (question.answer.localFlagPath == null)
-                ? "${CcConfig.image_base_url}${question.answer.flagUrl}"
-                : question.answer.localFlagPath ?? '',
+            image: (question.answer?.localFlagPath == null)
+                ? "${CcConfig.image_base_url}${question.answer?.flagUrl}"
+                : question.answer?.localFlagPath ?? '',
             boxFit: BoxFit.fill,
           ),
         );

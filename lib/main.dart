@@ -11,6 +11,7 @@ import 'package:flaguiz/providers/ads_provider.dart';
 import 'package:flaguiz/providers/avatar_provider.dart';
 import 'package:flaguiz/providers/background_provider.dart';
 import 'package:flaguiz/providers/banner_provider.dart';
+import 'package:flaguiz/providers/battle_provider.dart';
 import 'package:flaguiz/providers/border_provider.dart';
 import 'package:flaguiz/providers/country_provider.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
@@ -35,6 +36,7 @@ void main() async {
   await Firebase.initializeApp();
   final authService = AuthService();
   await authService.init();
+
   /// Hive
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
@@ -103,6 +105,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FriendsProvider>(
           create: (_) => FriendsProvider(buildContext: context),
+        ),
+        ChangeNotifierProvider<BattleProvider>(
+          create: (_) => BattleProvider(buildContext: context),
         ),
       ],
       child: MaterialApp(

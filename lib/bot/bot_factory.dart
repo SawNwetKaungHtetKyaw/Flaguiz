@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flaguiz/bot/bot_data.dart';
-import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
@@ -14,35 +14,56 @@ class BotFactory {
   static final Random _random = Random();
   final CountryRepository _repo = CountryRepository();
 
-  Future<BotModel> createBot() async {
-    CountryModel? country =
-        await _repo.getById(_random.nextInt(234).toString());
+  Future<MiniProfileModel> createBot() async {
+    CountryModel? country = await _repo.getById(
+      _random.nextInt(234).toString(),
+    );
 
-    return BotModel(
-        username: _randomItem(BotData.username),
-        avatar: _randomItem(BotData.avatars),
-        border: _randomItem(BotData.borders),
-        banner: _randomItem(BotData.banners),
-        trophy: 0,
-        country: country);
+    return MiniProfileModel(
+      username: _randomItem(BotData.username),
+      avatar: _randomItem(BotData.avatars),
+      border: _randomItem(BotData.borders),
+      banner: _randomItem(BotData.banners),
+      trophy: 0,
+      country: country,
+    );
   }
 
-  Future<BotModel> createUserBot(UserModel? user) async {
-    ShopModel? avatar =
-        AvatarRepository().getById(user?.avatars?[0] ?? 'AVT_001');
-    ShopModel? border =
-        BorderRepository().getById(user?.borders?[0] ?? 'BD_001');
-    ShopModel? banner =
-        BannerRepository().getById(user?.banners?[0] ?? 'BN_001');
+  Future<MiniProfileModel> createUserBot(UserModel? user) async {
+    ShopModel? avatar = AvatarRepository().getById(
+      user?.avatars?[0] ?? 'AVT_001',
+    );
+    ShopModel? border = BorderRepository().getById(
+      user?.borders?[0] ?? 'BD_001',
+    );
+    ShopModel? banner = BannerRepository().getById(
+      user?.banners?[0] ?? 'BN_001',
+    );
 
     CountryModel? country = await _repo.getById(user?.country ?? '0');
-    return BotModel(
-        username: user?.username ?? 'Player',
-        avatar: avatar?.imageUrl ?? _randomItem(BotData.avatars),
-        border: border?.imageUrl ?? _randomItem(BotData.borders),
-        banner: banner?.imageUrl ?? _randomItem(BotData.banners),
-        trophy: user?.trophy ?? 0,
-        country: country);
+    return MiniProfileModel(
+      id: user?.id ?? '',
+      username: user?.username ?? 'Player',
+      avatar: avatar?.imageUrl ?? _randomItem(BotData.avatars),
+      border: border?.imageUrl ?? _randomItem(BotData.borders),
+      banner: banner?.imageUrl ?? _randomItem(BotData.banners),
+      trophy: user?.trophy ?? 0,
+      country: country,
+    );
+  }
+
+  Future<MiniProfileModel> createMiniProfile(UserModel? user) async {
+
+    CountryModel? country = await _repo.getById(user?.country ?? '0');
+    return MiniProfileModel(
+      id: user?.id ?? '',
+      username: user?.username ?? 'Player',
+      avatar: user?.avatars?[0] ?? 'AVT_001',
+      border: user?.borders?[0] ?? 'BD_001',
+      banner: user?.banners?[0] ?? 'BN_001',
+      trophy: user?.trophy ?? 0,
+      country: country,
+    );
   }
 
   static String _randomItem(List<String> list) {

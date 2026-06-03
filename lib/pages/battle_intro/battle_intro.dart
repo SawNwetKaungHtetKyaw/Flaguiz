@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flaguiz/animations/scale_animation.dart';
 import 'package:flaguiz/bot/bot_difficulty.dart';
-import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/pages/battle_intro/widgets/battle_intro_banner_widget.dart';
@@ -21,8 +21,8 @@ class BattleIntro extends StatefulWidget {
       required this.bot,
       required this.botDifficulty});
   final List<BattleQuestionModel> questions;
-  final BotModel user;
-  final BotModel bot;
+  final MiniProfileModel user;
+  final MiniProfileModel bot;
   final BotDifficulty botDifficulty;
   @override
   State<BattleIntro> createState() => _BattleIntroState();

@@ -1,5 +1,5 @@
 import 'package:flaguiz/bot/bot_difficulty.dart';
-import 'package:flaguiz/bot/bot_model.dart';
+import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/pages/battle_game/provider/battle_game_provider.dart';
@@ -20,8 +20,8 @@ class BattleGame extends StatefulWidget {
       required this.bot,
       required this.botDifficulty});
   final List<BattleQuestionModel> questions;
-  final BotModel user;
-  final BotModel bot;
+  final MiniProfileModel user;
+  final MiniProfileModel bot;
   final BotDifficulty botDifficulty;
 
   @override
@@ -38,7 +38,7 @@ class _BattleGameState extends State<BattleGame> {
           buildContext: context,
           pageController: _controller,
           questionList: widget.questions,
-          botDifficulty: BotDifficulty.medium),
+          botDifficulty: widget.botDifficulty),
       child: PopScope(
         canPop: false,
         child: Scaffold(
