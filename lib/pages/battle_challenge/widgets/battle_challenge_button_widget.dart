@@ -101,7 +101,7 @@ class _BattleChallengeButtonWidgetState
 
           Utils.hideLoadingDialog(context);
 
-          Utils.showToastMessage(context, "Friend declined!");
+          Utils.showWelcomToast(context, "Friend declined!");
 
           await repository.deleteBattleRoom(roomId);
         }

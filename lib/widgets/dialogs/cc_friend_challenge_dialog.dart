@@ -134,7 +134,7 @@ class CcFriendChallengeDialog extends StatelessWidget {
 
                                         Navigator.of(context).pop();
 
-                                        Utils.showToastMessage(context, "Timeout!");
+                                        Utils.showWelcomToast(context, "Timeout!");
 
                                         return;
                                       }
@@ -143,7 +143,6 @@ class CcFriendChallengeDialog extends StatelessWidget {
                                       friendSub = provider
                                           .roomStream(targetRoomId)
                                           .listen((event) async {
-                                            print("====>${event.exists}");
                                             if (!event.exists) return;
 
                                             final roomData =
@@ -185,7 +184,7 @@ class CcFriendChallengeDialog extends StatelessWidget {
                                     } catch (e) {
                                       if (!context.mounted) return;
                                       Utils.hideLoadingDialog(context);
-                                      Utils.showToastMessage(context, "Error Joining Room!");
+                                      Utils.showWelcomToast(context, "Error Joining Room!");
                                     }
                                   },
                                   child: CcShadowedTextWidget(

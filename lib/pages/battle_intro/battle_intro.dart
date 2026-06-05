@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flaguiz/animations/scale_animation.dart';
 import 'package:flaguiz/bot/bot_difficulty.dart';
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
@@ -34,6 +35,7 @@ class _BattleIntroState extends State<BattleIntro> {
     super.initState();
     AudioService.instance.allowMusic = false;
     AudioService.instance.pause();
+    Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, RoutePaths.battleGame,
           arguments: [

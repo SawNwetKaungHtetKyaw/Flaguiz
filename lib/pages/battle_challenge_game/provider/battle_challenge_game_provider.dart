@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/models/battle_room_model.dart';
 import 'package:flaguiz/repositories/battle_repository.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/battle_firestore_service.dart';
 import 'package:flaguiz/service/vibration_service.dart';
@@ -219,20 +221,46 @@ class BattleChallengeGameProvider extends ChangeNotifier {
 
     _timer?.cancel();
 
-    _gameEnded = true;
-    _battleResult = result;
+    if (result == CcConstants.BATTLE_WIN) {
+      _gameEnded = true;
+      _battleResult = result;
 
-    notifyListeners();
+      notifyListeners();
 
-    if (_context != null) {
-      Navigator.pushReplacementNamed(
-        _context!,
-        RoutePaths.battleChallengeResult,
-        arguments: [
-          result,
-          _isHost ? room!.host : room!.friend,
-          _isHost ? room!.friend : room!.host,
-        ],
+      if (_context != null) {
+        Navigator.pushReplacementNamed(
+          _context!,
+          RoutePaths.battleChallengeResult,
+          arguments: [
+            result,
+            _isHost ? room!.host : room!.friend,
+            _isHost ? room!.friend : room!.host,
+            _isHost ? room!.roomId : null,
+          ],
+        );
+      }
+    } else {
+      AdsService.instance.showInterstitialAds(
+        CcAdsKey.interstitialBattleAds,
+        onComplete: () {
+          _gameEnded = true;
+          _battleResult = result;
+
+          notifyListeners();
+
+          if (_context != null) {
+            Navigator.pushReplacementNamed(
+              _context!,
+              RoutePaths.battleChallengeResult,
+              arguments: [
+                result,
+                _isHost ? room!.host : room!.friend,
+                _isHost ? room!.friend : room!.host,
+                _isHost ? room!.roomId : null,
+              ],
+            );
+          }
+        },
       );
     }
   }

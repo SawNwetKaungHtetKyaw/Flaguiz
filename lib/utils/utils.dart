@@ -14,6 +14,7 @@ import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/cached_image_manager_service.dart';
 import 'package:flaguiz/service/firestore_service.dart';
 import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
+import 'package:flaguiz/widgets/cc_welcome_toast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -189,6 +190,24 @@ class Utils {
     overlay.insert(overlayEntry);
   }
 
+  static void showWelcomToast(
+    BuildContext context,
+    String message) {
+    final overlay = Overlay.of(context);
+
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder:
+          (context) => CcWelcomeToastWidget(
+            message: message,
+            onFinish: () => overlayEntry.remove()
+          ),
+    );
+
+    overlay.insert(overlayEntry);
+  }
+
   static Future<bool> hasInternet() async {
     try {
       final result = await InternetAddress.lookup(
@@ -352,27 +371,27 @@ class Utils {
 
   static int botTrophy(int trophy) {
     final Random random = Random();
-    if (trophy < 50) {
-      return random.nextInt(50);
-    } else if (trophy < 150) {
-      return random.nextInt(100) + 50;
-    } else if (trophy < 300) {
-      return random.nextInt(150) + 150;
-    } else if (trophy < 500) {
-      return random.nextInt(200) + 300;
+    if (trophy < 200) {
+      return random.nextInt(200);
+    } else if (trophy < 400) {
+      return random.nextInt(200) + 200;
+    } else if (trophy < 800) {
+      return random.nextInt(400) + 400;
+    } else if (trophy < 1600) {
+      return random.nextInt(800) + 800;
     } else {
       return random.nextInt(trophy - 500 + 1) + 500;
     }
   }
 
   static int battleDifficultyByTrophy(int trophy) {
-    if (trophy < 50) {
+    if (trophy < 200) {
       return 1;
-    } else if (trophy < 150) {
+    } else if (trophy < 400) {
       return 2;
-    } else if (trophy < 300) {
+    } else if (trophy < 800) {
       return 3;
-    } else if (trophy < 500) {
+    } else if (trophy < 1600) {
       return 4;
     } else {
       return 5;
@@ -380,13 +399,13 @@ class Utils {
   }
 
   static BotDifficulty botDifficultyByTrophy(int trophy) {
-    if (trophy < 50) {
+    if (trophy < 200) {
       return BotDifficulty.newbie;
-    } else if (trophy < 150) {
+    } else if (trophy < 400) {
       return BotDifficulty.newbie;
-    } else if (trophy < 300) {
+    } else if (trophy < 800) {
       return BotDifficulty.medium;
-    } else if (trophy < 500) {
+    } else if (trophy < 1600) {
       return BotDifficulty.hard;
     } else {
       return BotDifficulty.pro;
@@ -430,6 +449,26 @@ class Utils {
       trophy = 5;
     }
     return trophy;
+  }
+
+  static String formatNumber(num number) {
+    if (number >= 1000000000) {
+      return _format(number / 1000000000, 'B');
+    } else if (number >= 1000000) {
+      return _format(number / 1000000, 'M');
+    } else if (number >= 1000) {
+      return _format(number / 1000, 'K');
+    }
+
+    return number.toString();
+  }
+
+  static String _format(num value, String suffix) {
+    String text = value.toStringAsFixed(2);
+
+    text = text.replaceFirst(RegExp(r'\.?0+$'), '');
+
+    return '$text$suffix';
   }
 
   static void showLoadingDialog(BuildContext context) {

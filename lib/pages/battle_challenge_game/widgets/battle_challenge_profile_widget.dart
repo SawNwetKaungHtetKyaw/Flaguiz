@@ -102,7 +102,7 @@ class BattleChallengeProfileWidget extends StatelessWidget {
                                 boxFit: BoxFit.cover,
                                 image:
                                     (player.country == null)
-                                        ? AssetsImages.regionIcon
+                                        ? AssetsImages.defaultCountry
                                         : (player.country?.localFlagPath ==
                                             null)
                                         ? "${CcConfig.image_base_url}${player.country?.flagUrl}"

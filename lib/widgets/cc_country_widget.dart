@@ -41,7 +41,7 @@ class CcCountryWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(radius),
                   image: DecorationImage(
-                    image: Utils.checkImageType(AssetsImages.regionIcon),
+                    image: Utils.checkImageType(AssetsImages.defaultCountry),
                     fit: boxFit,
                   ),
                 ),

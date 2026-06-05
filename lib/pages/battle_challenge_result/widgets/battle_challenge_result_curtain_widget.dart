@@ -3,16 +3,16 @@ import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flutter/material.dart';
 
-class BattleResultCurtainWidget extends StatefulWidget {
-  const BattleResultCurtainWidget({super.key, required this.result});
+class BattleChallengeResultCurtainWidget extends StatefulWidget {
+  const BattleChallengeResultCurtainWidget({super.key, required this.result});
   final String result;
 
   @override
-  State<BattleResultCurtainWidget> createState() =>
-      _BattleResultCurtainWidgetState();
+  State<BattleChallengeResultCurtainWidget> createState() =>
+      _BattleChallengeResultCurtainWidgetState();
 }
 
-class _BattleResultCurtainWidgetState extends State<BattleResultCurtainWidget>{
+class _BattleChallengeResultCurtainWidgetState extends State<BattleChallengeResultCurtainWidget>{
 
   @override
   Widget build(BuildContext context) {

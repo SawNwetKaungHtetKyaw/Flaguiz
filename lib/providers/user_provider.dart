@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/country_model.dart';
@@ -64,11 +63,7 @@ class UserProvider extends ChangeNotifier {
         ]);
 
         if (context.mounted) {
-          Utils.showToastMessage(
-            context,
-            'Welcome to Flaguiz!',
-            backgroundColor: successColor,
-          );
+          Utils.showWelcomToast(context, "Welcome\nto Flaguiz!");
         }
 
         notifyListeners();
@@ -90,8 +85,7 @@ class UserProvider extends ChangeNotifier {
       await _repo.saveLocalUser(_user!);
 
       if (!context.mounted) return;
-      Utils.showToastMessage(context, 'Welcome back!\n"${_user?.username}"',
-          backgroundColor: successColor);
+      Utils.showWelcomToast(context, 'Welcome back!\n"${_user?.username}"');
     }
     notifyListeners();
   }
@@ -203,16 +197,22 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> updateUserDataForChallenge(
-      String mode, int currentIndex, int coin) async {
+    String mode,
+    int currentIndex,
+    int coin,
+  ) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
 
-    final int index = updateUser.challengeCompletedList
-            ?.indexWhere((item) => item.mode == mode) ??
+    final int index =
+        updateUser.challengeCompletedList?.indexWhere(
+          (item) => item.mode == mode,
+        ) ??
         -1;
 
     if (index != -1) {
-      int currentComplete =
-          int.parse(updateUser.challengeCompletedList?[index].complete ?? "0");
+      int currentComplete = int.parse(
+        updateUser.challengeCompletedList?[index].complete ?? "0",
+      );
       if (currentComplete < currentIndex) {
         updateUser.challengeCompletedList?[index].complete =
             currentIndex.toString();
@@ -227,16 +227,22 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> updateUserDataForAdventure(
-      String currentLevelId, int life, int coin) async {
+    String currentLevelId,
+    int life,
+    int coin,
+  ) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
 
     /// Update current level
-    final int index = updateUser.adventureCompletedList
-            ?.indexWhere((item) => item.levelId == currentLevelId) ??
+    final int index =
+        updateUser.adventureCompletedList?.indexWhere(
+          (item) => item.levelId == currentLevelId,
+        ) ??
         -1;
     if (index != -1) {
-      int currentLife =
-          int.parse(updateUser.adventureCompletedList?[index].life ?? "0");
+      int currentLife = int.parse(
+        updateUser.adventureCompletedList?[index].life ?? "0",
+      );
       if (currentLife < life) {
         updateUser.adventureCompletedList?[index].life = life.toString();
       }
@@ -273,12 +279,15 @@ class UserProvider extends ChangeNotifier {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
     if (nextLevelId != '') {
       /// Add new adventure level
-      final bool exists = updateUser.adventureCompletedList
-              ?.any((item) => item.levelId == nextLevelId) ??
+      final bool exists =
+          updateUser.adventureCompletedList?.any(
+            (item) => item.levelId == nextLevelId,
+          ) ??
           false;
       if (!exists) {
-        updateUser.adventureCompletedList
-            ?.add(AdventureCompletedModel(levelId: nextLevelId, life: "0"));
+        updateUser.adventureCompletedList?.add(
+          AdventureCompletedModel(levelId: nextLevelId, life: "0"),
+        );
       }
       await _repo.saveLocalUser(updateUser);
       _user = updateUser;
@@ -299,7 +308,9 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> updateUserDataForCountry(
-      String countryId, List<CountryModel> list) async {
+    String countryId,
+    List<CountryModel> list,
+  ) async {
     UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
     if (countryId != '0') updateUser.country = countryId;
 
@@ -370,8 +381,10 @@ class UserProvider extends ChangeNotifier {
   @override
   void dispose() {
     _syncTimer?.cancel();
-    Utils.printLog('${runtimeType.toString()} Dispose $hashCode',
-        important: true);
+    Utils.printLog(
+      '${runtimeType.toString()} Dispose $hashCode',
+      important: true,
+    );
     super.dispose();
   }
 }

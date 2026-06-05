@@ -4,13 +4,13 @@ import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/utils/asset_images.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
+import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class PlayerProfileWidget extends StatelessWidget {
-  const PlayerProfileWidget(
+class HostProfileWidget extends StatelessWidget {
+  const HostProfileWidget(
       {super.key, required this.user, required this.result});
 
   final MiniProfileModel user;
@@ -37,14 +37,11 @@ class PlayerProfileWidget extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  CcNetworkImageWidget(
-                      width: 60,
-                      height: 60,
-                      imageUrl: "${CcConfig.image_base_url}${user.avatar}"),
-                  CcNetworkImageWidget(
-                      width: 60,
-                      height: 60,
-                      imageUrl: "${CcConfig.image_base_url}${user.border}"),
+                  CcProfileImageWidget(
+                    size: 60,
+                    avatar: user.avatar ?? 'AVT_001',
+                    border: user.border ?? 'BD_001',
+                  ),
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -56,7 +53,7 @@ class PlayerProfileWidget extends StatelessWidget {
                         dy: 1,
                         boxFit: BoxFit.cover,
                         image: (user.country == null)
-                            ? AssetsImages.regionIcon
+                            ? AssetsImages.defaultCountry
                             : (user.country?.localFlagPath == null)
                                 ? "${CcConfig.image_base_url}${user.country?.flagUrl}"
                                 : user.country?.localFlagPath ?? ''),

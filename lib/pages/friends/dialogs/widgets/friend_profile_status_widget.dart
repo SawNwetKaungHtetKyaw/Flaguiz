@@ -75,7 +75,7 @@ class FriendProfileStatusWidget extends StatelessWidget {
                   icon: Remix.user_received_fill,
                   width: 100,
                   onTap: () {
-                    Utils.showToastMessage(
+                    Utils.showWelcomToast(
                       context,
                       "Accept from Requests Page!",
                     );

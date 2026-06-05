@@ -1,6 +1,7 @@
 import 'package:flaguiz/models/country_leaderboard_model.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_country_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +30,7 @@ class LeaderboardCountryCardWidget extends StatelessWidget {
             width: 40,
             height: 40,
             alignment: Alignment.center,
-            child: CcShadowedTextWidget(
-              text: "${index + 1}.",
-              fontSize: 14,
-            ),
+            child: CcShadowedTextWidget(text: "${index + 1}.", fontSize: 14),
           );
       }
     }
@@ -50,12 +48,20 @@ class LeaderboardCountryCardWidget extends StatelessWidget {
           children: [
             showBadges(index),
             const SizedBox(width: 5),
-            Expanded(child: CcCountryWidget(width: 60,height: 40,radius: 3, countryId: country.country, showCountryName: true)),
+            Expanded(
+              child: CcCountryWidget(
+                width: 60,
+                height: 40,
+                radius: 3,
+                countryId: country.country,
+                showCountryName: true,
+              ),
+            ),
             const SizedBox(width: 5),
 
             /// Player Trophy
             Image.asset(AssetsImages.trophy, width: 30),
-            CcShadowedTextWidget(text: (country.totalTrophy).toString()),
+            CcShadowedTextWidget(text: Utils.formatNumber(country.totalTrophy)),
             const SizedBox(width: 5),
           ],
         ),

@@ -110,6 +110,14 @@ class _BattleState extends State<Battle> {
                                         );
                                         return;
                                       }
+                                      if (!userProvider.isLoggedIn) {
+                                        if (!context.mounted) return;
+                                        Utils.showWelcomToast(
+                                          context,
+                                          'Hey "${userProvider.user?.username ?? 'Player'}"\nYou need to Login!',
+                                        );
+                                        return;
+                                      }
                                       if (!context.mounted) return;
                                       Navigator.of(
                                         context,

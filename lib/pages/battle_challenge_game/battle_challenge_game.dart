@@ -48,21 +48,6 @@ class _BattleChallengeGameState extends State<BattleChallengeGame> {
         child: Scaffold(
           body: Consumer2<BattleChallengeGameProvider, UserProvider>(
             builder: (context, provider, userProvider, child) {
-              // UserModel? user = userProvider.user;
-              if (provider.isGameEnded) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Future.microtask(() {
-                    /// Navigate
-                    if (!context.mounted) return;
-                    // Navigator.pushReplacementNamed(
-                    //     context, RoutePaths.BattleChallengeGameResult, arguments: [
-                    //   provider.battleResult,
-                    //   widget.user,
-                    //   widget.bot
-                    // ]);
-                  });
-                });
-              }
 
               final room = provider.room;
 

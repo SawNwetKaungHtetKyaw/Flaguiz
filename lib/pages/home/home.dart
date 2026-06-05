@@ -153,6 +153,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         child: GestureDetector(
                           onTap: () async {
                             audioService.playSound("tap");
+                            
                             showGeneralDialog(
                               context: context,
                               barrierDismissible: true,
@@ -265,7 +266,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                     },
                                     icon: Image.asset(
                                       AssetsImages.leftMoveButton,
-                                      width: 20,
+                                      width: 25,
                                     ),
                                   ),
 
@@ -283,7 +284,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                     },
                                     icon: Image.asset(
                                       AssetsImages.rightMoveButton,
-                                      width: 20,
+                                      width: 25,
                                     ),
                                   ),
                                 ],

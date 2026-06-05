@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flaguiz/animations/scale_animation.dart';
+import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/battle_question_model.dart';
 import 'package:flaguiz/models/country_model.dart';
@@ -8,9 +9,11 @@ import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/pages/battle_challenge_intro/widgets/battle_challenge_intro_banner_widget.dart';
 import 'package:flaguiz/pages/battle_challenge_intro/widgets/battle_challenge_intro_profile_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
+import 'package:flaguiz/service/ads_service.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/service/battle_question_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +25,7 @@ class BattleChallengeIntro extends StatefulWidget {
     required this.host,
     required this.friend,
     required this.questions,
-    required this.isHost
+    required this.isHost,
   });
   final List<int> questions;
   final String roomId;
@@ -40,6 +43,9 @@ class _BattleChallengeIntroState extends State<BattleChallengeIntro> {
     AudioService.instance.allowMusic = false;
     AudioService.instance.pause();
 
+    AdsService.instance.loadInterstitialAds(CcAdsKey.interstitialBattleAds);
+    Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
+
     List<CountryModel> countries =
         Provider.of<CountryProvider>(context, listen: false).countryList;
 
@@ -50,7 +56,13 @@ class _BattleChallengeIntroState extends State<BattleChallengeIntro> {
       Navigator.pushReplacementNamed(
         context,
         RoutePaths.battleChallengeGame,
-        arguments: [widget.roomId,questions, widget.host, widget.friend,widget.isHost],
+        arguments: [
+          widget.roomId,
+          questions,
+          widget.host,
+          widget.friend,
+          widget.isHost,
+        ],
       );
     });
   }

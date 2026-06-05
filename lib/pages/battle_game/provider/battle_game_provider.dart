@@ -13,11 +13,12 @@ import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class BattleGameProvider extends ChangeNotifier {
-  BattleGameProvider(
-      {required BuildContext buildContext,
-      PageController? pageController,
-      required BotDifficulty botDifficulty,
-      required List<BattleQuestionModel> questionList}) {
+  BattleGameProvider({
+    required BuildContext buildContext,
+    PageController? pageController,
+    required BotDifficulty botDifficulty,
+    required List<BattleQuestionModel> questionList,
+  }) {
     Utils.printLog('${runtimeType.toString()} Init $hashCode');
     _controller = pageController;
     _questionList = questionList;
@@ -185,8 +186,11 @@ class BattleGameProvider extends ChangeNotifier {
     _timerCount = CcConfig.GAME_TIMER_COUNT;
 
     /// Move Page
-    _controller!.animateToPage(_currentIndex,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+    _controller!.animateToPage(
+      _currentIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
 
     notifyListeners();
 
@@ -199,22 +203,28 @@ class BattleGameProvider extends ChangeNotifier {
   /// =========================
   void _endGame(String result) {
     _timer?.cancel();
-    AdsService.instance.showInterstitialAds(
-      CcAdsKey.interstitialBattleAds,
-      onComplete: () {
-        _gameEnded = true;
-        _battleResult = result;
-        notifyListeners();
-
-        debugPrint("Game Result: $result");
-      },
-    );
+    if (result == CcConstants.BATTLE_WIN) {
+      _gameEnded = true;
+      _battleResult = result;
+      notifyListeners();
+    } else {
+      AdsService.instance.showInterstitialAds(
+        CcAdsKey.interstitialBattleAds,
+        onComplete: () {
+          _gameEnded = true;
+          _battleResult = result;
+          notifyListeners();
+        },
+      );
+    }
   }
 
   @override
   void dispose() {
-    Utils.printLog('${runtimeType.toString()} Dispose $hashCode',
-        important: true);
+    Utils.printLog(
+      '${runtimeType.toString()} Dispose $hashCode',
+      important: true,
+    );
     _timer?.cancel();
     super.dispose();
   }

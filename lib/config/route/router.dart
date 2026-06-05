@@ -213,11 +213,11 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           final MiniProfileModel friend = args[3];
           final bool isHost = args[4];
           return BattleChallengeGame(
-            roomId : roomId,
+            roomId: roomId,
             questions: questions,
             host: host,
             friend: friend,
-            isHost : isHost
+            isHost: isHost,
           );
         },
       );
@@ -257,7 +257,13 @@ Route<dynamic> generateRoute(RouteSettings setting) {
           final String result = args[0];
           final MiniProfileModel user = args[1];
           final MiniProfileModel bot = args[2];
-          return BattleChallengeResult(result: result, user: user, bot: bot);
+          final String? roomId = args[3];
+          return BattleChallengeResult(
+            result: result,
+            user: user,
+            bot: bot,
+            roomId: roomId,
+          );
         },
       );
     case RoutePaths.leaderboard:
@@ -289,7 +295,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
             host: host,
             friend: friend,
             questions: questions,
-            isHost : isHost
+            isHost: isHost,
           );
         },
       );

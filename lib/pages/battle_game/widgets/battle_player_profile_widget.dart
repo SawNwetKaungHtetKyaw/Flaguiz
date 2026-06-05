@@ -97,7 +97,7 @@ class BattlePlayerProfileWidget extends StatelessWidget {
                             dy: 1,
                             boxFit: BoxFit.cover,
                             image:(player.country == null)
-                              ? AssetsImages.regionIcon
+                              ? AssetsImages.defaultCountry
                               :  (player.country?.localFlagPath == null)
                                 ? "${CcConfig.image_base_url}${player.country?.flagUrl}"
                                 : player.country?.localFlagPath ?? ''),

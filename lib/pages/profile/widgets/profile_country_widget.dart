@@ -22,31 +22,41 @@ class ProfileCountryWidget extends StatelessWidget {
           onTap: () {
             AudioService.instance.playSound('tap');
             showDialog(
-                context: context,
-                builder: (BuildContext context) => const ChooseCountryDialog());
+              context: context,
+              builder: (BuildContext context) => const ChooseCountryDialog(),
+            );
           },
           child: Selector<UserProvider, CountryModel?>(
             selector: (context, provider) => provider.country,
-            builder: (context, country, child) => Container(
-              width: 69,
-              height: 46,
-              margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-              decoration: (country == null || countryId == '0')
-                  ? BoxDecoration(color: Colors.grey.shade600)
-                  : BoxDecoration(
-                      image: DecorationImage(
-                          image: Utils.checkImageType((country.localFlagPath ==
-                                  null)
-                              ? "${CcConfig.image_base_url}${country.flagUrl}"
-                              : country.localFlagPath!),
-                          fit: BoxFit.fill),
-                      boxShadow: const [
-                          BoxShadow(color: Colors.black, offset: Offset(2, 3))
-                        ]),
-              child: (country == null || countryId == '0')
-                  ? const Icon(Icons.question_mark, color: Colors.white)
-                  : const SizedBox(),
-            ),
+            builder:
+                (context, country, child) => Container(
+                  width: 69,
+                  height: 46,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 30,
+                    horizontal: 15,
+                  ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image:
+                          (country == null || countryId == '0')
+                              ? AssetImage(AssetsImages.defaultCountry)
+                              : Utils.checkImageType(
+                                (country.localFlagPath == null)
+                                    ? "${CcConfig.image_base_url}${country.flagUrl}"
+                                    : country.localFlagPath!,
+                              ),
+                      fit: BoxFit.fill,
+                    ),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black, offset: Offset(2, 3)),
+                    ],
+                  ),
+                  child:
+                      (country == null || countryId == '0')
+                          ? const Icon(Icons.question_mark, color: Colors.white)
+                          : const SizedBox(),
+                ),
           ),
         ),
         Image.asset(AssetsImages.pieceRight, width: 50),

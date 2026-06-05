@@ -26,7 +26,7 @@ class HomeFriendWidget extends StatelessWidget {
             onTap: () {
               AudioService.instance.playSound('tap');
               if (!userProvider.isLoggedIn) {
-                Utils.showToastMessage(context, "No Login User");
+                Utils.showWelcomToast(context, 'Hey "${userProvider.user?.username ?? 'Player'}"\nYou need to Login!');
                 return;
               }
 

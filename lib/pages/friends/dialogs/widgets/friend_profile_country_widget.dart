@@ -20,7 +20,7 @@ class FriendProfileCountryWidget extends StatelessWidget {
             radius: 2,
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             image: (playerCountry == null)
-                ? AssetsImages.regionIcon
+                ? AssetsImages.defaultCountry
                 : (playerCountry?.localFlagPath == null)
                     ? "${CcConfig.image_base_url}${playerCountry?.flagUrl}"
                     : playerCountry?.localFlagPath ?? ''),

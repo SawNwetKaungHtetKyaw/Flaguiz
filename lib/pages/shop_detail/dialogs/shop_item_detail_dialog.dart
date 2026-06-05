@@ -177,7 +177,7 @@ class _ShopItemDetailDialogState extends State<ShopItemDetailDialog> {
                         // End Show Achivement Dialog Section ----------------------
                       }
                     } else {
-                      Utils.showToastMessage(context, "Not Enough Coin");
+                      Utils.showWelcomToast(context, "Not Enough Coin");
                       VibrationService.instance.light();
                     }
                   }

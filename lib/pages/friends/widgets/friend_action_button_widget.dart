@@ -136,7 +136,7 @@ class FriendActionButtonWidget extends StatelessWidget {
                     margin: margin,
                     iconData: Remix.user_received_fill,
                     onTap: () {
-                      Utils.showToastMessage(
+                      Utils.showWelcomToast(
                         context,
                         "Accept from Requests Page!",
                       );

@@ -14,7 +14,6 @@ class BotBrain {
     if (questionIndex < 3) return true;
 
     double chance = _correctChance();
-    print("========>$chance");
     return _random.nextDouble() < chance;
   }
 

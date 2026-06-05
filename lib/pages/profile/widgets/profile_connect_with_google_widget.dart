@@ -1,4 +1,3 @@
-import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/pages/home/dialog/already_account_dialog.dart';
 import 'package:flaguiz/pages/home/dialog/comfirm_logout_dialog.dart';
@@ -67,8 +66,7 @@ class ProfileConnectWithGoogleWidget extends StatelessWidget {
                   if (!context.mounted) return;
                   Utils.hideLoadingDialog(context);
 
-                  Utils.showToastMessage(context, "Logged out successfully",
-                      backgroundColor: primaryColor);
+                  Utils.showWelcomToast(context, "Logged out successfully");
                 }
               } else {
                 /////====================================

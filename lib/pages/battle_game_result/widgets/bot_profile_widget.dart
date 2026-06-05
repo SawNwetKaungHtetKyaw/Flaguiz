@@ -71,7 +71,7 @@ class BotProfileWidget extends StatelessWidget {
                       boxFit: BoxFit.cover,
                       image:
                           (bot.country == null)
-                              ? AssetsImages.regionIcon
+                              ? AssetsImages.defaultCountry
                               : (bot.country?.localFlagPath == null)
                               ? "${CcConfig.image_base_url}${bot.country?.flagUrl}"
                               : bot.country?.localFlagPath ?? '',

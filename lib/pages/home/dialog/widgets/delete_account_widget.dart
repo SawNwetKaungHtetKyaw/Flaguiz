@@ -52,8 +52,7 @@ class DeleteAccountWidget extends StatelessWidget {
             if (!context.mounted) return;
             Utils.hideLoadingDialog(context);
 
-            Utils.showToastMessage(context, "Account Deleted",
-                backgroundColor: errorColor);
+            Utils.showWelcomToast(context, "Account Deleted");
           } catch (e) {
             if (!context.mounted) return;
             Utils.hideLoadingDialog(context);

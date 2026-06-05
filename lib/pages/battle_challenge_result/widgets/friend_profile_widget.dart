@@ -4,52 +4,59 @@ import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/utils/asset_images.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
+import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class PlayerProfileWidget extends StatelessWidget {
-  const PlayerProfileWidget({
+class FriendProfileWidget extends StatelessWidget {
+  const FriendProfileWidget({
     super.key,
-    required this.user,
+    required this.friend,
     required this.result,
   });
 
-  final MiniProfileModel user;
+  final MiniProfileModel friend;
   final String result;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return SlideAnimation(
+      begin: const Offset(1, 0),
       child: ClipPath(
         clipper: SlantedClipper(),
         child: Container(
           width: width / 2 + 20,
           height: 80,
-          padding: const EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             color:
                 (result == CcConstants.BATTLE_WIN)
-                    ? battleWinColor
-                    : (result == CcConstants.BATTLE_LOSE)
                     ? battleLoseColor
+                    : (result == CcConstants.BATTLE_LOSE)
+                    ? battleWinColor
                     : primaryColor,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              CcShadowedTextWidget(
+                padding: const EdgeInsets.only(right: 3),
+                overflow: TextOverflow.clip,
+                maxLines: 1,
+                dx: 1,
+                dy: 1.5,
+                fontSize: 10,
+                text: friend.username ?? "Player",
+                letterSpacing: 1,
+              ),
               Stack(
                 children: [
-                  CcNetworkImageWidget(
-                    width: 60,
-                    height: 60,
-                    imageUrl: "${CcConfig.image_base_url}${user.avatar}",
-                  ),
-                  CcNetworkImageWidget(
-                    width: 60,
-                    height: 60,
-                    imageUrl: "${CcConfig.image_base_url}${user.border}",
+                  CcProfileImageWidget(
+                    size: 60,
+                    avatar: friend.avatar ?? 'AVT_001',
+                    border: friend.border ?? 'BD_001',
                   ),
                   Positioned(
                     bottom: 0,
@@ -62,24 +69,14 @@ class PlayerProfileWidget extends StatelessWidget {
                       dy: 1,
                       boxFit: BoxFit.cover,
                       image:
-                          (user.country == null)
+                          (friend.country == null)
                               ? AssetsImages.defaultCountry
-                              : (user.country?.localFlagPath == null)
-                              ? "${CcConfig.image_base_url}${user.country?.flagUrl}"
-                              : user.country?.localFlagPath ?? '',
+                              : (friend.country?.localFlagPath == null)
+                              ? "${CcConfig.image_base_url}${friend.country?.flagUrl}"
+                              : friend.country?.localFlagPath ?? '',
                     ),
                   ),
                 ],
-              ),
-              CcShadowedTextWidget(
-                padding: const EdgeInsets.only(left: 3),
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-                fontSize: 10,
-                dx: 1,
-                dy: 1.5,
-                text: user.username ?? "Player",
-                letterSpacing: 1,
               ),
             ],
           ),
@@ -94,9 +91,9 @@ class SlantedClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
 
-    path.moveTo(0, 0);
+    path.moveTo(40, 0);
     path.lineTo(size.width, 0);
-    path.lineTo(size.width - 40, size.height);
+    path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
 
