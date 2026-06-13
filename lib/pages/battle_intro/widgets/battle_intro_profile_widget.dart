@@ -2,7 +2,7 @@ import 'package:flaguiz/animations/scale_animation.dart';
 import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/utils/asset_images.dart';
-import 'package:flaguiz/widgets/cc_network_image_widget.dart';
+import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_image_box_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +31,7 @@ class _BattleIntroProfileWidgetState extends State<BattleIntroProfileWidget> {
           const SizedBox(height: 120),
           Stack(
             children: [
-              CcNetworkImageWidget(
-                  width: 100,
-                  height: 100,
-                  imageUrl:
-                      "${CcConfig.image_base_url}${widget.player.avatar}"),
-              CcNetworkImageWidget(
-                  width: 100,
-                  height: 100,
-                  imageUrl:
-                      "${CcConfig.image_base_url}${widget.player.border}"),
+              CcProfileImageWidget(avatar: widget.player.avatar ?? 'AVT_001', border: widget.player.border ?? 'BD_001'),
               Positioned(
                 bottom: 0,
                 right: 0,

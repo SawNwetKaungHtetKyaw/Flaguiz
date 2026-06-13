@@ -48,7 +48,7 @@ class ShopBanner extends StatelessWidget {
                     children: [
                       Container(
                           width: 300,
-                          height: 120,
+                          height: 130,
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.only(right: 8, bottom: 8),
                           decoration: BoxDecoration(

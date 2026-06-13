@@ -182,17 +182,17 @@ class _BattleGameResultState extends State<BattleGameResult> {
                                     .read<UserProvider>()
                                     .updateUserDataAfterBattle(
                                       coin,
-                                      (widget.result == CcConstants.BATTLE_WIN)
-                                          ? trophy
-                                          : -trophy,
+                                      (widget.result == CcConstants.BATTLE_LOSE)
+                                          ? -trophy
+                                          : trophy,
                                     );
 
                                 setState(() {
                                   coin = coin * 2;
                                   trophy =
-                                      (widget.result == CcConstants.BATTLE_WIN)
-                                          ? trophy * 2
-                                          : trophy - trophy;
+                                      (widget.result == CcConstants.BATTLE_LOSE)
+                                          ? trophy - trophy
+                                          : trophy * 2;
                                 });
                               },
                             );

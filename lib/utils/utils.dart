@@ -15,7 +15,9 @@ import 'package:flaguiz/service/cached_image_manager_service.dart';
 import 'package:flaguiz/service/firestore_service.dart';
 import 'package:flaguiz/widgets/cc_toast_message_widget.dart';
 import 'package:flaguiz/widgets/cc_welcome_toast_widget.dart';
+import 'package:flaguiz/widgets/dialogs/cc_update_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,6 +34,28 @@ class Utils {
 
   static void debugLog(String string) {
     debugPrint('\u001b[35m ====>$string \u001b[0m');
+  }
+
+  static Future<void> checkUpdate(BuildContext context) async {
+    final newVersion = NewVersionPlus(androidId: "com.caffeinecup.flaguiz");
+
+    final status = await newVersion.getVersionStatus();
+
+    if (status != null) {
+      if (status.canUpdate && context.mounted) {
+        showUpdateDialog(context, status.storeVersion);
+      }
+    }
+  }
+
+  static void showUpdateDialog(BuildContext context, String storeVersion) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return CcUpdateDialog(version: storeVersion);
+      },
+    );
   }
 
   static Future<String> getImageDir() async {
@@ -190,9 +214,7 @@ class Utils {
     overlay.insert(overlayEntry);
   }
 
-  static void showWelcomToast(
-    BuildContext context,
-    String message) {
+  static void showWelcomToast(BuildContext context, String message) {
     final overlay = Overlay.of(context);
 
     late OverlayEntry overlayEntry;
@@ -201,7 +223,7 @@ class Utils {
       builder:
           (context) => CcWelcomeToastWidget(
             message: message,
-            onFinish: () => overlayEntry.remove()
+            onFinish: () => overlayEntry.remove(),
           ),
     );
 

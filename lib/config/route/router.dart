@@ -45,12 +45,7 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         },
       );
     case RoutePaths.loading:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.loading),
-        builder: (BuildContext context) {
-          return const Loading();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Loading());
     case RoutePaths.home:
       return MaterialPageRoute(
         settings: const RouteSettings(name: RoutePaths.home),
@@ -59,48 +54,27 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         },
       );
     case RoutePaths.profile:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.profile),
-        builder: (BuildContext context) {
-          return const Profile();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Profile());
     case RoutePaths.about:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.about),
-        builder: (BuildContext context) {
-          return const About();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const About());
     case RoutePaths.privacyPolicies:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.privacyPolicies),
-        builder: (BuildContext context) {
-          return const PrivacyPolicies();
-        },
+      return AnimationRoute.scale(
+        settings: setting,
+        page: const PrivacyPolicies(),
       );
     case RoutePaths.termsConditions:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.termsConditions),
-        builder: (BuildContext context) {
-          return const TermsConditions();
-        },
+      return AnimationRoute.scale(
+        settings: setting,
+        page: const TermsConditions(),
       );
     case RoutePaths.shop:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.shop),
-        builder: (BuildContext context) {
-          return const Shop();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Shop());
     case RoutePaths.shopDetail:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.shopDetail),
-        builder: (BuildContext context) {
-          final Object? args = setting.arguments;
-          final String category = (args as String? ?? String) as String;
-          return ShopDetail(category: category);
-        },
+      final Object? args = setting.arguments;
+      final String category = (args as String? ?? String) as String;
+      return AnimationRoute.scale(
+        settings: setting,
+        page: ShopDetail(category: category),
       );
     case RoutePaths.adventure:
       return MaterialPageRoute(
@@ -222,105 +196,78 @@ Route<dynamic> generateRoute(RouteSettings setting) {
         },
       );
     case RoutePaths.battleIntro:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.battleIntro),
-        builder: (BuildContext context) {
-          final List<dynamic> args = setting.arguments as List<dynamic>;
-          final List<BattleQuestionModel> questions = args[0] ?? [];
-          final MiniProfileModel user = args[1];
-          final MiniProfileModel bot = args[2];
-          final BotDifficulty botDifficulty = args[3];
-          return BattleIntro(
-            questions: questions,
-            user: user,
-            bot: bot,
-            botDifficulty: botDifficulty,
-          );
-        },
+      final List<dynamic> args = setting.arguments as List<dynamic>;
+      final List<BattleQuestionModel> questions = args[0] ?? [];
+      final MiniProfileModel user = args[1];
+      final MiniProfileModel bot = args[2];
+      final BotDifficulty botDifficulty = args[3];
+      return AnimationRoute.scale(
+        settings: setting,
+        page: BattleIntro(
+          questions: questions,
+          user: user,
+          bot: bot,
+          botDifficulty: botDifficulty,
+        ),
       );
     case RoutePaths.battleGameResult:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.battleGameResult),
-        builder: (BuildContext context) {
-          final List<dynamic> args = setting.arguments as List<dynamic>;
-          final String result = args[0];
-          final MiniProfileModel user = args[1];
-          final MiniProfileModel bot = args[2];
-          return BattleGameResult(result: result, user: user, bot: bot);
-        },
+      final List<dynamic> args = setting.arguments as List<dynamic>;
+      final String result = args[0];
+      final MiniProfileModel user = args[1];
+      final MiniProfileModel bot = args[2];
+      return AnimationRoute.scale(
+        settings: setting,
+        page: BattleGameResult(result: result, user: user, bot: bot),
       );
     case RoutePaths.battleChallengeResult:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.battleChallengeResult),
-        builder: (BuildContext context) {
-          final List<dynamic> args = setting.arguments as List<dynamic>;
-          final String result = args[0];
-          final MiniProfileModel user = args[1];
-          final MiniProfileModel bot = args[2];
-          final String? roomId = args[3];
-          return BattleChallengeResult(
-            result: result,
-            user: user,
-            bot: bot,
-            roomId: roomId,
-          );
-        },
+      final List<dynamic> args = setting.arguments as List<dynamic>;
+      final String result = args[0];
+      final MiniProfileModel user = args[1];
+      final MiniProfileModel bot = args[2];
+      final String? roomId = args[3];
+      return AnimationRoute.scale(
+        settings: setting,
+        page: BattleChallengeResult(
+          result: result,
+          user: user,
+          bot: bot,
+          roomId: roomId,
+        ),
       );
     case RoutePaths.leaderboard:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.leaderboard),
-        builder: (BuildContext context) {
-          return const Leaderboard();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Leaderboard());
     case RoutePaths.battleChallenge:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.battleChallenge),
-        builder: (BuildContext context) {
-          return const BattleChallenge();
-        },
+      return AnimationRoute.scale(
+        settings: setting,
+        page: const BattleChallenge(),
       );
     case RoutePaths.battleChallengeIntro:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.battleChallengeIntro),
-        builder: (BuildContext context) {
-          final List<dynamic> args = setting.arguments as List<dynamic>;
-          final String roomId = args[0];
-          final MiniProfileModel host = args[1];
-          final MiniProfileModel friend = args[2];
-          final List<int> questions = List<int>.from(args[3]);
-          final bool isHost = args[4];
-          return BattleChallengeIntro(
-            roomId: roomId,
-            host: host,
-            friend: friend,
-            questions: questions,
-            isHost: isHost,
-          );
-        },
+      final List<dynamic> args = setting.arguments as List<dynamic>;
+      final String roomId = args[0];
+      final MiniProfileModel host = args[1];
+      final MiniProfileModel friend = args[2];
+      final List<int> questions = List<int>.from(args[3]);
+      final bool isHost = args[4];
+      return AnimationRoute.scale(
+        settings: setting,
+        page: BattleChallengeIntro(
+          roomId: roomId,
+          host: host,
+          friend: friend,
+          questions: questions,
+          isHost: isHost,
+        ),
       );
     case RoutePaths.friends:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.friends),
-        builder: (BuildContext context) {
-          return const Friends();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Friends());
     case RoutePaths.library:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.library),
-        builder: (BuildContext context) {
-          return const Library();
-        },
-      );
+      return AnimationRoute.scale(settings: setting, page: const Library());
     case RoutePaths.countryDetail:
-      return MaterialPageRoute(
-        settings: const RouteSettings(name: RoutePaths.countryDetail),
-        builder: (BuildContext context) {
-          final Object? args = setting.arguments;
-          final int index = (args as int? ?? int) as int;
-          return CountryDetail(index: index);
-        },
+      final Object? args = setting.arguments;
+      final int index = (args as int? ?? int) as int;
+      return AnimationRoute.scale(
+        settings: setting,
+        page: CountryDetail(index: index),
       );
     case RoutePaths.adventureVictory:
       final List<dynamic> args = setting.arguments as List<dynamic>;
@@ -366,5 +313,27 @@ Route<dynamic> generateRoute(RouteSettings setting) {
             (_, Animation<double> a1, Animation<double> a2) =>
                 const SplashScreen(),
       );
+  }
+}
+
+class AnimationRoute {
+  static PageRouteBuilder<T> scale<T>({
+    required Widget page,
+    RouteSettings? settings,
+  }) {
+    return PageRouteBuilder<T>(
+      settings: settings,
+      transitionDuration: const Duration(milliseconds: 300),
+      reverseTransitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (_, animation, _) => page,
+      transitionsBuilder: (_, animation, _, child) {
+        return ScaleTransition(
+          scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+            CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+          ),
+          child: child,
+        );
+      },
+    );
   }
 }

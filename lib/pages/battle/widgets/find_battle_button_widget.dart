@@ -16,16 +16,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FindBattleButtonWidget extends StatelessWidget {
-  const FindBattleButtonWidget({
-    super.key,
-  });
+  const FindBattleButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer2<CountryProvider, UserProvider>(
-        builder: (context, countryProvider, userProvider, child) {
-      final UserModel? user = userProvider.user;
-      return CcImageButton(
+      builder: (context, countryProvider, userProvider, child) {
+        final UserModel? user = userProvider.user;
+        return CcImageButton(
           margin: const EdgeInsets.only(top: 40),
           width: 250,
           height: 70,
@@ -44,10 +42,14 @@ class FindBattleButtonWidget extends StatelessWidget {
             Utils.showLoadingDialog(context);
 
             /// Load Ads
-            AdsService.instance.loadInterstitialAds(CcAdsKey.interstitialBattleAds);
+            AdsService.instance.loadInterstitialAds(
+              CcAdsKey.interstitialBattleAds,
+            );
 
             /// Generate Battle User Bot Data
-            MiniProfileModel userBot = await BotFactory().createUserBot(user);
+            MiniProfileModel userBot = await BotFactory().createMiniProfile(
+              user,
+            );
 
             /// Generate Bot
             MiniProfileModel bot = await BotFactory().createBot();
@@ -55,29 +57,27 @@ class FindBattleButtonWidget extends StatelessWidget {
 
             /// Generate Battle Question List
             List<BattleQuestionModel> temp = BattleQuestionService()
-                .generateBattleList(countryProvider.countryList,
-                    Utils.battleDifficultyByTrophy(userBot.trophy ?? 0));
+                .generateBattleList(
+                  countryProvider.countryList,
+                  Utils.battleDifficultyByTrophy(userBot.trophy ?? 0),
+                );
 
-            /// PreLoad Images(Avatar,Border,Banner)
-            if (!context.mounted) return;
-            await Utils.preloadImages(context, [
-              bot.avatar,
-              bot.border,
-              bot.banner,
-              userBot.avatar,
-              userBot.border,
-              userBot.banner
-            ]);
+            await Future.delayed(Duration(seconds: 2));
 
             if (!context.mounted) return;
             Utils.hideLoadingDialog(context);
-            Navigator.of(context).pushNamed(RoutePaths.battleIntro, arguments: [
-              temp,
-              userBot,
-              bot,
-              Utils.botDifficultyByTrophy(userBot.trophy ?? 0)
-            ]);
-          });
-    });
+            Navigator.of(context).pushNamed(
+              RoutePaths.battleIntro,
+              arguments: [
+                temp,
+                userBot,
+                bot,
+                Utils.botDifficultyByTrophy(userBot.trophy ?? 0),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }

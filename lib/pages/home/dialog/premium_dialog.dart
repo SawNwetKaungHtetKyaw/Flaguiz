@@ -31,7 +31,7 @@ class _PremiumDialogState extends State<PremiumDialog> {
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [CcShadowedTextWidget(text: 'Comming soon')],
+                  children: [CcShadowedTextWidget(text: 'Coming soon')],
                 ),
               ),
 

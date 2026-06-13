@@ -10,6 +10,7 @@ import 'package:flaguiz/repositories/background_repository.dart';
 import 'package:flaguiz/repositories/banner_repository.dart';
 import 'package:flaguiz/repositories/border_repository.dart';
 import 'package:flaguiz/utils/asset_images.dart';
+import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,30 +25,42 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Utils.checkUpdate(context);
+    });
     AvatarRepository().startSync();
     BorderRepository().startSync();
     BackgroundRepository().startSync();
     BannerRepository().startSync();
-    DailyRewardProvider provider =
-        Provider.of<DailyRewardProvider>(context, listen: false);
+    DailyRewardProvider provider = Provider.of<DailyRewardProvider>(
+      context,
+      listen: false,
+    );
     provider.initReward();
     _preloadingForHome();
   }
 
   void _preloadingForHome() async {
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
-    BackgroundProvider backgroundProvider =
-        Provider.of<BackgroundProvider>(context, listen: false);
+    UserProvider userProvider = Provider.of<UserProvider>(
+      context,
+      listen: false,
+    );
+    BackgroundProvider backgroundProvider = Provider.of<BackgroundProvider>(
+      context,
+      listen: false,
+    );
     await userProvider.initUser();
     userProvider.syncLocalToFirestoreIfNeeded();
     UserModel? user = userProvider.user;
     backgroundProvider.getById(user?.backgrounds?[0] ?? '');
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       precacheImage(
-          CachedNetworkImageProvider("${backgroundProvider.background?.imageUrl}"),
-          context);
+        CachedNetworkImageProvider(
+          "${backgroundProvider.background?.imageUrl}",
+        ),
+        context,
+      );
     });
   }
 
@@ -64,8 +77,11 @@ class _LoadingState extends State<Loading> {
         width: double.maxFinite,
         height: double.maxFinite,
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AssetsImages.loadingBg), fit: BoxFit.cover)),
+          image: DecorationImage(
+            image: AssetImage(AssetsImages.loadingBg),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Spacer(), LoadingBarWidget()],

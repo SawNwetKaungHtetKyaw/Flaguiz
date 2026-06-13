@@ -30,6 +30,7 @@ class _ChallengeState extends State<Challenge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Hero(

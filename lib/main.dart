@@ -112,7 +112,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'SupplyCenter'),
+        theme: ThemeData(
+          fontFamily: 'SupplyCenter',
+          scaffoldBackgroundColor: Colors.black87,
+        ),
         title: 'Flaguiz',
         onGenerateRoute: router.generateRoute,
       ),

@@ -1,4 +1,6 @@
+
 class BotData {
+
   static const username = [
     "Thura",
     "John",
@@ -222,36 +224,37 @@ class BotData {
     "Wolf",
   ];
 
+
   static const avatars = [
-    "/YC1wGFc1/default.png",
-    "/zDnJPsL4/Free-cat.png",
-    "/3rgKbsyV/Free-dog.png",
-    "/gcvYBCwT/Free-chicken.png",
-    "/gcvYBCwB/Free-cow.png",
-    "/qB8kZPhH/Free-monkey.png",
-    "/W4F7MSpr/Moshie-Contract-Killer.png",
-    "/xTdMjD1y/Lion-King.png",
+    "AVT_001",
+    "AVT_002",
+    "AVT_003",
+    "AVT_004",
+    "AVT_005",
+    "AVT_006",
+    "AVT_007",
+    "AVT_008",
   ];
 
   static const borders = [
-    "/bvQWHJh9/border_1.png",
-    "/T1nBNvCJ/Flim-border.png",
-    "/tJF8vG22/Vine-border.png",
-    "/rs57Z2Q9/golden-crown-border.png",
-    "/PJnH3kFT/premium.png",
-    "/8CvrB1B7/cherry.png",
-    "/g0h6qYqw/Stone.png",
-    "/zvg2f6Wt/Water-border.png",
-    "/XqC1vmF2/Egypt-border.png",
+    "BD_001",
+    "BD_002",
+    "BD_003",
+    "BD_004",
+    "BD_005",
+    "BD_006",
+    "BD_007",
+    "BD_008",
+    "BD_009",
   ];
 
   static const banners = [
-    "/VLjhbdVR/banner-1.png",
-    "/Yq1PmhPK/banner-2.png",
-    "/VLjhbdhm/banner-3.png",
-    "/Gps5W1tC/banner-4.png",
-    "/DzwRN1zx/banner_5.png",
-    "/8CHRsgzy/banner_6.png",
-    "/8kYPvqbM/banner-7.png",
+    'BN _001',
+    'BN _002',
+    'BN _003',
+    'BN _004',
+    'BN _005',
+    'BN _006',
+    'BN _007',
   ];
 }

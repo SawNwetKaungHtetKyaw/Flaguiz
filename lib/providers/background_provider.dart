@@ -22,6 +22,10 @@ class BackgroundProvider extends ChangeNotifier {
   void getById(String id) async{
     background = _repo.getById(id);
   }
+
+  ShopModel? getBackgroundById(String id){
+    return _repo.getById(id);
+  }
   
   List<ShopModel> getAll() {
     return _repo.getAll();

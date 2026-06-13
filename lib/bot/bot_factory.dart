@@ -13,47 +13,39 @@ import 'package:flaguiz/repositories/country_repository.dart';
 class BotFactory {
   static final Random _random = Random();
   final CountryRepository _repo = CountryRepository();
+  final AvatarRepository _avatarRepository = AvatarRepository();
+  final BorderRepository _borderRepository = BorderRepository();
+  final BannerRepository _bannerRepository = BannerRepository();
 
   Future<MiniProfileModel> createBot() async {
     CountryModel? country = await _repo.getById(
       _random.nextInt(234).toString(),
     );
 
+    List<ShopModel>? avatars = _avatarRepository.getAll();
+    List<ShopModel>? borders = _borderRepository.getAll();
+    List<ShopModel>? banners = _bannerRepository.getAll();
+
     return MiniProfileModel(
       username: _randomItem(BotData.username),
-      avatar: _randomItem(BotData.avatars),
-      border: _randomItem(BotData.borders),
-      banner: _randomItem(BotData.banners),
+      avatar: _randomItem(idList(avatars, BotData.avatars)),
+      border: _randomItem(idList(borders, BotData.borders)),
+      banner: _randomItem(idList(banners, BotData.banners)),
       trophy: 0,
       country: country,
     );
   }
 
-  Future<MiniProfileModel> createUserBot(UserModel? user) async {
-    ShopModel? avatar = AvatarRepository().getById(
-      user?.avatars?[0] ?? 'AVT_001',
-    );
-    ShopModel? border = BorderRepository().getById(
-      user?.borders?[0] ?? 'BD_001',
-    );
-    ShopModel? banner = BannerRepository().getById(
-      user?.banners?[0] ?? 'BN_001',
-    );
-
-    CountryModel? country = await _repo.getById(user?.country ?? '0');
-    return MiniProfileModel(
-      id: user?.id ?? '',
-      username: user?.username ?? 'Player',
-      avatar: avatar?.imageUrl ?? _randomItem(BotData.avatars),
-      border: border?.imageUrl ?? _randomItem(BotData.borders),
-      banner: banner?.imageUrl ?? _randomItem(BotData.banners),
-      trophy: user?.trophy ?? 0,
-      country: country,
-    );
+  List<String> idList(List<ShopModel>? list, List<String> defaultList) {
+    if (list != null && list.isNotEmpty && list != []) {
+      List<String> ids = list.map((e) => e.id ?? '').toList();
+      return ids;
+    } else {
+      return defaultList;
+    }
   }
 
   Future<MiniProfileModel> createMiniProfile(UserModel? user) async {
-
     CountryModel? country = await _repo.getById(user?.country ?? '0');
     return MiniProfileModel(
       id: user?.id ?? '',

@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-     Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, RoutePaths.loading);
     });
   }
@@ -23,10 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: 
-          Center(child: Image.asset(AssetsImages.companyIcon,width: double.maxFinite,height: 100)),
-          
+      body: Center(
+        child: Image.asset(
+          AssetsImages.companyIcon,
+          width: double.maxFinite,
+          height: 100,
+        ),
+      ),
     );
   }
 }

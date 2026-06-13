@@ -51,7 +51,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    print("UID ======> $uid");
+    Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
 
     if (uid != null) {
       _onlineService.setOnline(uid!);
@@ -129,7 +129,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       //   'assets/animation/test.riv',
                       //   fit: BoxFit.cover,
                       // ),
-
                       Container(
                         width: double.maxFinite,
                         height: double.maxFinite,
@@ -153,7 +152,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         child: GestureDetector(
                           onTap: () async {
                             audioService.playSound("tap");
-                            
+
                             showGeneralDialog(
                               context: context,
                               barrierDismissible: true,
@@ -199,7 +198,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         left: 10,
                         child: GestureDetector(
                           onTap: () {
-                            Utils.preLoadRewardedAds(CcAdsKey.rewardDouble);
                             audioService.playSound("tap");
                             showDialog(
                               context: context,
@@ -304,6 +302,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                     margin: const EdgeInsets.only(bottom: 8),
                                     backgroundImage: AssetsImages.shopButton,
                                     onTap: () {
+                                      Utils.preLoadRewardedAds(
+                                        CcAdsKey.rewardDouble,
+                                      );
                                       Navigator.of(
                                         context,
                                       ).pushNamed(RoutePaths.shop);
@@ -370,7 +371,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         ),
                       ),
 
-                      const CcFriendChallengeDialog()
+                      const CcFriendChallengeDialog(),
                     ],
                   ),
                 ),

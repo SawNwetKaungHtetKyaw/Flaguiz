@@ -1,3 +1,4 @@
+import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/friends/dialogs/widgets/friend_profile_achievement_widget.dart';
 import 'package:flaguiz/pages/friends/dialogs/widgets/friend_profile_adventure_status_widget.dart';
@@ -31,8 +32,7 @@ class FriendProfileDialog extends StatelessWidget {
     return Consumer2<UserProvider,BackgroundProvider>(
       builder: (context, provider,backgroundProvider, child) {
         UserModel? user = provider.user;
-        
-        backgroundProvider.getById(player?.backgrounds?[0] ?? "BG_001");
+        ShopModel? background = backgroundProvider.getBackgroundById(player?.backgrounds?[0] ?? "BG_001");
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -44,8 +44,8 @@ class FriendProfileDialog extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                    image: Utils.checkImageType(backgroundProvider.background?.localPath ??
-                        "${backgroundProvider.background?.imageUrl}"),fit: BoxFit.cover,
+                    image: Utils.checkImageType(background?.localPath ??
+                        "${background?.imageUrl}"),fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withValues(alpha: 0.6),
                     BlendMode.darken,
