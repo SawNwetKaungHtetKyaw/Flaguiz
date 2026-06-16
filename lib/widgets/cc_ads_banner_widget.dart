@@ -9,7 +9,7 @@ class CcAdsBannerWidget extends StatelessWidget {
   const CcAdsBannerWidget({
     super.key,
     required this.adKey,
-    this.size = AdSize.fullBanner,
+    this.size = AdSize.fluid,
   });
 
   @override
@@ -22,8 +22,8 @@ class CcAdsBannerWidget extends StatelessWidget {
 
     return SafeArea(
       child: SizedBox(
-        width: size.width.toDouble(),
-        height: size.height.toDouble(),
+        width: double.maxFinite,
+        height: size == AdSize.largeBanner ? size.height.toDouble(): 50,
         child: AdWidget(ad: banner),
       ),
     );

@@ -54,6 +54,11 @@ class BattleRepository {
     await firestore.battleRooms.doc(roomId).update({'status': 'declined'});
   }
 
+  Future<void> endBattle(String roomId) async {
+    if (!await isRoomExist(roomId)) return;
+    await firestore.battleRooms.doc(roomId).update({'status': 'end'});
+  }
+
   Future<void> timeoutBattle(String roomId) async {
     if (!await isRoomExist(roomId)) return;
     await firestore.battleRooms.doc(roomId).update({'status': 'timeout'});

@@ -209,7 +209,7 @@
         "updated_at" : ""
     },{
         "id" : "17",
-        "name" : "Bhamas",
+        "name" : "Bahamas",
         "flag_url" : "/gjLj8YvY/Bahamas.jpg",
         "map_url" : "/8c3NDSjJ/bahamas.jpg",
         "currency" : "Dollar(BSD)",
@@ -497,7 +497,7 @@
         "id" : "39",
         "name" : "Cape Verde",
         "flag_url" : "/RVfQzm2w/Cape-Verde.jpg",
-        "map_url" : "/7ZSwvjDz/cape-varde.jpg",
+        "map_url" : "/x1PNTFtB/cape-varde.jpg",
         "currency" : "Escudo(CVE)",
         "region" : "Africa",
         "capital" : "Praia",
@@ -1249,7 +1249,7 @@
         "updated_at" : ""
     },{
         "id" : "97",
-        "name" : "Ireq",
+        "name" : "Iraq",
         "flag_url" : "/HxVXv1QR/Iraq.jpg",
         "map_url" : "/nhxcLn3S/iraq.jpg",
         "currency" : "Dinar(IQD)",

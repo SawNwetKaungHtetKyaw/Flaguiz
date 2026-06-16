@@ -10,7 +10,7 @@ class CcCoinBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 160,
       height: height,
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.only(right: 10),

@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
-
   @override
   State<Loading> createState() => _LoadingState();
 }

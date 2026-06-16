@@ -16,11 +16,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AdventureGameByText extends StatefulWidget {
-  const AdventureGameByText(
-      {super.key,
-      required this.guessList,
-      required this.mode,
-      required this.levelId});
+  const AdventureGameByText({
+    super.key,
+    required this.guessList,
+    required this.mode,
+    required this.levelId,
+  });
   final List<GuessModel> guessList;
   final String mode;
   final String levelId;
@@ -41,158 +42,188 @@ class _AdventureGameByTextState extends State<AdventureGameByText> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AdventureGameProvider>(
-      create: (context) => AdventureGameProvider(
-          buildContext: context,
-          pageController: _pageController,
-          guessList: widget.guessList,
-          mode: widget.mode,
-          levelId: widget.levelId),
-      builder: (context, child) =>
-          Consumer2<AdventureGameProvider, UserProvider>(
-              builder: (context, provider, userProvider, child) {
-        int userCoin = userProvider.user?.coin ?? 0;
-        return Scaffold(
-          body: Container(
-            width: double.maxFinite,
-            height: double.maxFinite,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(AssetsImages.adventureBg),
-                    fit: BoxFit.cover)),
-            child: Stack(
-              children: [
-                SafeArea(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+      create:
+          (context) => AdventureGameProvider(
+            buildContext: context,
+            pageController: _pageController,
+            guessList: widget.guessList,
+            mode: widget.mode,
+            levelId: widget.levelId,
+          ),
+      builder:
+          (context, child) => Consumer2<AdventureGameProvider, UserProvider>(
+            builder: (context, provider, userProvider, child) {
+              int userCoin = userProvider.user?.coin ?? 0;
+              return Scaffold(
+                body: Container(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AssetsImages.adventureBg),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Stack(
                     children: [
-                      Row(
-                        children: [
-                          CcBackWidget(
-                            image: AssetsImages.adventureBackKey,
-                            onTap: () {
-                              Navigator.pop(context);
-                              AudioService.instance.allowMusic = true;
-                              AudioService.instance.resume();
-                            },
-                          ),
+                      SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  CcBackWidget(
+                                    image: AssetsImages.adventureBackKey,
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      AudioService.instance.allowMusic = true;
+                                      AudioService.instance.resume();
+                                    },
+                                  ),
 
-                          const SizedBox(width: 60),
+                                  const Spacer(),
 
-                          CcCoinBoxWidget(
-                              coin: userCoin.toString(), height: 55),
+                                  CcCoinBoxWidget(
+                                    coin: userCoin.toString(),
+                                  ),
 
-                          /// Adventure Life Widget
-                          const AdventureGameLifeWidget()
-                        ],
-                      ),
+                                  /// Adventure Life Widget
+                                  const AdventureGameLifeWidget(),
+                                ],
+                              ),
 
-                      const SizedBox(height: 10),
+                              const SizedBox(height: 10),
 
-                      /// Timer
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CcShadowedIconWidget(
-                              color: Colors.white,
-                              icon: Icons.timer_outlined,
-                              size: 40),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            child: CcShadowedTextWidget(
-                              text: provider.timerCount.toString(),
-                              fontSize: 14,
-                              textColor: (provider.timerCount) <= 5
-                                  ? Colors.red
-                                  : Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 5),
+                              /// Timer
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CcShadowedIconWidget(
+                                    color: Colors.white,
+                                    icon: Icons.timer_outlined,
+                                    size: 40,
+                                  ),
+                                  Container(
+                                    width: 30,
+                                    alignment: Alignment.center,
+                                    child: CcShadowedTextWidget(
+                                      text: provider.timerCount.toString(),
+                                      fontSize: 14,
+                                      textColor:
+                                          (provider.timerCount) <= 5
+                                              ? Colors.red
+                                              : Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
 
-                      /// Completed Guess
-                      CcShadowedTextWidget(
-                          text:
-                              "${provider.currentComplete + 1}/${provider.guessList.length}"),
+                              /// Completed Guess
+                              CcShadowedTextWidget(
+                                text:
+                                    "${provider.currentComplete + 1}/${provider.guessList.length}",
+                              ),
 
-                      Expanded(
-                          child: PageView.builder(
-                              controller: _pageController,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: provider.guessList.length,
-                              itemBuilder: (context, index) {
-                                GuessModel guess = provider.guessList[index];
+                              Expanded(
+                                child: PageView.builder(
+                                  controller: _pageController,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: provider.guessList.length,
+                                  itemBuilder: (context, index) {
+                                    GuessModel guess =
+                                        provider.guessList[index];
 
-                                /// Correct Answer for Each Guess
-                                provider.setCorrectAnswerIndex =
-                                    guess.countryList?.indexWhere(
-                                            (u) => u.id == guess.answer!.id) ??
+                                    /// Correct Answer for Each Guess
+                                    provider.setCorrectAnswerIndex =
+                                        guess.countryList?.indexWhere(
+                                          (u) => u.id == guess.answer!.id,
+                                        ) ??
                                         0;
-                                return Column(
-                                  children: [
-                                    /// Answer
-                                    AdventureGameAnswerWidget(
-                                        guess: guess, mode: widget.mode),
+                                    return Column(
+                                      children: [
+                                        /// Answer
+                                        AdventureGameAnswerWidget(
+                                          guess: guess,
+                                          mode: widget.mode,
+                                        ),
 
-                                    /// Guess
-                                    AdventureGameGuessTextWidget(
-                                        country: guess.countryList![0],
-                                        answerId: guess.answer?.id ?? "0",
-                                        index: 0,
-                                        currentIndex: index,
-                                        adventureCompletedList: userProvider
-                                                .user?.adventureCompletedList ??
-                                            [],
-                                        mode: widget.mode),
-                                    AdventureGameGuessTextWidget(
-                                        country: guess.countryList![1],
-                                        answerId: guess.answer?.id ?? "0",
-                                        index: 1,
-                                        currentIndex: index,
-                                        adventureCompletedList: userProvider
-                                                .user?.adventureCompletedList ??
-                                            [],
-                                        mode: widget.mode),
-                                    AdventureGameGuessTextWidget(
-                                        country: guess.countryList![2],
-                                        answerId: guess.answer?.id ?? "0",
-                                        index: 2,
-                                        currentIndex: index,
-                                        adventureCompletedList: userProvider
-                                                .user?.adventureCompletedList ??
-                                            [],
-                                        mode: widget.mode),
-                                    AdventureGameGuessTextWidget(
-                                        country: guess.countryList![3],
-                                        answerId: guess.answer?.id ?? "0",
-                                        index: 3,
-                                        currentIndex: index,
-                                        adventureCompletedList: userProvider
-                                                .user?.adventureCompletedList ??
-                                            [],
-                                        mode: widget.mode),
-                                  ],
-                                );
-                              })),
+                                        /// Guess
+                                        AdventureGameGuessTextWidget(
+                                          country: guess.countryList![0],
+                                          answerId: guess.answer?.id ?? "0",
+                                          index: 0,
+                                          currentIndex: index,
+                                          adventureCompletedList:
+                                              userProvider
+                                                  .user
+                                                  ?.adventureCompletedList ??
+                                              [],
+                                          mode: widget.mode,
+                                        ),
+                                        AdventureGameGuessTextWidget(
+                                          country: guess.countryList![1],
+                                          answerId: guess.answer?.id ?? "0",
+                                          index: 1,
+                                          currentIndex: index,
+                                          adventureCompletedList:
+                                              userProvider
+                                                  .user
+                                                  ?.adventureCompletedList ??
+                                              [],
+                                          mode: widget.mode,
+                                        ),
+                                        AdventureGameGuessTextWidget(
+                                          country: guess.countryList![2],
+                                          answerId: guess.answer?.id ?? "0",
+                                          index: 2,
+                                          currentIndex: index,
+                                          adventureCompletedList:
+                                              userProvider
+                                                  .user
+                                                  ?.adventureCompletedList ??
+                                              [],
+                                          mode: widget.mode,
+                                        ),
+                                        AdventureGameGuessTextWidget(
+                                          country: guess.countryList![3],
+                                          answerId: guess.answer?.id ?? "0",
+                                          index: 3,
+                                          currentIndex: index,
+                                          adventureCompletedList:
+                                              userProvider
+                                                  .user
+                                                  ?.adventureCompletedList ??
+                                              [],
+                                          mode: widget.mode,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
 
-                      /// Hint Button
-                      AdventureGameHintWidget(
-                          adventureCompletedList:
-                              userProvider.user?.adventureCompletedList ?? [],
-                          coin: userProvider.user?.coin ?? 0)
+                              /// Hint Button
+                              AdventureGameHintWidget(
+                                adventureCompletedList:
+                                    userProvider.user?.adventureCompletedList ??
+                                    [],
+                                coin: userProvider.user?.coin ?? 0,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      /// This Widget will show when your remaining life is over
+                      AdventureGameYouLoseWidget(guessList: provider.guessList),
                     ],
                   ),
-                )),
-
-                /// This Widget will show when your remaining life is over
-                AdventureGameYouLoseWidget(guessList: provider.guessList),
-              ],
-            ),
+                ),
+              );
+            },
           ),
-        );
-      }),
     );
   }
 }

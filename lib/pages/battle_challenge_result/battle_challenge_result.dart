@@ -22,7 +22,7 @@ class BattleChallengeResult extends StatefulWidget {
     required this.result,
     required this.user,
     required this.bot,
-    this.roomId
+    this.roomId,
   });
   final String result;
   final MiniProfileModel user;
@@ -55,8 +55,8 @@ class _BattleChallengeResultState extends State<BattleChallengeResult> {
       AudioService.instance.playSound('bt-lose');
     }
 
-    if(widget.roomId != null){
-      BattleRepository().deleteBattleRoom(widget.roomId!);
+    if (widget.roomId != null) {
+        BattleRepository().endBattle(widget.roomId!);
     }
   }
 
