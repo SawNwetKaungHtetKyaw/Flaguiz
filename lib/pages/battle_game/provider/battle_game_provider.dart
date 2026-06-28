@@ -18,11 +18,13 @@ class BattleGameProvider extends ChangeNotifier {
     PageController? pageController,
     required BotDifficulty botDifficulty,
     required List<BattleQuestionModel> questionList,
+    required bool hasPremium,
   }) {
     Utils.printLog('${runtimeType.toString()} Init $hashCode');
     _controller = pageController;
     _questionList = questionList;
     _botBrain = BotBrain(botDifficulty);
+    _hasPremium = hasPremium;
     startBotThinking();
     startTimerCount();
   }
@@ -33,6 +35,7 @@ class BattleGameProvider extends ChangeNotifier {
   late PageController? _controller;
   late List<BattleQuestionModel> _questionList;
   late BotBrain _botBrain;
+  late bool _hasPremium;
   Timer? _timer;
 
   int _currentIndex = 0;
@@ -203,7 +206,7 @@ class BattleGameProvider extends ChangeNotifier {
   /// =========================
   void _endGame(String result) {
     _timer?.cancel();
-    if (result == CcConstants.BATTLE_WIN) {
+    if (result == CcConstants.BATTLE_WIN || _hasPremium) {
       _gameEnded = true;
       _battleResult = result;
       notifyListeners();

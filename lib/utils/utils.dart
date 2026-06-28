@@ -230,6 +230,30 @@ class Utils {
     overlay.insert(overlayEntry);
   }
 
+  static String getPremiumTimeLeft(DateTime? expireDate) {
+    if (expireDate == null) return "Expired";
+
+    final now = DateTime.now();
+    final difference = expireDate.difference(now);
+
+    // If the expiration date is in the past
+    if (difference.isNegative) {
+      return "Expired";
+    }
+
+    final days = difference.inDays;
+    final hours = difference.inHours % 24; // Get remaining hours after days
+
+    if (days > 0) {
+      return "$days ${days == 1 ? 'day' : 'days'} $hours ${hours == 1 ? 'hr' : 'hrs'} left";
+    } else if (hours > 0) {
+      return "$hours ${hours == 1 ? 'hr' : 'hrs'} left";
+    } else {
+      final minutes = difference.inMinutes % 60;
+      return "$minutes ${minutes == 1 ? 'min' : 'mins'} left";
+    }
+  }
+
   static Future<bool> hasInternet() async {
     try {
       final result = await InternetAddress.lookup(
@@ -443,6 +467,8 @@ class Utils {
     int loss = (trophy * percent).round();
 
     if (loss < 3) loss = 3;
+
+    if (loss > 20) loss = 20;
 
     if (loss > trophy) loss = trophy;
 

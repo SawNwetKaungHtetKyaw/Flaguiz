@@ -108,8 +108,7 @@ class AdventureGameYouLoseWidget extends StatelessWidget {
                       height: 60,
                       onTap: () {
                         AudioService.instance.playSound('tap');
-                        if (provider.mode == CcConfig.GAME_MODE__FLAG ||
-                            provider.mode == CcConfig.GAME_MODE__MAP) {
+                        if (provider.mode == CcConfig.GAME_MODE__FLAG) {
                           Navigator.pushReplacementNamed(
                               context, RoutePaths.adventureGameByImage,
                               arguments: [

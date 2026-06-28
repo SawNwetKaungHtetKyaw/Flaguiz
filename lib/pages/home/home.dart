@@ -153,6 +153,11 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           onTap: () async {
                             audioService.playSound("tap");
 
+                            if(!userProvider.isLoggedIn){
+                              Utils.showWelcomToast(context, "Please Login!");
+                              return;
+                            }
+
                             showGeneralDialog(
                               context: context,
                               barrierDismissible: true,

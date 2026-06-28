@@ -123,8 +123,7 @@ class _ChallengeGameYouLoseWidgetState
                         userProvider.updateUserDataForChallenge(
                             widget.mode, widget.currentIndex, 0);
                         Navigator.of(context).pop();
-                        if (provider.mode == CcConfig.GAME_MODE__FLAG ||
-                            provider.mode == CcConfig.GAME_MODE__MAP) {
+                        if (provider.mode == CcConfig.GAME_MODE__FLAG) {
                           Navigator.pushNamed(
                               context, RoutePaths.challengeGameByImage,
                               arguments: [widget.guessList, provider.mode]);

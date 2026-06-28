@@ -1,12 +1,15 @@
 import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/adventure/widgets/adventure_game_type_widget.dart';
+import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Adventure extends StatefulWidget {
   const Adventure({super.key});
@@ -30,56 +33,71 @@ class _AdventureState extends State<Adventure> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Hero(
-            tag: CcConstants.kH_GAME_MODE,
-            child: SizedBox.expand(
-              child: Image.asset(
-                AssetsImages.adventureBg,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Stack(
+    return Selector<UserProvider, UserModel?>(
+      selector: (p0, provider) => provider.user,
+      builder:
+          (context, user, child) => Scaffold(
+            body: Stack(
               children: [
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: CcBackWidget(
-                      image: AssetsImages.adventureBackKey,
-                      margin: EdgeInsets.all(8)),
+                Hero(
+                  tag: CcConstants.kH_GAME_MODE,
+                  child: SizedBox.expand(
+                    child: Image.asset(
+                      AssetsImages.adventureBg,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 30),
+                SafeArea(
+                  child: Stack(
+                    children: [
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: CcBackWidget(
+                          image: AssetsImages.adventureBackKey,
+                          margin: EdgeInsets.all(8),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 30),
 
-                    /// Adventure Iconic
-                    Container(
-                        alignment: Alignment.center,
-                        child: Image.asset(AssetsImages.adventure, width: 250)),
+                          /// Adventure Iconic
+                          Container(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              AssetsImages.adventure,
+                              width: 250,
+                            ),
+                          ),
 
-                    /// Adventure Title
-                    const Center(
-                        child: CcShadowedTextWidget(
-                      text: CcConstants.kAdventure,
-                      fontSize: 28,
-                    )),
+                          /// Adventure Title
+                          const Center(
+                            child: CcShadowedTextWidget(
+                              text: CcConstants.kAdventure,
+                              fontSize: 28,
+                            ),
+                          ),
 
-                    /// Game Type ListView
-                    const AdventureGameTypeWidget(),
+                          /// Game Type ListView
+                          const AdventureGameTypeWidget(),
 
-                    /// Banner Ads
-                     const Center(child: CcAdsBannerWidget(adKey: CcAdsKey.bannerAdventure))
-                  ],
+                          /// Banner Ads
+                          Center(
+                            child: CcAdsBannerWidget(
+                              adKey: CcAdsKey.bannerAdventure,
+                              hasPremium: user?.hasPremium ?? false,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
     );
   }
 }

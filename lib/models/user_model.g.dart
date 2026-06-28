@@ -40,13 +40,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       syncedAt: fields[18] as DateTime?,
       isOnline: fields[19] as bool?,
       lastSeen: fields[20] as DateTime?,
+      premium: fields[21] as PremiumModel?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(22)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -88,7 +89,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(19)
       ..write(obj.isOnline)
       ..writeByte(20)
-      ..write(obj.lastSeen);
+      ..write(obj.lastSeen)
+      ..writeByte(21)
+      ..write(obj.premium);
   }
 
   @override

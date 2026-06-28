@@ -1,56 +1,74 @@
 [
-    {
-        "id" : "ACHV_001",
-        "name" : "Adventurer",
-        "image_url" : "assets/images/achievements/adventurer.jpg",
-        "message" : "Finish all the levels from Adventure."
-    },
-    {
-        "id" : "ACHV_002",
-        "name" : "Challenger",
-        "image_url" : "assets/images/achievements/challenger.jpg",
-        "message" : "Conquer all the challenge mode."
-    },
-    {
-        "id" : "ACHV_003",
-        "name" : "Collector I",
-        "image_url" : "assets/images/achievements/collector_3.jpg",
-        "message" : "Collect any 5 avatars."
-    },
-    {
-        "id" : "ACHV_004",
-        "name" : "Collector II",
-        "image_url" : "assets/images/achievements/collector_2.jpg",
-        "message" : "Collect any 5 backgrounds."
-    },
-    {
-        "id" : "ACHV_005",
-        "name" : "Collector III",
-        "image_url" : "assets/images/achievements/collector_1.jpg",
-        "message" : "Collect any 5 borders."
-    },
-    {
-        "id" : "ACHV_006",
-        "name" : "Collector IV",
-        "image_url" : "assets/images/achievements/collector_4.jpg",
-        "message" : "Collect any 5 banners."
-    },
-    {
-        "id" : "ACHV_007",
-        "name" : "Keen Eye",
-        "image_url" : "assets/images/achievements/keen_eye.jpg",
-        "message" : "Explore all the maps from the library."
-    },
-    {
-        "id" : "ACHV_008",
-        "name" : "Supporter",
-        "image_url" : "assets/images/achievements/supporter.jpg",
-        "message" : "Support our Socials."
-    },
-    {
-        "id" : "ACHV_009",
-        "name" : "The Boss",
-        "image_url" : "assets/images/achievements/the_boss.jpg",
-        "message" : "Make any purchases."
-    }
+  {
+    "id": "ACHV_001",
+    "name": "Adventurer",
+    "image_url": "assets/images/achievements/adventurer.jpg",
+    "message": "Finish all the levels from Adventure."
+  },
+  {
+    "id": "ACHV_002",
+    "name": "Challenger",
+    "image_url": "assets/images/achievements/challenger.jpg",
+    "message": "Conquer all the challenge mode."
+  },
+  {
+    "id": "ACHV_010",
+    "name": "Conqueror",
+    "image_url": "assets/images/achievements/conqueror.jpg",
+    "message": "1000 Trophys"
+  },
+  {
+    "id": "ACHV_011",
+    "name": "Emperor",
+    "image_url": "assets/images/achievements/emperor.jpg",
+    "message": "2000 Trophys"
+  },
+  {
+    "id": "ACHV_003",
+    "name": "Collector I",
+    "image_url": "assets/images/achievements/collector_3.jpg",
+    "message": "Collect any 5 avatars."
+  },
+  {
+    "id": "ACHV_004",
+    "name": "Collector II",
+    "image_url": "assets/images/achievements/collector_2.jpg",
+    "message": "Collect any 5 backgrounds."
+  },
+  {
+    "id": "ACHV_005",
+    "name": "Collector III",
+    "image_url": "assets/images/achievements/collector_1.jpg",
+    "message": "Collect any 5 borders."
+  },
+  {
+    "id": "ACHV_006",
+    "name": "Collector IV",
+    "image_url": "assets/images/achievements/collector_4.jpg",
+    "message": "Collect any 5 banners."
+  },
+  {
+    "id": "ACHV_007",
+    "name": "Keen Eye",
+    "image_url": "assets/images/achievements/keen_eye.jpg",
+    "message": "Explore all the maps from the library."
+  },
+  {
+    "id": "ACHV_008",
+    "name": "Supporter",
+    "image_url": "assets/images/achievements/supporter.jpg",
+    "message": "Support our Socials."
+  },
+  {
+    "id": "ACHV_009",
+    "name": "The Boss",
+    "image_url": "assets/images/achievements/the_boss.jpg",
+    "message": "Make any purchases."
+  },
+  {
+    "id": "ACHV_012",
+    "name": "Active Now",
+    "image_url": "assets/images/achievements/active_now.jpg",
+    "message": "7 days"
+  }
 ]

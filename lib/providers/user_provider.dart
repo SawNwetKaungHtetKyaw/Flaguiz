@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/country_model.dart';
+import 'package:flaguiz/models/premium_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/repositories/user_repository.dart';
 import 'package:flaguiz/service/auth_service.dart';
@@ -130,6 +131,8 @@ class UserProvider extends ChangeNotifier {
     // stop sync
     _syncTimer?.cancel();
     try {
+      // Delete Auth
+      await _auth.deleteAccount();
       // Delete Firestore + Hive
       await _repo.deleteUserFromFirestore(uid);
       // Reset local user
@@ -137,8 +140,6 @@ class UserProvider extends ChangeNotifier {
       _user = null;
       _country = null;
       await initUser();
-      // Delete Auth
-      await _auth.deleteAccount();
 
       notifyListeners();
     } catch (e) {
@@ -166,6 +167,81 @@ class UserProvider extends ChangeNotifier {
     _user = newUser;
     await _repo.saveLocalUser(newUser);
     notifyListeners();
+  }
+
+  Future<void> updateUserDataForBuyPremium({
+    required PremiumModel premium,
+    required String avatar,
+    required String border,
+    required String background,
+    required String banner,
+    required int coin,
+  }) async {
+    UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
+    updateUser.coin = (updateUser.coin ?? 0) + coin;
+    updateUser.premium = premium;
+    updateUser.hasPremium = true;
+    updateUser.avatars?.add(avatar);
+    updateUser.borders?.add(border);
+    updateUser.backgrounds?.add(background);
+    updateUser.banners?.add(banner);
+
+    await _repo.saveLocalUser(updateUser);
+    _user = updateUser;
+
+    syncLocalToFirestoreIfNeeded();
+    notifyListeners();
+  }
+
+  Future<void> updateUserPremiumDataWhenExpire({
+    required PremiumModel? premium,
+  }) async {
+    UserModel updateUser = _user ?? CcConfig.DEFAULT_USER;
+    updateUser.premium = premium;
+    updateUser.hasPremium = false;
+
+    updateUser.avatars = removedItemList(
+      updateUser.avatars ?? [],
+      "AVT_008",
+      "AVT_001",
+    );
+    updateUser.borders = removedItemList(
+      updateUser.borders ?? [],
+      "BD_009",
+      "BD_001",
+    );
+    updateUser.backgrounds = removedItemList(
+      updateUser.backgrounds ?? [],
+      "BG_008",
+      "BG_001",
+    );
+    updateUser.banners = removedItemList(
+      updateUser.banners ?? [],
+      "BN_007",
+      "BN_001",
+    );
+
+    await _repo.saveLocalUser(updateUser);
+    _user = updateUser;
+
+    syncLocalToFirestoreIfNeeded();
+    notifyListeners();
+  }
+
+  List<String> removedItemList(
+    List<String> list,
+    String removeItem,
+    String defaultItem,
+  ) {
+    List<String> temp = list;
+    if (temp.indexOf(removeItem) == 0) {
+      temp
+        ..remove(defaultItem)
+        ..insert(0, defaultItem);
+      temp.remove(removeItem);
+    }
+
+    return temp;
   }
 
   Future<void> addUserCoin(int coin) async {

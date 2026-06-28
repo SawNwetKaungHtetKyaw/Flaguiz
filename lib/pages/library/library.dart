@@ -4,6 +4,7 @@ import 'package:flaguiz/config/route/route_paths.dart';
 import 'package:flaguiz/models/country_model.dart';
 import 'package:flaguiz/pages/library/widgets/library_card_widget.dart';
 import 'package:flaguiz/providers/country_provider.dart';
+import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
@@ -17,60 +18,71 @@ class Library extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CountryProvider>(
-        builder: (context, countryProvider, child) {
-      List<CountryModel> countryList = countryProvider.countryList;
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
+    return Consumer2<CountryProvider, UserProvider>(
+      builder: (context, countryProvider, userProvider, child) {
+        List<CountryModel> countryList = countryProvider.countryList;
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(AssetsImages.libraryBg),
-                  fit: BoxFit.cover)),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
+                image: AssetImage(AssetsImages.libraryBg),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
                           itemCount: countryList.length,
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           itemBuilder: (context, index) {
                             CountryModel country = countryList[index];
                             return LibraryCardWidget(
-                                paddingTop: (index == 0) ? 60 : 0,
-                                country: country,
-                                onTap: () {
-                                  AudioService.instance.playSound('tap');
-                                  Navigator.of(context).pushNamed(
-                                      RoutePaths.countryDetail,
-                                      arguments: index);
-                                });
-                          }),
-                    ),
-                      const CcAdsBannerWidget(adKey: CcAdsKey.bannerLibrary)
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0,left: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CcBackWidget(image: AssetsImages.libraryBackKey),
-                      CcShadowedTextWidget(
-                          text: CcConstants.kLibrary, fontSize: 16),
-                      SizedBox(width: 50)
+                              paddingTop: (index == 0) ? 60 : 0,
+                              country: country,
+                              onTap: () {
+                                AudioService.instance.playSound('tap');
+                                Navigator.of(context).pushNamed(
+                                  RoutePaths.countryDetail,
+                                  arguments: index,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      CcAdsBannerWidget(
+                        adKey: CcAdsKey.bannerLibrary,
+                        hasPremium: userProvider.user?.hasPremium ?? false,
+                      ),
                     ],
                   ),
-                )
-              ],
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0, left: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CcBackWidget(image: AssetsImages.libraryBackKey),
+                        CcShadowedTextWidget(
+                          text: CcConstants.kLibrary,
+                          fontSize: 16,
+                        ),
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

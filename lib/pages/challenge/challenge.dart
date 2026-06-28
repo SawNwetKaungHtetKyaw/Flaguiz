@@ -1,12 +1,15 @@
 import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/challenge/widgets/challenge_game_type_widget.dart';
+import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_ads_banner_widget.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Challenge extends StatefulWidget {
   const Challenge({super.key});
@@ -27,59 +30,75 @@ class _ChallengeState extends State<Challenge> {
     AudioService.instance.playMusic(MusicType.home);
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Hero(
-            tag: CcConstants.kH_GAME_MODE,
-            child: SizedBox.expand(
-              child: Image.asset(
-                AssetsImages.challengeBg,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Stack(
+    return Selector<UserProvider, UserModel?>(
+      selector: (p0, provider) => provider.user,
+      builder:
+          (context, user, child) => Scaffold(
+            backgroundColor: Colors.black,
+            body: Stack(
               children: [
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: CcBackWidget(
-                      image: AssetsImages.challengeBackKey,
-                      margin: EdgeInsets.all(8)),
+                Hero(
+                  tag: CcConstants.kH_GAME_MODE,
+                  child: SizedBox.expand(
+                    child: Image.asset(
+                      AssetsImages.challengeBg,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 30),
+                SafeArea(
+                  child: Stack(
+                    children: [
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: CcBackWidget(
+                          image: AssetsImages.challengeBackKey,
+                          margin: EdgeInsets.all(8),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 30),
 
-                    /// Challenge Iconic
-                    Container(
-                        alignment: Alignment.center,
-                        child: Image.asset(AssetsImages.challenge, width: 230)),
+                          /// Challenge Iconic
+                          Container(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              AssetsImages.challenge,
+                              width: 230,
+                            ),
+                          ),
 
-                    /// Challenge Title
-                    const Center(
-                        child: CcShadowedTextWidget(
-                      text: CcConstants.kChallenge,
-                      fontSize: 28,
-                    )),
+                          /// Challenge Title
+                          const Center(
+                            child: CcShadowedTextWidget(
+                              text: CcConstants.kChallenge,
+                              fontSize: 28,
+                            ),
+                          ),
 
-                    /// Game Type ListView
-                    const ChallengeGameTypeWidget(),
+                          /// Game Type ListView
+                          const ChallengeGameTypeWidget(),
 
-                    /// Banner Ads
-                     const Center(child: CcAdsBannerWidget(adKey: CcAdsKey.bannerChallenge))
-                  ],
+                          /// Banner Ads
+                          Center(
+                            child: CcAdsBannerWidget(
+                              adKey: CcAdsKey.bannerChallenge,
+                              hasPremium: user?.hasPremium ?? false,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
     );
   }
 }

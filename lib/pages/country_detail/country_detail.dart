@@ -41,93 +41,108 @@ class _CountryDetailState extends State<CountryDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer2<CountryProvider, UserProvider>(
-          builder: (context, provider, userProvider, child) {
-        List<String> keenEyeList = provider.keenEyeList;
-        bool hasKeenEyeAchv =
-            userProvider.user?.achievements!.contains('ACHV_007') ?? false;
-        return Container(
+        builder: (context, provider, userProvider, child) {
+          List<String> keenEyeList = provider.keenEyeList;
+          bool hasKeenEyeAchv =
+              userProvider.user?.achievements!.contains('ACHV_007') ?? false;
+          return Container(
             width: double.maxFinite,
             height: double.maxFinite,
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(AssetsImages.libraryBg),
-                    fit: BoxFit.cover)),
+              image: DecorationImage(
+                image: AssetImage(AssetsImages.libraryBg),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: SafeArea(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CcBackWidget(image: AssetsImages.libraryBackKey),
-                ),
-                Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CcBackWidget(image: AssetsImages.libraryBackKey),
+                  ),
+                  Expanded(
                     child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: provider.countryList.length,
-                        dragStartBehavior: DragStartBehavior.down,
-                        onPageChanged: (int index) async {
-                          if (!keenEyeList.contains(index.toString()) &&
-                              !hasKeenEyeAchv) {
-                            keenEyeList.add(index.toString());
-                            provider.addKeenKye();
-                            if (keenEyeList.length == 233) {
-                              userProvider.updateUserDataForAchievement(
-                                  "ACHV_007", CcConfig.ACHIEVEMENT_COIN);
-                              showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      const CcAchievementDialog(
-                                          achievementId: 'ACHV_007'));
-                            }
-                          }
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          if (!keenEyeList.contains(widget.index.toString()) &&
-                              !hasKeenEyeAchv) {
-                            keenEyeList.add(widget.index.toString());
-                            provider.addKeenKye();
-                            if (keenEyeList.length == 233) {
-                              userProvider.updateUserDataForAchievement(
-                                  "ACHV_007", CcConfig.ACHIEVEMENT_COIN);
-                              showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      const CcAchievementDialog(
-                                          achievementId: 'ACHV_007'));
-                            }
-                          }
-
-                          CountryModel country = provider.countryList[index];
-                          return SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                /// Country Flag
-                                CcShadowedImageBoxWidget(
-                                    width: 240,
-                                    height: 160,
-                                    image: (country.localFlagPath == null)
-                                        ? "${CcConfig.image_base_url}${country.flagUrl}"
-                                        : country.localFlagPath!),
-
-                                /// Country Name
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: CcShadowedTextWidget(
-                                    text: country.name ?? '',
-                                    textAlign: TextAlign.center,
-                                    fontSize: 32,
-                                    dy: 2,
-                                    fontFamily: "Roboto",
-                                    letterSpacing: 1,
+                      controller: _pageController,
+                      itemCount: provider.countryList.length,
+                      dragStartBehavior: DragStartBehavior.down,
+                      onPageChanged: (int index) async {
+                        if (!keenEyeList.contains(index.toString()) &&
+                            !hasKeenEyeAchv) {
+                          keenEyeList.add(index.toString());
+                          provider.addKeenKye();
+                          if (keenEyeList.length == 233) {
+                            userProvider.updateUserDataForAchievement(
+                              "ACHV_007",
+                              CcConfig.ACHIEVEMENT_COIN,
+                            );
+                            showDialog(
+                              context: context,
+                              builder:
+                                  (context) => const CcAchievementDialog(
+                                    achievementId: 'ACHV_007',
                                   ),
-                                ),
+                            );
+                          }
+                        }
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        if (!keenEyeList.contains(widget.index.toString()) &&
+                            !hasKeenEyeAchv) {
+                          keenEyeList.add(widget.index.toString());
+                          provider.addKeenKye();
+                          if (keenEyeList.length == 233) {
+                            userProvider.updateUserDataForAchievement(
+                              "ACHV_007",
+                              CcConfig.ACHIEVEMENT_COIN,
+                            );
+                            showDialog(
+                              context: context,
+                              builder:
+                                  (context) => const CcAchievementDialog(
+                                    achievementId: 'ACHV_007',
+                                  ),
+                            );
+                          }
+                        }
 
-                                /// Cards
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Row(children: [
+                        CountryModel country = provider.countryList[index];
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              /// Country Flag
+                              CcShadowedImageBoxWidget(
+                                width: 240,
+                                height: 160,
+                                image:
+                                    (country.localFlagPath == null)
+                                        ? "${CcConfig.image_base_url}${country.flagUrl}"
+                                        : country.localFlagPath!,
+                              ),
+
+                              /// Country Name
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                                child: CcShadowedTextWidget(
+                                  text: country.name ?? '',
+                                  textAlign: TextAlign.center,
+                                  fontSize: 32,
+                                  dy: 2,
+                                  fontFamily: "Roboto",
+                                  letterSpacing: 1,
+                                ),
+                              ),
+
+                              /// Cards
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                                child: Row(
+                                  children: [
                                     /// Region
                                     DetailCardWidget(
                                       icon: AssetsImages.regionIcon,
@@ -145,36 +160,50 @@ class _CountryDetailState extends State<CountryDetail> {
                                       icon: AssetsImages.capitalIcon,
                                       text: country.capital ?? '',
                                     ),
-                                  ]),
+                                  ],
                                 ),
+                              ),
 
-                                /// Country Detail
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 8),
-                                  // child: InlineSeeMoreText(
-                                  //     text: CcConstants.lorem),
+                              /// Country Detail
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 8,
                                 ),
+                                // child: InlineSeeMoreText(
+                                //     text: CcConstants.lorem),
+                              ),
 
-                                /// Country Map
-                                CcShadowedImageBoxWidget(
-                                    width: double.maxFinite,
-                                    height: 240,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    image: (country.localMapPath == null)
+                              /// Country Map
+                              CcShadowedImageBoxWidget(
+                                width: double.maxFinite,
+                                height: 240,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                image:
+                                    (country.localMapPath == null)
                                         ? "${CcConfig.image_base_url}${country.mapUrl}"
-                                        : country.localMapPath!)
+                                        : country.localMapPath!,
+                              ),
 
-                                /// Popular Places
-                              ],
-                            ),
-                          );
-                        })),
-                const CcAdsBannerWidget(adKey: CcAdsKey.bannerCountryDetail)
-              ],
-            )));
-      }),
+                              /// Popular Places
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  CcAdsBannerWidget(
+                    adKey: CcAdsKey.bannerCountryDetail,
+                    hasPremium: userProvider.user?.hasPremium ?? false,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

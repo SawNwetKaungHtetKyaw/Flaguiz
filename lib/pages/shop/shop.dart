@@ -27,112 +27,136 @@ class Shop extends StatelessWidget {
         height: double.maxFinite,
         padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AssetsImages.profileBg), fit: BoxFit.cover)),
-        child: Consumer<UserProvider>(builder: (context, userProvider, child) {
-          UserModel? user = userProvider.user;
-          return SafeArea(
+          image: DecorationImage(
+            image: AssetImage(AssetsImages.profileBg),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Consumer<UserProvider>(
+          builder: (context, userProvider, child) {
+            UserModel? user = userProvider.user;
+            return SafeArea(
               child: Column(
-            children: [
-              Row(
                 children: [
-                  /// Back Key
-                  const CcBackWidget(image: AssetsImages.defaultBackKey),
-
-                  const Spacer(),
-
-                  /// Coin
-                  CcCoinBoxWidget(coin: user?.coin.toString() ?? '0'),
-
-                  /// Edit
-                  CcImageButton(
-                      width: 50,
-                      height: 50,
-                      margin: const EdgeInsets.only(left: 10),
-                      padding: EdgeInsets.zero,
-                      image: AssetsImages.editButton,
-                      onTap: () {
-                        AudioService.instance.playSound('tap');
-                        showGeneralDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          barrierLabel: "Edit",
-                          barrierColor: Colors.black87,
-                          transitionDuration: const Duration(milliseconds: 200),
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) {
-                            return const Center(
-                              child: Material(
-                                color: Colors.transparent,
-                                child: SizedBox(
-                                  width: double.maxFinite,
-                                  height: 650,
-                                  child: EditDialog(),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      })
-                ],
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
+                  Row(
                     children: [
-                      ShopItemBoxWidget(
-                          heroTag: CcConstants.kH_SHOP_AVATAR,
-                          image: AssetsImages.shopAvatar,
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                RoutePaths.shopDetail,
-                                arguments: CcConstants.FIRESTORE_AVATAR);
-                          }),
+                      /// Back Key
+                      const CcBackWidget(image: AssetsImages.defaultBackKey),
 
-                      /// Border Shop
-                      ShopItemBoxWidget(
-                          heroTag: CcConstants.kH_SHOP_BORDER,
-                          image: AssetsImages.shopBorder,
-                          onTap: () {
-                            Utils.preLoadRewardedAds(
-                                CcAdsKey.rewardItemProgress);
-                            Navigator.of(context).pushNamed(
-                                RoutePaths.shopDetail,
-                                arguments: CcConstants.FIRESTORE_BORDER);
-                          }),
+                      const Spacer(),
 
-                      /// Background Shop
-                      ShopItemBoxWidget(
-                          heroTag: CcConstants.kH_SHOP_BACKGROUND,
-                          image: AssetsImages.shopBackground,
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                RoutePaths.shopDetail,
-                                arguments: CcConstants.FIRESTORE_BACKGROUND);
-                          }),
+                      /// Coin
+                      CcCoinBoxWidget(coin: user?.coin.toString() ?? '0'),
 
-                      /// Banner Shop
-                      ShopItemBoxWidget(
-                          heroTag: CcConstants.kH_SHOP_BANNER,
-                          image: AssetsImages.shopBanner,
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                RoutePaths.shopDetail,
-                                arguments: CcConstants.FIRESTORE_BANNER);
-                          }),
-
-                      const SizedBox(height: 20),
-
-                      /// Ads Large Banner
-                      const CcAdsBannerWidget(
-                          adKey: CcAdsKey.bannerShop, size: AdSize.largeBanner)
+                      /// Edit
+                      CcImageButton(
+                        width: 50,
+                        height: 50,
+                        margin: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.zero,
+                        image: AssetsImages.editButton,
+                        onTap: () {
+                          AudioService.instance.playSound('tap');
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: "Edit",
+                            barrierColor: Colors.black87,
+                            transitionDuration: const Duration(
+                              milliseconds: 200,
+                            ),
+                            pageBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                            ) {
+                              return const Center(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: SizedBox(
+                                    width: double.maxFinite,
+                                    height: 650,
+                                    child: EditDialog(),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
-                ),
-              )
-            ],
-          ));
-        }),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ShopItemBoxWidget(
+                            heroTag: CcConstants.kH_SHOP_AVATAR,
+                            image: AssetsImages.shopAvatar,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                RoutePaths.shopDetail,
+                                arguments: CcConstants.FIRESTORE_AVATAR,
+                              );
+                            },
+                          ),
+
+                          /// Border Shop
+                          ShopItemBoxWidget(
+                            heroTag: CcConstants.kH_SHOP_BORDER,
+                            image: AssetsImages.shopBorder,
+                            onTap: () {
+                              Utils.preLoadRewardedAds(
+                                CcAdsKey.rewardItemProgress,
+                              );
+                              Navigator.of(context).pushNamed(
+                                RoutePaths.shopDetail,
+                                arguments: CcConstants.FIRESTORE_BORDER,
+                              );
+                            },
+                          ),
+
+                          /// Background Shop
+                          ShopItemBoxWidget(
+                            heroTag: CcConstants.kH_SHOP_BACKGROUND,
+                            image: AssetsImages.shopBackground,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                RoutePaths.shopDetail,
+                                arguments: CcConstants.FIRESTORE_BACKGROUND,
+                              );
+                            },
+                          ),
+
+                          /// Banner Shop
+                          ShopItemBoxWidget(
+                            heroTag: CcConstants.kH_SHOP_BANNER,
+                            image: AssetsImages.shopBanner,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                RoutePaths.shopDetail,
+                                arguments: CcConstants.FIRESTORE_BANNER,
+                              );
+                            },
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          /// Ads Large Banner
+                          CcAdsBannerWidget(
+                            adKey: CcAdsKey.bannerShop,
+                            size: AdSize.largeBanner,
+                            hasPremium: user?.hasPremium ?? false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

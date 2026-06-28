@@ -33,12 +33,14 @@ class _BattleGameState extends State<BattleGame> {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasPremium = context.watch<UserProvider>().user?.hasPremium ?? false;
     return ChangeNotifierProvider<BattleGameProvider>(
       create: (context) => BattleGameProvider(
           buildContext: context,
           pageController: _controller,
           questionList: widget.questions,
-          botDifficulty: widget.botDifficulty),
+          botDifficulty: widget.botDifficulty,
+          hasPremium: hasPremium),
       child: PopScope(
         canPop: false,
         child: Scaffold(

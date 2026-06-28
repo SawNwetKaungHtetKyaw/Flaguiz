@@ -9,6 +9,7 @@ import 'package:flaguiz/repositories/avatar_repository.dart';
 import 'package:flaguiz/repositories/background_repository.dart';
 import 'package:flaguiz/repositories/banner_repository.dart';
 import 'package:flaguiz/repositories/border_repository.dart';
+import 'package:flaguiz/service/billing_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _LoadingState extends State<Loading> {
     );
     await userProvider.initUser();
     userProvider.syncLocalToFirestoreIfNeeded();
+    await BillingService().checkAndExpirePremium(userProvider);
     UserModel? user = userProvider.user;
     backgroundProvider.getById(user?.backgrounds?[0] ?? '');
 

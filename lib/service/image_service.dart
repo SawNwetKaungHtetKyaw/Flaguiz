@@ -39,40 +39,62 @@ class ImageService {
       final fileName = "${countryId}_${type}_${Utils.fileNameFromUrl(url)}";
 
       final filePath = "$dirPath/$fileName";
+      final tempPath = "$filePath.tmp";
+
       final file = File(filePath);
 
-      /// ✅ Already cached
+      // Already cached
       if (await file.exists()) {
         final size = await file.length();
 
         if (size > 1000) {
-          return filePath; // ✅ valid
+          return filePath;
         } else {
-          await file.delete(); // ❌ corrupted → remove
+          await file.delete();
         }
       }
 
-      /// 🔥 Retry download
-      final result = await _retry(() async {
+      return await _retry(() async {
+        // Remove old temp file
+        final tempFile = File(tempPath);
+
+        if (await tempFile.exists()) {
+          await tempFile.delete();
+        }
+
         final response = await _dio.download(
           url,
-          filePath,
+          tempPath,
           options: Options(
             responseType: ResponseType.bytes,
             followRedirects: true,
           ),
         );
 
-        if (response.statusCode == 200) {
-          return filePath;
+        if (response.statusCode != 200) {
+          throw Exception("->Download failed");
         }
 
-        throw Exception("Download failed");
-      });
+        if (!await tempFile.exists()) {
+          throw Exception("->File not created");
+        }
 
-      return result;
+        final size = await tempFile.length();
+
+        if (size < 1000) {
+          await tempFile.delete();
+          throw Exception("->Invalid image size");
+        }
+
+        // Atomic move
+        await tempFile.rename(filePath);
+        Utils.printLog("->Success Download", important: false);
+
+        return filePath;
+      });
     } catch (e) {
-      Utils.printLog("❌ Download error: $url", important: true);
+      Utils.printLog("->❌ Download error: $url\n$e", important: true);
+
       return null;
     }
   }

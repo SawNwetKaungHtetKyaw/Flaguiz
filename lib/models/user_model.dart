@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/challenge_completed_model.dart';
+import 'package:flaguiz/models/premium_model.dart';
 import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
@@ -49,6 +50,8 @@ class UserModel {
   bool? isOnline;
   @HiveField(20)
   DateTime? lastSeen;
+  @HiveField(21)
+  PremiumModel? premium;
 
   UserModel({
     this.id,
@@ -72,6 +75,7 @@ class UserModel {
     this.syncedAt,
     this.isOnline,
     this.lastSeen,
+    this.premium,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -116,6 +120,10 @@ class UserModel {
       syncedAt: parseDate(json['synced_at']),
       isOnline: json['is_online'] ?? false,
       lastSeen: parseDate(json['last_seen']),
+      premium:
+          json['premium'] != null
+              ? PremiumModel.fromJson(json['premium'] as Map<String, dynamic>)
+              : null,
     );
   }
 
@@ -146,6 +154,7 @@ class UserModel {
       "synced_at": syncedAt,
       "is_online": isOnline,
       "last_seen": lastSeen,
+      "premium": premium?.toJson(),
     };
   }
 }

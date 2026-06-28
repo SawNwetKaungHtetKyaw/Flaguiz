@@ -20,11 +20,13 @@ class BattleChallengeGameProvider extends ChangeNotifier {
     required String roomId,
     required bool isHost,
     required List<BattleQuestionModel> questionList,
+    required bool hasPremium
   }) {
     _context = buildContext;
     _controller = pageController;
     _questionList = questionList;
     _isHost = isHost;
+    _hasPremium = hasPremium;
     _listenRoom(roomId);
     startTimerCount();
   }
@@ -35,6 +37,7 @@ class BattleChallengeGameProvider extends ChangeNotifier {
   BuildContext? _context;
   PageController? _controller;
   late List<BattleQuestionModel> _questionList;
+  late bool _hasPremium;
 
   BattleRoomModel? room;
   StreamSubscription? _subscription;
@@ -221,7 +224,7 @@ class BattleChallengeGameProvider extends ChangeNotifier {
 
     _timer?.cancel();
 
-    if (result == CcConstants.BATTLE_WIN) {
+    if (result == CcConstants.BATTLE_WIN || _hasPremium) {
       _gameEnded = true;
       _battleResult = result;
 

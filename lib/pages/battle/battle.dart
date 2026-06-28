@@ -160,7 +160,10 @@ class _BattleState extends State<Battle> {
 
                         const Spacer(),
 
-                        const CcAdsBannerWidget(adKey: CcAdsKey.bannerLibrary),
+                        CcAdsBannerWidget(
+                          adKey: CcAdsKey.bannerBattle,
+                          hasPremium: user?.hasPremium ?? false,
+                        ),
                       ],
                     ),
                   ],

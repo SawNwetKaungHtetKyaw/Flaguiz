@@ -41,24 +41,29 @@ class AuthService {
 
   // Delete account
   Future<void> deleteAccount() async {
-    final user = _auth.currentUser;
+  final user = _auth.currentUser;
 
-    if (user == null) return;
+  if (user == null) return;
 
-    final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
 
-    final googleAuth = googleUser.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      idToken: googleAuth.idToken,
-    );
-
-    await user.reauthenticateWithCredential(credential);
-
-    await user.delete();
-
-    await logout();
+  if (googleUser == null) {
+    throw Exception("Re-authentication canceled by user.");
   }
+
+  final googleAuth = googleUser.authentication; 
+
+  final credential = GoogleAuthProvider.credential(
+    idToken: googleAuth.idToken,
+  );
+
+  await user.reauthenticateWithCredential(credential);
+
+  await user.delete();
+
+  await logout();
+}
 
   User? get currentUser => _auth.currentUser;
 }

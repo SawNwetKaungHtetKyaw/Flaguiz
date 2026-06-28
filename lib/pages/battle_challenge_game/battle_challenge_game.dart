@@ -17,7 +17,7 @@ class BattleChallengeGame extends StatefulWidget {
     required this.questions,
     required this.host,
     required this.friend,
-    required this.isHost
+    required this.isHost,
   });
   final String roomId;
   final bool isHost;
@@ -34,6 +34,9 @@ class _BattleChallengeGameState extends State<BattleChallengeGame> {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasPremium =
+        context.watch<UserProvider>().user?.hasPremium ?? false;
+
     return ChangeNotifierProvider<BattleChallengeGameProvider>(
       create:
           (context) => BattleChallengeGameProvider(
@@ -42,13 +45,13 @@ class _BattleChallengeGameState extends State<BattleChallengeGame> {
             roomId: widget.roomId,
             pageController: _controller,
             questionList: widget.questions,
+            hasPremium: hasPremium
           ),
       child: PopScope(
         canPop: false,
         child: Scaffold(
           body: Consumer2<BattleChallengeGameProvider, UserProvider>(
             builder: (context, provider, userProvider, child) {
-
               final room = provider.room;
 
               return Container(
@@ -75,14 +78,20 @@ class _BattleChallengeGameState extends State<BattleChallengeGame> {
                                       BattleChallengeProfileWidget(
                                         isYou: true,
                                         player: widget.host,
-                                        trackProgress : widget.isHost ? room.hostProgress : room.friendProgress
+                                        trackProgress:
+                                            widget.isHost
+                                                ? room.hostProgress
+                                                : room.friendProgress,
                                       ),
 
                                       /// Friend Profile
                                       BattleChallengeProfileWidget(
                                         isYou: false,
                                         player: widget.friend,
-                                        trackProgress : widget.isHost ? room.friendProgress : room.hostProgress
+                                        trackProgress:
+                                            widget.isHost
+                                                ? room.friendProgress
+                                                : room.hostProgress,
                                       ),
                                     ],
                                   ),

@@ -158,8 +158,7 @@ class _ChallengeVictoryState extends State<ChallengeVictory> {
                             icon: Icons.refresh,
                             onTap: () {
                               AudioService.instance.playSound('tap');
-                              if (widget.mode == CcConfig.GAME_MODE__FLAG ||
-                                  widget.mode == CcConfig.GAME_MODE__MAP) {
+                              if (widget.mode == CcConfig.GAME_MODE__FLAG) {
                                 Navigator.pushReplacementNamed(
                                     context, RoutePaths.challengeGameByImage,
                                     arguments: [

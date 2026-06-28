@@ -11,7 +11,7 @@ class CcConfig {
   static bool showLog = false;
   static String image_base_url = 'https://i.postimg.cc';
   static String WEBSITE_URL = 'https://caffeinecup-flaguiz.netlify.app';
-  static String YOUTUBE_URL = 'https://www.youtube.com/channel/UCi-HAqfMdXohP4skT7DriIA';
+  static String YOUTUBE_URL = 'https://www.youtube.com/@flaguiz2026';
   static String FACEBOOK_URL = 'https://www.facebook.com/share/1CXtae9kCS';
   static String TIKTOK_URL = 'https://www.tiktok.com/@flaguiz?_r=1&_t=ZN-94qA9tmLIwA';
   static String PRIVACY_AND_POLICY_URL = 'https://caffeinecup-flaguiz.netlify.app/pages/privacy';
@@ -46,7 +46,6 @@ class CcConfig {
     banners: ['BN_001'],
     adventureCompletedList: DEFAULT_ADVENTURE_COMPLETED_LIST,
     challengeCompletedList: DEFAULT_CHALLENGE_COMPLETED_LIST,
-    hasPremium: false,
     updatedAt: DateTime.now(),
   );
 

@@ -12,6 +12,7 @@ class AdsService {
   Future<void> init() async {
     loadBannerAds(CcAdsKey.bannerAdventure);
     loadBannerAds(CcAdsKey.bannerChallenge);
+    loadBannerAds(CcAdsKey.bannerBattle);
     loadBannerAds(CcAdsKey.bannerCountryDetail);
     loadBannerAds(CcAdsKey.bannerShop, size: AdSize.largeBanner);
     loadBannerAds(CcAdsKey.bannerLibrary);
@@ -69,7 +70,6 @@ class AdsService {
     VoidCallback? onComplete,
   }) {
     final ad = _interstitial[key];
-
     // store callback
     _onComplete[key] = onComplete;
 

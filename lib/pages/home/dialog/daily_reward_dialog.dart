@@ -2,6 +2,7 @@ import 'package:flaguiz/config/cc_ads_key.dart';
 import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/daily_reward_model.dart';
 import 'package:flaguiz/providers/daily_reward_provider.dart';
 import 'package:flaguiz/providers/user_provider.dart';
@@ -106,8 +107,28 @@ class DailyRewardDialog extends StatelessWidget {
                                   if (canClaim) {
                                     AudioService.instance.playSound('claim');
                                     int coins = await provider.claim();
+                                    print("===>${reward?.currentDay}");
                                     if (coins > 0) {
                                       await userProvider.addUserCoin(coins);
+                                    }
+                                    if (reward?.currentDay == 7) {
+                                      List<String> temp =
+                                          userProvider.user?.achievements ?? [];
+                                      if (!temp.contains("ACHV_012")) {
+                                        userProvider
+                                            .updateUserDataForAchievement(
+                                              "ACHV_012",
+                                              CcConfig.ACHIEVEMENT_COIN,
+                                            );
+                                        if (!context.mounted) return;
+                                        showDialog(
+                                          context: context,
+                                          builder:
+                                              (context) => CcAchievementDialog(
+                                                achievementId: "ACHV_012",
+                                              ),
+                                        );
+                                      }
                                     }
                                   }
                                 },

@@ -1,7 +1,10 @@
 import 'package:flaguiz/animations/scale_animation.dart';
 import 'package:flaguiz/config/cc_ads_key.dart';
+import 'package:flaguiz/config/cc_config.dart';
+import 'package:flaguiz/dialogs/cc_achievement_dialog.dart';
 import 'package:flaguiz/models/mini_profile_model.dart';
 import 'package:flaguiz/config/cc_constants.dart';
+import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/battle_game_result/widgets/battle_result_curtain_widget.dart';
 import 'package:flaguiz/pages/battle_game_result/widgets/bot_profile_widget.dart';
 import 'package:flaguiz/pages/battle_game_result/widgets/player_profile_widget.dart';
@@ -35,24 +38,62 @@ class _BattleGameResultState extends State<BattleGameResult> {
   int trophy = 5;
   int doubleCoin = 0;
 
+  bool addAchv1 = false;
+  bool addAchv2 = false;
+
   @override
   void initState() {
     super.initState();
 
+    // 1. Handle immutable/local state setup immediately
     AudioService.instance.allowMusic = false;
     AudioService.instance.pause();
     coin = Utils.battleCoinByResult(widget.result);
     doubleCoin = coin * 2;
     trophy = Utils.battleTrophyByResult(widget.result, widget.user.trophy ?? 0);
-    context.read<UserProvider>().updateUserDataAfterBattle(coin, trophy);
 
     if (widget.result == CcConstants.BATTLE_WIN) {
       AudioService.instance.playSound('bt-win');
-    } else if (widget.result == CcConstants.BATTLE_LOSE) {
-      AudioService.instance.playSound('bt-lose');
     } else {
       AudioService.instance.playSound('bt-lose');
     }
+
+    // 2. Defer provider updates safely outside the build/init sequence
+    Future.microtask(() {
+      if (!mounted) return;
+
+      UserProvider userProvider = Provider.of<UserProvider>(
+        context,
+        listen: false,
+      );
+      UserModel? user = userProvider.user;
+
+      // Mutate state cleanly
+      userProvider.updateUserDataAfterBattle(coin, trophy);
+
+      // Check achievements
+      if ((user?.trophy ?? 0) >= 1000 &&
+          !(user?.achievements?.contains("ACHV_010") ?? false)) {
+        showAchievementDialog(userProvider, "ACHV_010");
+        addAchv1 = true;
+      }
+      if ((user?.trophy ?? 0) >= 2000 &&
+          !(user?.achievements?.contains("ACHV_011") ?? false)) {
+        showAchievementDialog(userProvider, "ACHV_011");
+        addAchv2 = true;
+      }
+    });
+  }
+
+  void showAchievementDialog(UserProvider provider, String achivId) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => CcAchievementDialog(
+            achievementId: achivId,
+            showDescription: false,
+          ),
+    );
   }
 
   @override
@@ -215,6 +256,23 @@ class _BattleGameResultState extends State<BattleGameResult> {
                         image: AssetsImages.challengeButtonHaf,
                         onTap: () {
                           context.read<UserProvider>().notifyListeners();
+
+                          if (addAchv1) {
+                            context
+                                .read<UserProvider>()
+                                .updateUserDataForAchievement(
+                                  'ACHV_010',
+                                  CcConfig.ACHIEVEMENT_COIN,
+                                );
+                          }
+                          if (addAchv2) {
+                            context
+                                .read<UserProvider>()
+                                .updateUserDataForAchievement(
+                                  'ACHV_011',
+                                  CcConfig.ACHIEVEMENT_COIN,
+                                );
+                          }
                           AudioService.instance.playSound('back');
                           Navigator.of(context).pop();
 

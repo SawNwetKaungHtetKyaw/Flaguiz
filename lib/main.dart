@@ -3,6 +3,7 @@ import 'package:flaguiz/config/cc_config.dart';
 import 'package:flaguiz/models/adventure_completed_model.dart';
 import 'package:flaguiz/models/challenge_completed_model.dart';
 import 'package:flaguiz/models/country_model.dart';
+import 'package:flaguiz/models/premium_model.dart';
 import 'package:flaguiz/models/shop_model.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/adventure/provider/adventure_provider.dart';
@@ -44,6 +45,7 @@ void main() async {
   Hive.registerAdapter(AdventureCompletedModelAdapter());
   Hive.registerAdapter(CountryModelAdapter());
   Hive.registerAdapter(ShopModelAdapter());
+  Hive.registerAdapter(PremiumModelAdapter());
 
   await Hive.openBox<UserModel>(CcConfig.HIVE_USER_BOX);
   await Hive.openBox<ShopModel>(CcConfig.HIVE_AVATAR_BOX);

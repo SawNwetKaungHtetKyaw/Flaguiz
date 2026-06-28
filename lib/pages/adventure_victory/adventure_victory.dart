@@ -185,8 +185,7 @@ class _AdventureVictoryState extends State<AdventureVictory> {
                             icon: Icons.refresh,
                             onTap: () {
                               AudioService.instance.playSound('tap');
-                              if (widget.mode == CcConfig.GAME_MODE__FLAG ||
-                                  widget.mode == CcConfig.GAME_MODE__MAP) {
+                              if (widget.mode == CcConfig.GAME_MODE__FLAG) {
                                 Navigator.pushReplacementNamed(
                                     context, RoutePaths.adventureGameByImage,
                                     arguments: [
