@@ -19,3 +19,4 @@ const Color battleLoseColor = Color(0xFF83120A);
 const Color battleWinColor = Color(0xFF06650C);
 
 const Color leaderboardColor = Color(0xFFF4AB00);
+const Color premiumColor = Color(0xFF820404);

@@ -40,6 +40,7 @@ class CcConstants {
   static const String kPlayAgain = 'Play Again';
   static const String kPlayOn = 'Play On';
   static const String kAds = 'Ads';
+  static const String kPremium = 'Premium';
   static const String kEdit = 'Edit';
   static const String kAvatar = 'Avatar';
   static const String kBorder = 'Border';

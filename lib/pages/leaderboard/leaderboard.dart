@@ -5,9 +5,11 @@ import 'package:flaguiz/pages/leaderboard/widgets/leaderboard_global_widget.dart
 import 'package:flaguiz/pages/leaderboard/widgets/leaderboard_local_widget.dart';
 import 'package:flaguiz/pages/leaderboard/widgets/leaderboard_tab_widget.dart';
 import 'package:flaguiz/providers/leaderboard_provider.dart';
+import 'package:flaguiz/providers/user_provider.dart';
 import 'package:flaguiz/service/audio_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/widgets/cc_back_widget.dart';
+import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -103,6 +105,27 @@ class _LeaderboardState extends State<Leaderboard>
                             LeaderboardGlobalWidget(),
                             LeaderboardCountryWidget(),
                           ],
+                        ),
+                      ),
+                      Selector<UserProvider,bool>(
+                        selector: (context, provider) => provider.isLoggedIn,
+                        builder: (context, isLoggedIn, child) => Visibility(
+                          visible: !isLoggedIn,
+                          child: Container(
+                            width: double.infinity,
+                            height: 60,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(color: leaderboardColor),
+                            child: CcShadowedTextWidget(
+                              text:
+                                  "Log in now to see your name on the leaderboard!",
+                              fontSize: 10,
+                              letterSpacing: 0.5,
+                              dx: 1,
+                              dy: 1,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ),
                     ],

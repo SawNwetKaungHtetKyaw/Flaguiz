@@ -1,3 +1,4 @@
+import 'package:flaguiz/config/cc_colors.dart';
 import 'package:flaguiz/config/cc_constants.dart';
 import 'package:flaguiz/models/user_model.dart';
 import 'package:flaguiz/pages/friends/dialogs/friend_profile_dialog.dart';
@@ -10,6 +11,7 @@ import 'package:flaguiz/widgets/cc_profile_image_widget.dart';
 import 'package:flaguiz/widgets/cc_shadowed_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remixicon/remixicon.dart';
 
 class LeaderboardCardWidget extends StatelessWidget {
   const LeaderboardCardWidget({
@@ -54,15 +56,25 @@ class LeaderboardCardWidget extends StatelessWidget {
                       page: CcConstants.K_LEADERBOARD,
                     ),
               );
-            }else{
-              Utils.showWelcomToast(context, "Please Login.\nTo See Other Profile.");
+            } else {
+              Utils.showWelcomToast(
+                context,
+                "Please Login.\nTo See Other Profile.",
+              );
             }
           },
           child: Container(
             height: 60,
             padding: EdgeInsets.symmetric(horizontal: 5),
             margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
-            color: Colors.black45,
+            decoration: BoxDecoration(
+              color: Colors.black45,
+              borderRadius: BorderRadius.circular(5),
+              border:
+                  (user.hasPremium ?? false)
+                      ? Border.all(color: leaderboardColor, width: 2)
+                      : null,
+            ),
             child: Row(
               children: [
                 showBadges(index),
@@ -85,15 +97,30 @@ class LeaderboardCardWidget extends StatelessWidget {
 
                 /// Player Name
                 Expanded(
-                  child: CcShadowedTextWidget(
-                    text: user.username ?? 'Player',
-                    letterSpacing: 1,
+                  child: Row(
+                    children: [
+                      CcShadowedTextWidget(
+                        text: user.username ?? 'Player',
+                        letterSpacing: 1,
+                        padding: EdgeInsetsGeometry.only(right: 5),
+                      ),
+
+                      Visibility(
+                        visible: user.hasPremium ?? false,
+                        child: Icon(
+                          RemixIcons.vip_crown_2_fill,
+                          color: leaderboardColor,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
                 /// Player Trophy
                 Image.asset(AssetsImages.trophy, width: 30),
-                CcShadowedTextWidget(text: Utils.formatNumber(user.trophy ?? 0)),
+                CcShadowedTextWidget(
+                  text: Utils.formatNumber(user.trophy ?? 0),
+                ),
                 const SizedBox(width: 5),
               ],
             ),
