@@ -4,7 +4,7 @@ import 'package:flaguiz/models/user_model.dart';
 
 class CcConfig {
 
-  static String version = '1.1.2';
+  static String version = '1.1.4';
   static String appName = 'Flaguiz';
   static String companyName = 'CaffeineCup';
   static String companyMail = 'caffeinecup2025.co@gmail.com';

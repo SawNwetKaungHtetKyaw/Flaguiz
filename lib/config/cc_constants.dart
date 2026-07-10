@@ -96,6 +96,8 @@ class CcConstants {
   static const String kBattleLeaderboard = 'Leaderboard';
   static const String kUnFriend = 'Unfriend';
   static const String kUnfriendDescripton = 'Remove this player from your friends list?';
+  static const String kLeaderboardNeedLogin = 'Log in now to see your name on the leaderboard!';
+  static const String kLeaderboardNeedLoginCountry = 'Log in now to see your Country on the leaderboard!';
 
   /// Battle Result Key
   static const String BATTLE_WIN = 'VICTORY';

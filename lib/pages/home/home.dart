@@ -22,6 +22,7 @@ import 'package:flaguiz/service/vibration_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
 import 'package:flaguiz/utils/utils.dart';
 import 'package:flaguiz/widgets/cc_coin_box_widget.dart';
+import 'package:flaguiz/widgets/cc_image_button.dart';
 import 'package:flaguiz/widgets/dialogs/cc_friend_challenge_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +61,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     AudioService.instance.init();
     VibrationService.instance.init();
     AdsService.instance.init();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Utils.checkUpdate(context);
+    });
   }
 
   @override
@@ -153,7 +158,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           onTap: () async {
                             audioService.playSound("tap");
 
-                            if(!userProvider.isLoggedIn){
+                            if (!userProvider.isLoggedIn) {
                               Utils.showWelcomToast(context, "Please Login!");
                               return;
                             }
@@ -219,6 +224,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                               ),
                             ),
                           ),
+                        ),
+                      ),
+
+                      /// Leaderboard
+                      Positioned(
+                        top: 275,
+                        right: 10,
+                        child: CcImageButton(
+                          width: 80,
+                          height: 80,
+                          boxFit: BoxFit.contain,
+                          margin: const EdgeInsets.only(bottom: 10),
+                          image: AssetsImages.battleLeaderboard,
+                          alignment: Alignment.bottomCenter,
+                          onTap: () {
+                            AudioService.instance.playSound('tap');
+                            Navigator.of(
+                              context,
+                            ).pushNamed(RoutePaths.leaderboard);
+                          },
                         ),
                       ),
 

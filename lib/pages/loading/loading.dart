@@ -11,7 +11,6 @@ import 'package:flaguiz/repositories/banner_repository.dart';
 import 'package:flaguiz/repositories/border_repository.dart';
 import 'package:flaguiz/service/billing_service.dart';
 import 'package:flaguiz/utils/asset_images.dart';
-import 'package:flaguiz/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +24,7 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Utils.checkUpdate(context);
-    });
+    
     AvatarRepository().startSync();
     BorderRepository().startSync();
     BackgroundRepository().startSync();
